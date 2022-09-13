@@ -19,9 +19,8 @@ export const logoutUser = () => ({
 export const actionFullLogin = (login, password) =>
     async (dispatch) => {
         let token = await dispatch(actionLogin(login, password));
-
         if (token) {
-            await dispatch(actionFullLogin(token));
+            dispatch(loginAuthUser(token));
             // await dispatch(actionAboutMe());
             // await dispatch(actionFullAllGetPosts());
             console.log(token);

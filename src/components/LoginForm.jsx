@@ -14,15 +14,16 @@ const LoginForm = ({onLogin, onLogout, loginStatus}) => {
     const [password, setPassword] = useState('')
 
     const navigate = useNavigate()
-
-    useEffect(()=>{
-        console.log(loginStatus)
-        console.log(store.getState())
-        if(loginStatus){
-            navigate('/profile');
-        }
-
-    },[loginStatus,navigate])
+    console.log(loginStatus)
+     console.log(store.getState())
+    // useEffect(()=>{
+    //     console.log(loginStatus)
+    //     console.log(store.getState())
+    //     // if(loginStatus){
+    //     //     navigate('/profile');
+    //     // }
+    //
+    // },[loginStatus,navigate])
 
     return (
         <div className='loginBox'>
@@ -38,22 +39,20 @@ const LoginForm = ({onLogin, onLogout, loginStatus}) => {
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}/>
             <div>
-                <Button
+                {!loginStatus ? <Button
                     children={
                         <span className="mdc-button__label">
                              Log in
                         </span>}
                     onClick={() => onLogin(login, password)}
-                    // disabled={!login && !password}
-                />
-                <Button
+                /> :
+                    <Button
                     children={
-                        <span className="mdc-button__label">
-                             Log out
-                        </span>}
-                    onClick={() => onLogout}
-                    // disabled={!login && !password}
-                />
+                    <span className="mdc-button__label">
+                    Log out
+                    </span>}
+                    onClick={() => onLogout()}
+                    />}
                 <p>Don't have an account? <br/>
                     <Link to='/registration'>Register quickly</Link>
                  </p>

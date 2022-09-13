@@ -7,13 +7,16 @@ export const actionResolved = (name, payload) =>
 export const actionRejected = (name, error) =>
     ({type: 'PROMISE', status: 'REJECTED', name, error})
 
-export const actionPromise = (name, promise) => async (dispatch) => {
-    dispatch(actionPending(name));
-    try {
-        let payload = await promise;
-        dispatch(actionResolved(name, payload));
-        return payload;
-    } catch (error) {
-        dispatch(actionRejected(name, error));
+export const actionPromise = (name, promise) => (
+    async (dispatch) => {
+        dispatch(actionPending(name))
+        try {
+            let data = await promise
+            dispatch(actionResolved(name, data))
+            return data
+        }
+        catch(error){
+            dispatch(actionRejected(name, error))
+        }
     }
-};
+)
