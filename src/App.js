@@ -1,7 +1,7 @@
 import './App.css';
 // import Header from "./components/Header";
 import Feed from "./components/Feed";
-import Profile from "./components/Profile";
+import {CProfile} from "./components/Profile";
 import Search from "./components/Search";
 import Settings from "./components/Settings";
 import RegistrationForm from './components/RegistrationForm'
@@ -33,7 +33,7 @@ function App() {
                   </div>
                   <Routes>
                       <Route path='/' element={<Feed/>} exact/>
-                      <Route path="/profile" element={<Profile/>}/>
+                      <Route path="/profile" element={<CProfile/>}/>
                       <Route path="/search" element={<Search/>}/>
                       <Route path='/settings' element={<Settings/>}/>
                       <Route path='/login' element={<CLoginForm/>}/>

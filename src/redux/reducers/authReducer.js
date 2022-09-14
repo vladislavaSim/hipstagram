@@ -8,7 +8,6 @@ function jwtDecode(token){
 
 export function authReducer(state, {type, token}) {
     if (!state) {
-        // console.log('auth reducer local storeage ' + localStorage)
         if (localStorage.authToken) {
             token = localStorage.authToken
             type = 'AUTH_LOGIN'

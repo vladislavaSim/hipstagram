@@ -14,16 +14,16 @@ const LoginForm = ({onLogin, onLogout, loginStatus}) => {
     const [password, setPassword] = useState('')
 
     const navigate = useNavigate()
-    console.log(loginStatus)
+
      console.log(store.getState())
-    // useEffect(()=>{
-    //     console.log(loginStatus)
-    //     console.log(store.getState())
-    //     // if(loginStatus){
-    //     //     navigate('/profile');
-    //     // }
-    //
-    // },[loginStatus,navigate])
+    useEffect(()=>{
+        console.log(localStorage)
+        console.log(store.getState())
+        if(loginStatus){
+            navigate('/profile');
+        }
+
+    },[loginStatus,navigate])
 
     return (
         <div className='loginBox'>
@@ -39,20 +39,13 @@ const LoginForm = ({onLogin, onLogout, loginStatus}) => {
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}/>
             <div>
-                {!loginStatus ? <Button
+              <Button
                     children={
                         <span className="mdc-button__label">
                              Log in
                         </span>}
                     onClick={() => onLogin(login, password)}
-                /> :
-                    <Button
-                    children={
-                    <span className="mdc-button__label">
-                    Log out
-                    </span>}
-                    onClick={() => onLogout()}
-                    />}
+                />
                 <p>Don't have an account? <br/>
                     <Link to='/registration'>Register quickly</Link>
                  </p>
@@ -62,7 +55,7 @@ const LoginForm = ({onLogin, onLogout, loginStatus}) => {
 };
 
 export const CLoginForm = connect(
-    (state) => ({ loginStatus: state?.promise?.login?.status }),
+    (state) => ({ loginStatus: state?.auth?.token }),
     { onLogin: actionFullLogin,
         onLogout:  logoutUser}
 )(LoginForm);
