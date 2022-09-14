@@ -6,8 +6,9 @@ function jwtDecode(token){
     }
 }
 
-export function authReducer(state = {}, {type, token}) {
+export function authReducer(state, {type, token}) {
     if (!state) {
+        // console.log('auth reducer local storeage ' + localStorage)
         if (localStorage.authToken) {
             token = localStorage.authToken
             type = 'AUTH_LOGIN'
@@ -30,7 +31,7 @@ export function authReducer(state = {}, {type, token}) {
     }
     if (type === 'AUTH_LOGOUT') {
         delete localStorage.authToken
-            window.location.reload()
+        window.location.reload()
         return {}
     }
     return state

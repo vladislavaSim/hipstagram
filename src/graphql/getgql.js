@@ -16,4 +16,5 @@ const getGQL = url => (
         }
     }
 )
+
 export const gql = getGQL('http://hipstagram.node.ed.asmer.org.ua/graphql');
