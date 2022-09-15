@@ -22,6 +22,7 @@ export const actionFullLogin = (login, password) =>
             // await dispatch(actionFullAllGetPosts());
             console.log(token);
         } else {
+
             // dispatch(actionClearPromise('login'));
         }
         console.log(token)

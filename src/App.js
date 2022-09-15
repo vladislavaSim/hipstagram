@@ -25,18 +25,18 @@ function App() {
                       </div>
                       <div className='link-holder'>
                           <Link to='/login'>Login</Link>
-                          <Link to="/">Feed</Link>
+                          <Link to="/feed">Feed</Link>
                           <Link to="/profile">Profile</Link>
                           <Link to="/search">Search</Link>
                           <Link to="/settings">Settings</Link>
                       </div>
                   </div>
                   <Routes>
-                      <Route path='/' element={<Feed/>} exact/>
+                      <Route path='/feed' element={<Feed/>}/>
                       <Route path="/profile" element={<CProfile/>}/>
                       <Route path="/search" element={<Search/>}/>
                       <Route path='/settings' element={<Settings/>}/>
-                      <Route path='/login' element={<CLoginForm/>}/>
+                      <Route path='/login' element={<CLoginForm/>} exact/>
                       <Route path='/registration' element={<RegistrationForm/>} />
                   </Routes>
               </BrowserRouter>

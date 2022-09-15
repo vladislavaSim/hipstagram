@@ -9,21 +9,25 @@ import {useNavigate} from "react-router";
 import {store} from "../redux/store";
 
 
-const LoginForm = ({onLogin, onLogout, loginStatus}) => {
+const LoginForm = ({onLogin, onLogout, loginStatus, promise}) => {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
 
     const navigate = useNavigate()
 
-     console.log(store.getState())
     useEffect(()=>{
-        console.log(localStorage)
-        console.log(store.getState())
+        console.log(loginStatus)
+        console.log(promise)
         if(loginStatus){
             navigate('/profile');
         }
+        if(promise) {
+            if(promise.status === 'RESOLVED' && !promise.payload) {
+                alert('ooops wrong password')
+            }
+        }
 
-    },[loginStatus,navigate])
+    },[loginStatus,navigate, promise])
 
     return (
         <div className='loginBox'>
@@ -55,7 +59,10 @@ const LoginForm = ({onLogin, onLogout, loginStatus}) => {
 };
 
 export const CLoginForm = connect(
-    (state) => ({ loginStatus: state?.auth?.token }),
+    (state) => (
+        {loginStatus: state?.auth?.token,
+        promise: state?.promise?.login
+        }),
     { onLogin: actionFullLogin,
         onLogout:  logoutUser}
 )(LoginForm);
