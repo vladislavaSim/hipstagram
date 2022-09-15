@@ -2,11 +2,23 @@ import React, {useEffect, useState} from 'react';
 import {TextField} from "@mui/material";
 import Button from "./Button";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {actionFullRegister} from "../redux/actions/actions";
+import {useNavigate} from "react-router";
 
-const RegistrationForm = () => {
+const RegistrationForm = ({onRegister, loginStatus}) => {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
+    const navigate = useNavigate()
 
+
+    useEffect(()=>{
+        console.log(loginStatus)
+        if(loginStatus){
+            navigate('/profile');
+        }
+
+    },[loginStatus, navigate])
 
     return (
         <div className='loginBox'>
@@ -22,6 +34,7 @@ const RegistrationForm = () => {
                 type="password" />
             <div>
                 <Button
+                    onClick={() => onRegister(login, password)}
                     children={
                         <span className="mdc-button__label">
                              Sign up
@@ -35,4 +48,9 @@ const RegistrationForm = () => {
     );
 };
 
-export default RegistrationForm;
+export const CRegistrationForm = connect( (state) => ({
+    loginStatus: state?.auth?.token,
+    }), {
+    onRegister: actionFullRegister
+    }
+)(RegistrationForm);

@@ -2,11 +2,13 @@ import * as actions from '../actionTypes'
 import {actionLogin} from "../../graphql/actionLogin";
 
 import {store} from "../store";
+import {actionRegister} from "../../graphql/registrateUser";
 
-export const registrateUser = token => ({
+export const actionAuthRegistration = token => ({
     type: actions.AUTH_REGISTRATION,
     payload:  token
 })
+
 
 export const actionAuthLogin = (token) => ({type: 'AUTH_LOGIN', token})
 export const logoutUser = () => ({
@@ -18,24 +20,19 @@ export const actionFullLogin = (login, password) =>
         let token = await dispatch(actionLogin(login, password));
         if (token) {
             dispatch(actionAuthLogin(token))
-            // await dispatch(actionAboutMe());
-            // await dispatch(actionFullAllGetPosts());
             console.log(token);
         } else {
 
             // dispatch(actionClearPromise('login'));
         }
-        console.log(token)
     };
-// console.log(store.dispatch(actionFullLogin('vsim', '123')));
-// const actionFullLogin = (login, password) => (
-//     async (dispatch) => {
-//         let token = await dispatch(actionLogin(login, password))
-//         if (token) {
-//             dispatch(actionAuthLogin(token))
-//             location.hash = '#/category'
-//         } else {
-//             showErrorMessage('please, enter correct login and password', main)
-//         }
-//     }
-// )
+export const actionFullRegister = (login, password) => (
+    async (dispatch) => {
+        let registerId = await dispatch(actionRegister(login, password))
+
+        if (registerId) {
+            dispatch(actionFullLogin(login, password))
+        }
+    }
+)
+

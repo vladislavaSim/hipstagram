@@ -16,8 +16,6 @@ const LoginForm = ({onLogin, onLogout, loginStatus, promise}) => {
     const navigate = useNavigate()
 
     useEffect(()=>{
-        console.log(loginStatus)
-        console.log(promise)
         if(loginStatus){
             navigate('/profile');
             setErrorMessage('')
@@ -27,7 +25,6 @@ const LoginForm = ({onLogin, onLogout, loginStatus, promise}) => {
                 setErrorMessage('Please, enter correct login and password')
             }
         }
-
     },[loginStatus, navigate, promise])
 
     return (
