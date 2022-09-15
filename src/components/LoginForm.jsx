@@ -12,7 +12,7 @@ import {store} from "../redux/store";
 const LoginForm = ({onLogin, onLogout, loginStatus, promise}) => {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
-
+    const [errorMessage, setErrorMessage] = useState('')
     const navigate = useNavigate()
 
     useEffect(()=>{
@@ -20,18 +20,19 @@ const LoginForm = ({onLogin, onLogout, loginStatus, promise}) => {
         console.log(promise)
         if(loginStatus){
             navigate('/profile');
+            setErrorMessage('')
         }
         if(promise) {
             if(promise.status === 'RESOLVED' && !promise.payload) {
-                alert('ooops wrong password')
+                setErrorMessage('Please, enter correct login and password')
             }
         }
 
-    },[loginStatus,navigate, promise])
+    },[loginStatus, navigate, promise])
 
     return (
         <div className='loginBox'>
-            <h3>Welcome to Hipstagram!</h3>
+        <h3>Welcome to Hipstagram!</h3>
             <TextField
                 variant="standard"
                 label="Username"
@@ -43,6 +44,7 @@ const LoginForm = ({onLogin, onLogout, loginStatus, promise}) => {
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}/>
             <div>
+                {<p style={{color: 'red', fontSize: '16px'}}>{errorMessage}</p>}
               <Button
                     children={
                         <span className="mdc-button__label">
