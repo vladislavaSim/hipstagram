@@ -1,6 +1,12 @@
 * {
   box-sizing: border-box;
 }
+body {
+  height: 100vh;
+}
+#root, main, .App {
+  height: 80vh;
+}
 a {
   text-decoration: none;
   color: black;
@@ -31,6 +37,7 @@ a {
   border-bottom: 1px solid black;
   align-items: center;
   margin-bottom: 15px;
+  height: 15vh;
 }
 a {
   position: relative;
@@ -54,10 +61,16 @@ a:hover::before {
   transform-origin: left;
   transform: scaleX(1)
 }
-
-
+.main-content {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .logo {
-  width: 115px;
+  width: 100px;
+
 }
 .link-holder {
   width: 350px;
@@ -65,9 +78,18 @@ a:hover::before {
   justify-content: space-between;
 }
 
+.drop-area {
+  height: 60%;
+  border: 1px dashed black;
+  font-size: 20px;
+  display: flex;
 
-@use "@material/button/styles"
-@use "@material/icon-button";
+}
 
-@include icon-button.core-styles;
+
+
+/*@use "@material/button/styles"*/
+/*@use "@material/icon-button";*/
+
+/*@include icon-button.core-styles;*/
 

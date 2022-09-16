@@ -29,14 +29,16 @@ function App() {
                           <Link to="/settings">Settings</Link>
                       </div>
                   </div>
-                  <Routes>
-                      <Route path='/' element={<Feed/>}/>
-                      <Route path="/profile" element={<CProfile/>}/>
-                      <Route path="/search" element={<Search/>}/>
-                      <Route path='/settings' element={<Settings/>}/>
-                      <Route path='/login' element={<CLoginForm/>} exact/>
-                      <Route path='/registration' element={<CRegistrationForm/>} />
-                  </Routes>
+                 <div className='main-content'>
+                     <Routes>
+                         <Route path='/' element={<Feed/>}/>
+                         <Route path="/profile" element={<CProfile/>}/>
+                         <Route path="/search" element={<Search/>}/>
+                         <Route path='/settings' element={<Settings/>}/>
+                         <Route path='/login' element={<CLoginForm/>} exact/>
+                         <Route path='/registration' element={<CRegistrationForm/>} />
+                     </Routes>
+                 </div>
               </BrowserRouter>
           </div>
       </main>

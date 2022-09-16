@@ -25,7 +25,7 @@ const Profile = ({onLogout}) => {
     return (
         <div>
             profile
-            <Button children={newPost ? 'Cancel' : 'New Post'} onClick={() => newPostToggle()}/>
+
             {/*<Post />*/}
             {newPost ? <CreatePost /> : null}
             <Button
@@ -35,6 +35,7 @@ const Profile = ({onLogout}) => {
                     </span>}
                 onClick={() => onLogout()}
             />
+            <Button children={newPost ? 'Cancel' : 'New Post'} onClick={() => newPostToggle()}/>
         </div>
     );
 };
