@@ -28,13 +28,6 @@ const Profile = ({onLogout}) => {
 
             {/*<Post />*/}
             {newPost ? <CreatePost /> : null}
-            <Button
-                children={
-                    <span className="mdc-button__label">
-                    Log out
-                    </span>}
-                onClick={() => onLogout()}
-            />
             <Button children={newPost ? 'Cancel' : 'New Post'} onClick={() => newPostToggle()}/>
         </div>
     );

@@ -8,6 +8,7 @@ import {CRegistrationForm} from './components/RegistrationForm'
 import logo from './img/logo.jpg'
 import {CLoginForm} from "./components/LoginForm";
 import {BrowserRouter as Router, Routes, Route, BrowserRouter, Link} from 'react-router-dom';
+import {CHeader} from "./components/Header";
 
 
 function App() {
@@ -17,18 +18,19 @@ function App() {
       <main>
           <div className="App">
               <BrowserRouter>
-                  <div className='header'>
-                      <div>
-                          <img src={logo} alt='logo' className='logo'/>
-                      </div>
-                      <div className='link-holder'>
-                          <Link to='/login'>Login</Link>
-                          <Link to="/feed">Feed</Link>
-                          <Link to="/profile">Profile</Link>
-                          <Link to="/search">Search</Link>
-                          <Link to="/settings">Settings</Link>
-                      </div>
-                  </div>
+                  {/*<div className='header'>*/}
+                  {/*    <div>*/}
+                  {/*        <img src={logo} alt='logo' className='logo'/>*/}
+                  {/*    </div>*/}
+                      {<CHeader/>}
+                      {/*<div className='link-holder'>*/}
+                      {/*    <Link to='/login'>Login</Link>*/}
+                      {/*    <Link to="/feed">Feed</Link>*/}
+                      {/*    <Link to="/profile">Profile</Link>*/}
+                      {/*    <Link to="/search">Search</Link>*/}
+                      {/*    <Link to="/settings">Settings</Link>*/}
+                      {/*</div>*/}
+                  {/*</div>*/}
                  <div className='main-content'>
                      <Routes>
                          <Route path='/' element={<Feed/>}/>
