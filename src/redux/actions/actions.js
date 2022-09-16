@@ -3,6 +3,7 @@ import {actionLogin} from "../../graphql/actionLogin";
 
 import {store} from "../store";
 import {actionRegister} from "../../graphql/registrateUser";
+import {actionPromise} from "../../promises/promises";
 
 export const actionAuthRegistration = token => ({
     type: actions.AUTH_REGISTRATION,
@@ -35,4 +36,23 @@ export const actionFullRegister = (login, password) => (
         }
     }
 )
+
+export const actionUploadFile = (file) => {
+    let formData = new FormData();
+    // console.log(file)
+    formData.append('photo', file);
+    for (const value of formData.entries()) {
+        console.log(value);
+    }
+    return actionPromise(
+        'uploadFile',
+        fetch('http://hipstagram.node.ed.asmer.org.ua/upload', {
+            method: 'POST',
+            headers: localStorage.authToken
+                ? { Authorization: 'Bearer ' + localStorage.authToken }
+                : {},
+            body: formData,
+        }).then((res) => res.json()).then(json => console.log('UPLOAD RESULT', json)).then(json => console.log('UPLOAD RESULT', json))
+    );
+};
 

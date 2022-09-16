@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
+import {connect} from "react-redux";
+import {actionUploadFile} from "../redux/actions/actions";
 
-const CreatePost = () => {
+const CreatePost = ({onUpload}) => {
     const [drag, setDrag] = useState(false)
 
     function dragStartHandler(e) {
@@ -11,6 +13,11 @@ const CreatePost = () => {
         e.preventDefault()
         setDrag(false)
     }
+    function onDropHandler(e) {
+        e.preventDefault()
+        onUpload(e.dataTransfer.files[0])
+    }
+
 
     return (
         <>
@@ -19,7 +26,8 @@ const CreatePost = () => {
                     onDragStart={(e) => dragStartHandler(e)}
                     onDragOver={(e) => dragStartHandler(e)}
                     onDragLeave={(e) => dragLeaveHandler(e)}
-                    className='drop-area drop-active'>drop files to download</div>
+                    onDrop={(e) => onDropHandler(e)}
+                    className='drop-area drop-active'>drop a file to download</div>
                 : <div
                     onDragStart={(e) => dragStartHandler(e)}
                     onDragOver={(e) => dragStartHandler(e)}
@@ -29,4 +37,6 @@ const CreatePost = () => {
         </>
     );
 }
-export default CreatePost;
+export const CCreatePost = connect(null,
+    {onUpload: actionUploadFile}
+)(CreatePost);

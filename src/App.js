@@ -18,19 +18,7 @@ function App() {
       <main>
           <div className="App">
               <BrowserRouter>
-                  {/*<div className='header'>*/}
-                  {/*    <div>*/}
-                  {/*        <img src={logo} alt='logo' className='logo'/>*/}
-                  {/*    </div>*/}
                       {<CHeader/>}
-                      {/*<div className='link-holder'>*/}
-                      {/*    <Link to='/login'>Login</Link>*/}
-                      {/*    <Link to="/feed">Feed</Link>*/}
-                      {/*    <Link to="/profile">Profile</Link>*/}
-                      {/*    <Link to="/search">Search</Link>*/}
-                      {/*    <Link to="/settings">Settings</Link>*/}
-                      {/*</div>*/}
-                  {/*</div>*/}
                  <div className='main-content'>
                      <Routes>
                          <Route path='/' element={<Feed/>}/>

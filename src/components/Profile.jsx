@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Button from "./Button";
-import CreatePost from "./CreatePost";
+import {CCreatePost} from "./CreatePost";
 import {connect} from "react-redux";
 import {actionAuthLogout} from "../redux/reducers/authReducer";
 import {store} from "../redux/store";
@@ -8,14 +8,14 @@ import {useNavigate} from "react-router";
 
 const Profile = ({onLogout}) => {
     let [newPost, setNewPost] = useState(false)
-    const navigate = useNavigate()
-    useEffect(()=>{
-        console.log(localStorage)
 
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+        // console.log(localStorage)
         if(!localStorage.authToken){
             navigate('/login');
         }
-
     },[localStorage,navigate])
 
     function newPostToggle() {
@@ -25,9 +25,7 @@ const Profile = ({onLogout}) => {
     return (
         <div>
             profile
-
-            {/*<Post />*/}
-            {newPost ? <CreatePost /> : null}
+            {newPost ? <CCreatePost /> : null}
             <Button children={newPost ? 'Cancel' : 'New Post'} onClick={() => newPostToggle()}/>
         </div>
     );

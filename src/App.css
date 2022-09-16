@@ -67,7 +67,12 @@ a:hover::before {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align-last: center;
 }
+.main-content > div {
+  width: 80%;
+}
+
 .logo {
   width: 100px;
 
@@ -79,11 +84,15 @@ a:hover::before {
 }
 
 .drop-area {
-  height: 60%;
-  border: 1px dashed black;
+  height: 40vh;
+  border: 2px dashed #7d7d7d;
   font-size: 20px;
   display: flex;
-
+  align-items: center;
+  justify-content: center;
+}
+.drop-active {
+  border: 2px dashed black;
 }
 
 
