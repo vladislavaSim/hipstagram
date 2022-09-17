@@ -5,8 +5,9 @@ import {connect} from "react-redux";
 import {actionAuthLogout} from "../redux/reducers/authReducer";
 import {store} from "../redux/store";
 import {useNavigate} from "react-router";
+import {actionAboutMe} from "../redux/actions/actions";
 
-const Profile = ({onLogout}) => {
+const Profile = ({getAboutMe}) => {
     let [newPost, setNewPost] = useState(false)
 
     const navigate = useNavigate()
@@ -27,10 +28,12 @@ const Profile = ({onLogout}) => {
             profile
             {newPost ? <CCreatePost /> : null}
             <Button children={newPost ? 'Cancel' : 'New Post'} onClick={() => newPostToggle()}/>
-        </div>
+            <Button children={'about me'}
+                    onClick={() => getAboutMe()} />
+            </div>
     );
 };
 
-export  const CProfile = connect(null, {
-    onLogout: actionAuthLogout
+export const CProfile = connect(null, {
+    getAboutMe: actionAboutMe
 })(Profile);

@@ -17,6 +17,7 @@ const LoginForm = ({onLogin, onLogout, loginStatus, promise}) => {
 
     useEffect(()=>{
         if(loginStatus){
+            // console.log(loginStatus)
             navigate('/profile');
             setErrorMessage('')
         }

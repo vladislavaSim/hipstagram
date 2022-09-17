@@ -1,15 +1,13 @@
 import * as actions from '../actionTypes'
 import {actionLogin} from "../../graphql/actionLogin";
-
-import {store} from "../store";
 import {actionRegister} from "../../graphql/registrateUser";
 import {actionPromise} from "../../promises/promises";
+import {actionUserById} from "../../graphql/userById";
 
-export const actionAuthRegistration = token => ({
-    type: actions.AUTH_REGISTRATION,
-    payload:  token
-})
-
+// export const actionAuthRegistration = token => ({
+//     type: actions.AUTH_REGISTRATION,
+//     payload:  token
+// })
 
 export const actionAuthLogin = (token) => ({type: 'AUTH_LOGIN', token})
 export const logoutUser = () => ({
@@ -21,9 +19,9 @@ export const actionFullLogin = (login, password) =>
         let token = await dispatch(actionLogin(login, password));
         if (token) {
             dispatch(actionAuthLogin(token))
+            dispatch(actionAboutMe())
             console.log(token);
         } else {
-
             // dispatch(actionClearPromise('login'));
         }
     };
@@ -39,7 +37,6 @@ export const actionFullRegister = (login, password) => (
 
 export const actionUploadFile = (file) => {
     let formData = new FormData();
-    // console.log(file)
     formData.append('photo', file);
     for (const value of formData.entries()) {
         console.log(value);
@@ -56,3 +53,9 @@ export const actionUploadFile = (file) => {
     );
 };
 
+export const actionAboutMe = () => {
+    return async (dispatch, getState) => {
+        let id = getState().auth?.payload?.sub?.id
+        await dispatch(actionUserById(id, 'me'))
+    }
+}
