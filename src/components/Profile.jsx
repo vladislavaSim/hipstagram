@@ -7,13 +7,18 @@ import {store} from "../redux/store";
 import {useNavigate} from "react-router";
 import {actionAboutMe} from "../redux/actions/actions";
 
-const Profile = ({getAboutMe}) => {
-    let [newPost, setNewPost] = useState(false)
+const meObj = {
 
+}
+
+const Profile = ({getAboutMe, me, avatar, login, nick}) => {
+    const [newPost, setNewPost] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+    // const [me, setMe] = useState(meObj)
+    console.log(me.payload)
     const navigate = useNavigate()
 
-    useEffect(()=>{
-        // console.log(localStorage)
+    useEffect(() => {
         if(!localStorage.authToken){
             navigate('/login');
         }
@@ -23,17 +28,32 @@ const Profile = ({getAboutMe}) => {
         return setNewPost(!newPost)
     }
 
+    function isEditingToggle() {
+        console.log('?')
+        return setIsEditing(!isEditing)
+    }
+
+    console.log(avatar, login, nick)
     return (
         <div>
-            profile
+
             {newPost ? <CCreatePost /> : null}
-            <Button children={newPost ? 'Cancel' : 'New Post'} onClick={() => newPostToggle()}/>
-            <Button children={'about me'}
-                    onClick={() => getAboutMe()} />
-            </div>
+            <Button children={'Edit profile'}
+                    onClick={() => isEditingToggle()}
+            />
+            <Button children={newPost ? 'Cancel' : '+ post'} onClick={() => newPostToggle()}/>
+            {/*<Button children={'about me'}*/}
+            {/*        onClick={() => getAboutMe()} />*/}
+        </div>
     );
 };
 
-export const CProfile = connect(null, {
+export const CProfile = connect((state) => ({
+    me: state.promise?.me,
+    avatar: state.promise?.me?.payload?.avatar,
+    login: state.promise?.me?.payload?.login,
+    nick: state.promise?.me?.payload?.nick,
+
+}), {
     getAboutMe: actionAboutMe
 })(Profile);

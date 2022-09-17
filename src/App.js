@@ -12,7 +12,10 @@ import {CHeader} from "./components/Header";
 
 
 function App() {
+// RETURN TO LAST REMOTE COMMIT ON GIT
 
+//git reset --hard [COMMIT CODE]
+// git push -f
 
   return (
       <main>

@@ -7,6 +7,14 @@ body {
 #root, main, .App {
   height: 80vh;
 }
+
+.App{
+  background-color: black;
+}
+.main-content{
+  background-color: white;
+  min-height: 50vh;
+}
 a {
   text-decoration: none;
   color: black;
@@ -30,6 +38,7 @@ a {
   font-size: 17px;
 }
 .header {
+  background-color: white;
   width: 100%;
   display: flex;
   padding: 0 15px;
@@ -62,16 +71,16 @@ a:hover::before {
   transform: scaleX(1)
 }
 .main-content {
-  width: 80%;
+  width: 75%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align-last: center;
 }
-.main-content > div {
-  width: 80%;
-}
+/*.main-content > div {*/
+/*  width: 80%;*/
+/*}*/
 
 .logo {
   width: 100px;

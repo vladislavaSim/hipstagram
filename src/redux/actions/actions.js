@@ -20,7 +20,6 @@ export const actionFullLogin = (login, password) =>
         if (token) {
             dispatch(actionAuthLogin(token))
             dispatch(actionAboutMe())
-            console.log(token);
         } else {
             // dispatch(actionClearPromise('login'));
         }
