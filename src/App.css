@@ -103,6 +103,10 @@ a:hover::before {
 .drop-active {
   border: 2px dashed black;
 }
+.avatarPic {
+  width: 150px;
+  border-radius: 50%;
+}
 
 
 

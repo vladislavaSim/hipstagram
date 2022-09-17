@@ -6,6 +6,7 @@ import {actionAuthLogout} from "../redux/reducers/authReducer";
 import {store} from "../redux/store";
 import {useNavigate} from "react-router";
 import {actionAboutMe} from "../redux/actions/actions";
+import defaultAvatar from "../img/default-avatar.png"
 
 const meObj = {
 
@@ -15,7 +16,7 @@ const Profile = ({getAboutMe, me, avatar, login, nick}) => {
     const [newPost, setNewPost] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     // const [me, setMe] = useState(meObj)
-    console.log(me.payload)
+    // console.log(me.payload)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -33,10 +34,21 @@ const Profile = ({getAboutMe, me, avatar, login, nick}) => {
         return setIsEditing(!isEditing)
     }
 
+    function makeAvatar() {
+        if(!avatar) {
+            return <img src={defaultAvatar} className='avatarPic' />
+        }
+    }
+
     console.log(avatar, login, nick)
     return (
         <div>
+            <div className='profile-info-box'>
+                {makeAvatar()}
+                <h4>{login}</h4>
 
+            </div>
+            {/*<p>{'Login: ' + login}</p>*/}
             {newPost ? <CCreatePost /> : null}
             <Button children={'Edit profile'}
                     onClick={() => isEditingToggle()}
