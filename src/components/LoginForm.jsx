@@ -9,17 +9,21 @@ import {useNavigate} from "react-router";
 import {store} from "../redux/store";
 
 
-const LoginForm = ({onLogin, onLogout, loginStatus, promise}) => {
+const LoginForm = ({onLogin, loginStatus, promise}) => {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
+
     const navigate = useNavigate()
 
     useEffect(()=>{
-        if(loginStatus){
-            // console.log(loginStatus)
-            navigate('/profile');
-            setErrorMessage('')
+        if(promise && loginStatus){
+            if(login && password) {
+                navigate('/profile');
+                setErrorMessage('')
+            } else {
+                setErrorMessage('Login and password cannot be empty')
+            }
         }
         if(promise) {
             if(promise.status === 'RESOLVED' && !promise.payload) {
@@ -63,7 +67,6 @@ export const CLoginForm = connect(
         {loginStatus: state?.auth?.token,
         promise: state?.promise?.login
         }),
-    { onLogin: actionFullLogin,
-        onLogout:  logoutUser}
+    { onLogin: actionFullLogin}
 )(LoginForm);
 

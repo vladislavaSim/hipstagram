@@ -3,9 +3,9 @@ import {connect} from "react-redux";
 import {actionUploadFile} from "../redux/actions/actions";
 import DragNDrop from "./DragNDrop";
 
-const CreatePost = ({onUpload}) => {
-    const [drag, setDrag] = useState(false)
-
+const CreatePost = ({onUpload, isActive}) => {
+    const [drag, setDrag] = useState(isActive)
+    console.log(isActive)
     function uploadCb(e) {
         return onUpload(e.dataTransfer.files[0])
     }

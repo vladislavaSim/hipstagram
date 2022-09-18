@@ -7,6 +7,7 @@ import {store} from "../redux/store";
 import {useNavigate} from "react-router";
 import {actionAboutMe} from "../redux/actions/actions";
 import defaultAvatar from "../img/default-avatar.png"
+import DragNDrop from "./DragNDrop";
 
 const meObj = {
 
@@ -30,32 +31,28 @@ const Profile = ({getAboutMe, me, avatar, login, nick}) => {
     }
 
     function isEditingToggle() {
-        console.log('?')
-        return setIsEditing(!isEditing)
+        setIsEditing(!isEditing)
     }
+
 
     function makeAvatar() {
         if(!avatar) {
-            return <img src={defaultAvatar} className='avatarPic' />
+            return <img src={defaultAvatar} className='avatarPic' alt='avatar'/>
         }
     }
-
-    console.log(avatar, login, nick)
+    
     return (
         <div>
             <div className='profile-info-box'>
                 {makeAvatar()}
                 <h4>{login}</h4>
-
             </div>
-            {/*<p>{'Login: ' + login}</p>*/}
-            {newPost ? <CCreatePost /> : null}
-            <Button children={'Edit profile'}
+            {isEditing ? <CCreatePost isActive={true}/> : null}
+            {newPost ? <CCreatePost isActive={false}/> : null}
+            <Button children={isEditing ? 'Cancel' : 'Edit profile'}
                     onClick={() => isEditingToggle()}
             />
             <Button children={newPost ? 'Cancel' : '+ post'} onClick={() => newPostToggle()}/>
-            {/*<Button children={'about me'}*/}
-            {/*        onClick={() => getAboutMe()} />*/}
         </div>
     );
 };

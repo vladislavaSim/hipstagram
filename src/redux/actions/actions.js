@@ -3,6 +3,7 @@ import {actionLogin} from "../../graphql/actionLogin";
 import {actionRegister} from "../../graphql/registrateUser";
 import {actionPromise} from "../../promises/promises";
 import {actionUserById} from "../../graphql/userById";
+import {gql} from "../../graphql/getgql";
 
 // export const actionAuthRegistration = token => ({
 //     type: actions.AUTH_REGISTRATION,
@@ -58,3 +59,26 @@ export const actionAboutMe = () => {
         await dispatch(actionUserById(id, 'me'))
     }
 }
+export const actionSetAvatar = (file) => async (dispatch, getState) => {
+    let file = await dispatch(actionUploadFile(file));
+    let idImg = getState().promise?.uploadFile?.payload?._id;
+    let idUser = getState().auth?.payload?.sub?.id;
+    await dispatch(
+        actionPromise(
+            'setAvatar',
+
+            gql(
+                `mutation setAvatar($avatar:UserInput){
+    UserUpsert(user:$avatar){
+        _id, avatar{
+            _id
+        }
+    }
+}`,
+                { avatar: { _id: idUser, avatar: { _id: idImg } } }
+            )
+        )
+    );
+    dispatch(actionAboutMe());
+    dispatch(actionUserById(idUser));
+};
