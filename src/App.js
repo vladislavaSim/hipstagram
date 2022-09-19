@@ -9,9 +9,10 @@ import logo from './img/logo.jpg'
 import {CLoginForm} from "./components/LoginForm";
 import {BrowserRouter as Router, Routes, Route, BrowserRouter, Link} from 'react-router-dom';
 import {CHeader} from "./components/Header";
+import {connect} from "react-redux";
 
 
-function App() {
+function App({token}) {
 // RETURN TO LAST REMOTE COMMIT ON GIT
 
 //git reset --hard [COMMIT CODE]
@@ -24,7 +25,7 @@ function App() {
                       {<CHeader/>}
                  <div className='main-content'>
                      <Routes>
-                         <Route path='/' element={<Feed/>}/>
+                         <Route path='/' element={token ? <Feed/>: <CLoginForm/>}/>
                          <Route path="/profile" element={<CProfile/>}/>
                          <Route path="/search" element={<Search/>}/>
                          <Route path='/settings' element={<Settings/>}/>
@@ -38,4 +39,6 @@ function App() {
   );
 }
 
-export default App;
+export const CApp = connect((state) => ({
+    token: state?.auth?.token,
+}))(App);

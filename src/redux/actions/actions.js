@@ -60,7 +60,7 @@ export const actionAboutMe = () => {
     }
 }
 export const actionSetAvatar = (file) => async (dispatch, getState) => {
-    let file = await dispatch(actionUploadFile(file));
+    await dispatch(actionUploadFile(file));
     let idImg = getState().promise?.uploadFile?.payload?._id;
     let idUser = getState().auth?.payload?.sub?.id;
     await dispatch(
