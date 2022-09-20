@@ -10,6 +10,7 @@ import {CLoginForm} from "./components/LoginForm";
 import {BrowserRouter as Router, Routes, Route, BrowserRouter, Link} from 'react-router-dom';
 import {CHeader} from "./components/Header";
 import {connect} from "react-redux";
+import {CMainContainer} from "./components/MainContainer";
 
 
 function App({token}) {
@@ -22,17 +23,8 @@ function App({token}) {
       <main>
           <div className="App">
               <BrowserRouter>
-                      {<CHeader/>}
-                 <div className='main-content'>
-                     <Routes>
-                         <Route path='/' element={token ? <Feed/>: <CLoginForm/>}/>
-                         <Route path="/profile" element={<CProfile/>}/>
-                         <Route path="/search" element={<Search/>}/>
-                         <Route path='/settings' element={<Settings/>}/>
-                         <Route path='/login' element={<CLoginForm/>} exact/>
-                         <Route path='/registration' element={<CRegistrationForm/>} />
-                     </Routes>
-                 </div>
+                  <CHeader/>
+                  <CMainContainer/>
               </BrowserRouter>
           </div>
       </main>

@@ -9,8 +9,22 @@ body {
 }
 
 .App{
-  background-color: black;
+  background: linear-gradient(238deg, rgba(253, 136, 0, 0.6), rgba(253, 0, 143, 0.57), rgba(151, 0, 253, 0.63), rgba(0, 61, 253, 0.64), #05c7e6, #4bd58d);
+  background-size: 1200% 1200%;
+  -webkit-animation: rainbow 20s ease infinite;
+  animation: rainbow 20s ease infinite;
 }
+@-webkit-keyframes rainbow {
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
+}
+@keyframes rainbow {
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
+}
+
 .main-content{
   background-color: white;
   min-height: 50vh;
@@ -30,12 +44,21 @@ a {
   font-size: 20px;
 }
 .loginBtn {
-  background-color: black;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
   color: white;
-  width: 100px;
+  background-image: linear-gradient(to right, #ff67d4 0%, #a6c1ee 51%, #c455ff 100%);
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
   padding: 10px;
-  margin-top: 15px;
   font-size: 17px;
+  border: white;
+}
+
+.loginBtn:hover {
+  background-position: right center; /* change the direction of the change here */
 }
 .header {
   background-color: white;
@@ -43,7 +66,6 @@ a {
   display: flex;
   padding: 0 15px;
   justify-content: space-between;
-  border-bottom: 1px solid black;
   align-items: center;
   margin-bottom: 15px;
   height: 15vh;
@@ -55,10 +77,10 @@ a {
 a::before {
   content: '';
   position: absolute;
-  width: 100%;
-  height: 1px;
+  width: 110%;
+  height: 3px;
   border-radius: 4px;
-  background-color: black;
+  background: linear-gradient(to right, #ff67d4 0%, #a6c1ee 51%, #c455ff 100%);
   bottom: 0;
   left: 0;
   transform-origin: right;

@@ -8,6 +8,7 @@ import Button from "./Button";
 const Header = ({onLogout}) => {
     return (
         <div className='header'>
+
             <img src={logo} alt='logo' className='logo'/>
             <Link to='/login'>Login</Link>
             <Button
@@ -21,6 +22,7 @@ const Header = ({onLogout}) => {
             <Link to="/profile">Profile</Link>
             <Link to="/search">Search</Link>
             <Link to="/settings">Settings</Link>
+
         </div>
     );
 };

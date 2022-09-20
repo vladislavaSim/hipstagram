@@ -5,8 +5,9 @@ import DragNDrop from "./DragNDrop";
 
 const FileUploader = ({onUpload, isActive}) => {
     const [drag, setDrag] = useState(isActive)
-    console.log(isActive)
+
     function uploadCb(e) {
+        console.log(e.dataTransfer)
         return onUpload(e.dataTransfer.files[0])
     }
 

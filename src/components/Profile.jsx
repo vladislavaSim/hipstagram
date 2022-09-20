@@ -2,31 +2,49 @@ import React, {useEffect, useState} from 'react';
 import Button from "./Button";
 import {CFileUploader} from "./FileUploader";
 import {connect} from "react-redux";
-import {actionAuthLogout} from "../redux/reducers/authReducer";
-import {store} from "../redux/store";
 import {useNavigate} from "react-router";
 import {actionAboutMe, actionSetAvatar} from "../redux/actions/actions";
 import defaultAvatar from "../img/default-avatar.png"
 import DragNDrop from "./DragNDrop";
+import {actionUserById} from "../graphql/userById";
 
 const meObj = {
 
 }
 
-const Profile = ({getAboutMe, me, avatar, login, nick, myId, following, setAvatar, createdAt, followers}) => {
+const Profile = ({
+                     // match: { params: { _id } = {} },
+    promise,
+                     onUserById,
+                     onPostsById,
+                     onSubscribe,
+                     onUnSubscribe,
+                     myId,
+    me,
+    avatar,
+    nick,
+                     myFollowing,
+                     userAvatar,
+                     userLogin,
+                     userId,
+                     followers,
+                     following,
+                     posts,
+                 }) => {
+    console.log(me)
     const [newPost, setNewPost] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
-    const [regDate, setRegDate] = useState(createdAt)
     const [nickname, setNickname] = useState(nick)
 
-    console.log(me, avatar, login, nick, myId, following)
+    console.log( myId, following)
     const navigate = useNavigate()
     // useEffect(() => {
+    //     onUserById(_id);
+    // }, [_id]);
+
+
+    // useEffect(() => {
     //     console.log(regDate)
-    //
-    //
-    //
-    //
     //  make render posts!!!!!!!!!
     //
     //
@@ -55,14 +73,7 @@ const Profile = ({getAboutMe, me, avatar, login, nick, myId, following, setAvata
     function isEditingToggle() {
         setIsEditing(!isEditing)
         if(isEditing) {
-            setAvatar()
             changeNick()
-        }
-    }
-
-    function makeDefaultAvatar() {
-        if(!avatar) {
-            return <img src={defaultAvatar} className='avatarPic' alt='avatar'/>
         }
     }
 
@@ -72,19 +83,28 @@ const Profile = ({getAboutMe, me, avatar, login, nick, myId, following, setAvata
         }
     }
 
-    function getFollowingsNum () {
-        return !following ? 0 : following
+    function getLengthNum (array, text) {
+       let num = !array ? '0' : array
+       return num + ' ' + text
     }
 
-
-    console.log(followers)
-    console.log(following)
+    console.log(userAvatar)
+    console.log(avatar)
+    console.log(promise)
     return (
         <div>
             <div className='profile-info-box'>
-                {makeDefaultAvatar()}
-                <h4>{login}</h4>
-                <p>{'Registration date: ' + regDate}</p>
+                <div className="avatar">
+                    {avatar?.url === null ? (
+                        <img src={defaultAvatar} alt="avatar" className='avatarPic'/>
+                    ) : (
+                        <img
+                            src={`http://hipstagram.asmer.fs.a-level.com.ua/${userAvatar?.url}`}
+                            alt="avatar"
+                        />
+                    )}
+                </div>
+                <h4> <span>{`${userLogin ? userLogin : 'no name'}`}</span></h4>
             </div>
             {isEditing ? <CFileUploader isActive={true}/> : null}
             {newPost ? <CFileUploader isActive={false}/> : null}
@@ -92,8 +112,8 @@ const Profile = ({getAboutMe, me, avatar, login, nick, myId, following, setAvata
             <Button children={isEditing ? 'Cancel' : 'Edit profile'}
                     onClick={() => isEditingToggle()}/>
             <div>
-                <p>{followers.length + ' followers'}</p>
-                <p>{getFollowingsNum() + ' followings'}</p>
+                <p>{getLengthNum(followers,'followers')}</p>
+                <p>{getLengthNum(following,'followings')}</p>
             </div>
 
             {/*<Button children={newPost ? 'Cancel' : '+ post'} */}
@@ -103,17 +123,21 @@ const Profile = ({getAboutMe, me, avatar, login, nick, myId, following, setAvata
 };
 
 export const CProfile = connect((state) => ({
+    promise: state.promise,
     me: state.promise?.me,
-    myId: state.promise?.me?.id,
+    myId: state?.promise?.me?.payload?._id,
     avatar: state.promise?.me?.payload?.avatar,
-    login: state.promise?.me?.payload?.login,
-    following: state.promise?.me?.payload?.following,
+    myFollowing: state?.promise?.me?.payload?.following,
     nick: state.promise?.me?.payload?.nick,
-    createdAt: state.promise?.me?.payload?.createdAt,
-    followers: state.promise?.me?.payload?.followers,
-    following: state.promise?.me?.payload?.following
+    userAvatar: state?.promise?.userById?.payload?.avatar,
+    userLogin: state?.promise?.userById?.payload?.login,
+    userId: state?.promise?.userById?.payload?._id,
+    followers: state?.promise?.userById?.payload?.followers,
+    following: state?.promise?.userById?.payload?.following,
+    posts: state?.promise?.postByIdUser?.payload,
 
 }), {
     getAboutMe: actionAboutMe,
-    setAvatar: actionSetAvatar
+    setAvatar: actionSetAvatar,
+    onUserById: actionUserById,
 })(Profile);

@@ -5,11 +5,6 @@ import {actionPromise} from "../../promises/promises";
 import {actionUserById} from "../../graphql/userById";
 import {gql} from "../../graphql/getgql";
 
-// export const actionAuthRegistration = token => ({
-//     type: actions.AUTH_REGISTRATION,
-//     payload:  token
-// })
-
 export const actionAuthLogin = (token) => ({type: 'AUTH_LOGIN', token})
 export const logoutUser = () => ({
     type: actions.AUTH_LOGOUT
@@ -49,7 +44,7 @@ export const actionUploadFile = (file) => {
                 ? { Authorization: 'Bearer ' + localStorage.authToken }
                 : {},
             body: formData,
-        }).then((res) => res.json()).then(json => console.log('UPLOAD RESULT', json)).then(json => console.log('UPLOAD RESULT', json))
+        }).then((res) => res.json()).then(json => console.log('UPLOAD RESULT', json))
     );
 };
 
