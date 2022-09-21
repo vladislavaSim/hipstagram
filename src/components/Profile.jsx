@@ -93,6 +93,7 @@ const Profile = ({
             {newPost ? <CFileUploader isActive={false}/> : null}
 
             <Button children={isEditing ? 'Cancel' : 'Edit profile'}
+                    className='primeBtn'
                     onClick={() => isEditingToggle()}/>
             <div>
                 <p>{getLengthNum(followers,'followers')}</p>

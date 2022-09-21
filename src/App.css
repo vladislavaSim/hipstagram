@@ -5,7 +5,8 @@ body {
   height: 100vh;
 }
 #root, main, .App {
-  height: 80vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .App{
@@ -70,11 +71,20 @@ a {
   margin-bottom: 5px;
   height: 15vh;
 }
-a, .ordinaryBtn{
+a, .ordinaryBtn {
   position: relative;
-  padding: 3px 5px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: black;
+  background: transparent;
+  border-radius: 10px;
+  padding: 3px;
+  font-size: 17px;
+  border: white;
 }
-a::before .ordinaryBtn::before{
+a::before, .ordinaryBtn::before{
   content: '';
   position: absolute;
   width: 110%;
@@ -88,10 +98,14 @@ a::before .ordinaryBtn::before{
   transition: transform .3s ease-in-out;
 }
 
-a:hover::before .ordinaryBtn:hover::before{
+a:hover::before, .ordinaryBtn:hover::before{
   transform-origin: left;
   transform: scaleX(1)
 }
+.primeBtn a {
+  color: white;
+}
+
 .main-content {
   width: 75%;
   margin: 0 auto;
@@ -104,6 +118,7 @@ a:hover::before .ordinaryBtn:hover::before{
 .button-holder {
   width: 20%;
   display: flex;
+  align-items: baseline;
   justify-content: space-around;
 }
 
