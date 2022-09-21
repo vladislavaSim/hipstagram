@@ -13,7 +13,7 @@ const meObj = {
 }
 
 const Profile = ({
-                     // match: { params: { _id } = {} },
+                     match: _id,
     promise,
                      onUserById,
                      onPostsById,
@@ -43,23 +43,6 @@ const Profile = ({
     // }, [_id]);
 
 
-    // useEffect(() => {
-    //     console.log(regDate)
-    //  make render posts!!!!!!!!!
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //     let newTime = new Date(+regDate)
-    //     console.log(newTime)
-    //     setRegDate(newTime.toLocaleString('en-GB'))
-    // }, [])
-
     useEffect(() => {
         if(!localStorage.authToken){
             navigate('/login');
@@ -84,7 +67,7 @@ const Profile = ({
     }
 
     function getLengthNum (array, text) {
-       let num = !array ? '0' : array
+       let num = !array ? '0' : array.length
        return num + ' ' + text
     }
 
@@ -108,7 +91,7 @@ const Profile = ({
             </div>
             {isEditing ? <CFileUploader isActive={true}/> : null}
             {newPost ? <CFileUploader isActive={false}/> : null}
-            {'Date of registration: ' }
+
             <Button children={isEditing ? 'Cancel' : 'Edit profile'}
                     onClick={() => isEditingToggle()}/>
             <div>

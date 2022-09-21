@@ -43,7 +43,7 @@ a {
   flex-direction: column;
   font-size: 20px;
 }
-.loginBtn {
+.primeBtn {
   text-align: center;
   text-transform: uppercase;
   transition: 0.5s;
@@ -57,7 +57,7 @@ a {
   border: white;
 }
 
-.loginBtn:hover {
+.primeBtn:hover {
   background-position: right center; /* change the direction of the change here */
 }
 .header {
@@ -67,14 +67,14 @@ a {
   padding: 0 15px;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   height: 15vh;
 }
-a {
+a, .ordinaryBtn{
   position: relative;
   padding: 3px 5px;
 }
-a::before {
+a::before .ordinaryBtn::before{
   content: '';
   position: absolute;
   width: 110%;
@@ -88,7 +88,7 @@ a::before {
   transition: transform .3s ease-in-out;
 }
 
-a:hover::before {
+a:hover::before .ordinaryBtn:hover::before{
   transform-origin: left;
   transform: scaleX(1)
 }
@@ -101,9 +101,11 @@ a:hover::before {
   text-align-last: center;
   padding: 20px 10px;
 }
-/*.main-content > div {*/
-/*  width: 80%;*/
-/*}*/
+.button-holder {
+  width: 20%;
+  display: flex;
+  justify-content: space-around;
+}
 
 .logo {
   width: 100px;

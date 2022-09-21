@@ -47,12 +47,10 @@ const LoginForm = ({onLogin, loginStatus, promise}) => {
                 onChange={(e) => setPassword(e.target.value)}/>
             <div>
                 {<p style={{color: 'red', fontSize: '16px'}}>{errorMessage}</p>}
-              <Button
-                    children={
-                        <span className="mdc-button__label">
-                             Log in
-                        </span>}
-                    onClick={() => onLogin(login, password)}
+                <Button pathName={'login'}
+                        pathText='Log in'
+                        className='primeBtn'
+                        onClick={() => onLogin(login, password)}
                 />
                 <p>Don't have an account? <br/>
                     <Link to='/registration'>Register quickly</Link>

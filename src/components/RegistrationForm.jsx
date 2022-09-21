@@ -33,13 +33,10 @@ const RegistrationForm = ({onRegister, loginStatus}) => {
                 label="Password"
                 type="password" />
             <div>
-                <Button
-                    onClick={() => onRegister(login, password)}
-                    children={
-                        <span className="mdc-button__label">
-                             Sign up
-                        </span>}
-                />
+                <Button pathName={'login'}
+                        pathText='Log in'
+                        onClick={() => onRegister(login, password)}
+                        className='primeBtn'/>
                 <p>Already have an account? <br/>
                     <Link to='/login'>Log in</Link>
                 </p>

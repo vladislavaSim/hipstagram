@@ -14,16 +14,18 @@ const MainContainer = ({isLogged}) => {
             {
                 isLogged ?
                     <Routes>
-                        <Route path='/' element={isLogged ? <Feed/>: <CLoginForm/>}/>
+                        <Route path='/' element={<Feed/>} exact/>
+                        <Route path='/feed' element={<Feed/>}/>
                         <Route path="/profile" element={<CProfile/>}/>
                         <Route path="/search" element={<Search/>}/>
                         <Route path='/settings' element={<Settings/>}/>
-                        <Route path='/login' element={<CLoginForm/>} exact/>
+                        <Route path='/login' element={<CLoginForm/>}/>
                         <Route path='/registration' element={<CRegistrationForm/>} />
                     </Routes>
                     :
                     <Routes>
-                        <Route path='/login' element={<CLoginForm/>} exact/>
+                        <Route path='/login' element={<CLoginForm/>}/>
+                        <Route path='/' element={<CLoginForm/>}/>
                         <Route path='/registration' element={<CRegistrationForm/>} />
                     </Routes>
 

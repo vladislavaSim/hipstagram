@@ -5,28 +5,35 @@ import {connect} from "react-redux";
 import {actionAuthLogout} from "../redux/reducers/authReducer";
 import Button from "./Button";
 
-const Header = ({onLogout}) => {
+const Header = ({onLogout, isLogged}) => {
     return (
         <div className='header'>
-
-            <img src={logo} alt='logo' className='logo'/>
-            <Link to='/login'>Login</Link>
-            <Button
-                children={
-                    <span className="mdc-button__label">
-                    Log out
-                    </span>}
-                onClick={() => onLogout()}
-            />
-            <Link to="/">Feed</Link>
-            <Link to="/profile">Profile</Link>
-            <Link to="/search">Search</Link>
-            <Link to="/settings">Settings</Link>
-
+            {
+                isLogged ?
+                    <>
+                        <Link to="/">Feed</Link>
+                        <Link to="/profile">Profile</Link>
+                        <Link to="/search">Search</Link>
+                        <Link to="/settings">Settings</Link>
+                        <Button pathName={'login'}
+                                pathText='Log out'
+                                className='ordinaryBtn'
+                                onClick={() => onLogout()}
+                        />
+                    </>
+                    :     <div className='button-holder'>
+                        <Button pathName={'login'}
+                                pathText='Log in'
+                                className='primeBtn'/>
+                        <Link to='/registration'>Sign in</Link>
+                    </div>
+            }
         </div>
     );
 };
 
-export  const CHeader = connect(null, {
+export  const CHeader = connect((state) => ({
+    isLogged: state?.promise?.login?.payload
+}), {
     onLogout: actionAuthLogout
 })(Header);

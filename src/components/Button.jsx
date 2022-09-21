@@ -1,14 +1,15 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
-const Button = ({children, onClick, disabled}) => {
+const Button = ({className, onClick, pathText, pathName}) => {
 
     return (
         <button
-            className="mdc-button mdc-button--unelevated loginBtn"
+            className={className}
             onClick={onClick}
-            // disabled={disabled}
         >
-            {children}
+
+            <Link to={`/${pathName}`}>{pathText}</Link>
         </button>
     );
 };
