@@ -7,10 +7,10 @@ import Button from "./Button";
 
 const Header = ({onLogout, isLogged}) => {
     return (
-        <div className='header'>
+        <>
             {
                 isLogged ?
-                    <>
+                    <div className='header'>
                         <Link to="/">Feed</Link>
                         <Link to="/profile">Profile</Link>
                         <Link to="/search">Search</Link>
@@ -20,15 +20,11 @@ const Header = ({onLogout, isLogged}) => {
                                 className='ordinaryBtn'
                                 onClick={() => onLogout()}
                         />
-                    </>
-                    :     <div className='button-holder'>
-                        <Button pathName={'login'}
-                                pathText='Log in'
-                                className='primeBtn'/>
-                        <Link to='/registration'>Sign in</Link>
                     </div>
+                    :
+                    null
             }
-        </div>
+        </>
     );
 };
 

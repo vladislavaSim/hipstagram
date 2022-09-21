@@ -71,8 +71,8 @@ const Profile = ({
        return num + ' ' + text
     }
 
-    console.log(userAvatar)
-    console.log(avatar)
+    // console.log(userAvatar)
+    // console.log(avatar)
     console.log(promise)
     return (
         <div>

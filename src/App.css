@@ -37,7 +37,6 @@ a {
 .loginBox {
   margin: 0 auto;
   width: 500px;
-  height: 20%;
   border: 1px solid lightgrey;
   padding: 100px;
   display: flex;
@@ -105,9 +104,13 @@ a:hover::before, .ordinaryBtn:hover::before{
 .primeBtn a {
   color: white;
 }
+.primeBtn a::before {
+  background: transparent;
+}
 
 .main-content {
   width: 75%;
+  height: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
