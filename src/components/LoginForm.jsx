@@ -9,7 +9,7 @@ import {useNavigate} from "react-router";
 import {store} from "../redux/store";
 
 
-const LoginForm = ({onLogin, isLogged, promise}) => {
+const LoginForm = ({onLogin, isLogged, promise, myId}) => {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
@@ -18,7 +18,7 @@ const LoginForm = ({onLogin, isLogged, promise}) => {
     useEffect(()=>{
         if(promise && isLogged){
             if(login && password) {
-                navigate('/profile');
+                navigate('/profile/' + myId);
                 setErrorMessage('')
             } else {
                 setErrorMessage('Login and password cannot be empty')
@@ -62,7 +62,8 @@ const LoginForm = ({onLogin, isLogged, promise}) => {
 export const CLoginForm = connect(
     (state) => (
         {isLogged: state?.auth?.token,
-        promise: state?.promise?.login
+        promise: state?.promise?.login,
+        myId: state?.auth?.payload?.sub?.id
         }),
     { onLogin: actionFullLogin}
 )(LoginForm);
