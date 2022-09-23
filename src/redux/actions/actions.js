@@ -82,4 +82,28 @@ export const actionSetAvatar = (file) => async (dispatch, getState) => {
     dispatch(actionUserById(idUser));
 };
 
+export const actionFullSubscribe = (id, userId) => async (dispatch, getState) => {
+    let prevFollowers = (getState().promise?.me?.payload?.following || []).map((item) => ({
+        _id: item._id,
+    }));
+
+    let followingId = await dispatch(actionSubscribe(id, userId, prevFollowers));
+
+    if (followingId) {
+        await Promise.all([dispatch(actionUserById(userId)), dispatch(actionAboutMe())]);
+    }
+};
+
+export const actionSubscribe = (id, userId, oldFollowing) =>
+    actionPromise(
+        'subscribe',
+        gql(
+            `mutation following($user:UserInput){
+        UserUpsert( user:$user){
+            following{_id}
+        }
+      }`,
+            { user: { _id: id, following: [...(oldFollowing || []), { _id: userId }] } }
+        )
+    );
 

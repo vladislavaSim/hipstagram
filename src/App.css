@@ -147,9 +147,20 @@ a:hover::before, .ordinaryBtn:hover::before{
   border: 2px dashed black;
 }
 .avatarPic {
-  width: 150px;
-  border-radius: 50%;
+
+  /*border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #fd1892 100%) 1*/
+
 }
+.avatarPic {
+  width: 150px;
+  height: auto;
+  border: double 4px transparent;
+  border-radius: 80px;
+  background-image: linear-gradient(white, white), radial-gradient(circle at top left, #0077ff, #ff0088);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
 
 
 
