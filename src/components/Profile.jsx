@@ -3,18 +3,18 @@ import Button from "./Button";
 import {CFileUploader} from "./FileUploader";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router";
-import {actionAboutMe, actionSetAvatar} from "../redux/actions/actions";
+import {actionAboutMe, actionSetAvatar, actionSubscribe} from "../redux/actions/actions";
 import defaultAvatar from "../img/default-avatar.png"
 import DragNDrop from "./DragNDrop";
 import {actionUserById} from "../graphql/userById";
-import {useParams} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 import {store} from "../redux/store";
 
 const Profile = ({
     promise,
                      onUserById,
                      onPostsById,
-                     onSubscribe,
+                     onFollow,
                      onUnSubscribe,
                      myId,
     me,
@@ -28,7 +28,7 @@ const Profile = ({
                      following,
                      posts,
                  }) => {
-    // console.log(me)
+
     const {_id} = useParams()
     const [newPost, setNewPost] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -40,7 +40,8 @@ const Profile = ({
     useEffect(() => {
         onUserById(_id);
     }, [_id]);
-
+    console.log(followers)
+    console.log(following)
 
     useEffect(() => {
         if(!localStorage.authToken){
@@ -64,13 +65,13 @@ const Profile = ({
     //         return <input value={nickname} onChange={(e) => setNickname(e.target.value)}/>
     //     }
     // }
-    console.log(store)
+
     function getLengthNum (array, text) {
        let num = !array ? '0' : array.length
        return num + ' ' + text
     }
 
-    console.log(me)
+    console.log(promise)
     return (
         <div>
             <div className='profile-info-box'>
@@ -88,17 +89,29 @@ const Profile = ({
             </div>
             {isEditing ? <CFileUploader isActive={true}/> : null}
             {newPost ? <CFileUploader isActive={false}/> : null}
-
+            <Button children={'Follow'}
+                    className='primeBtn'
+                    onClick={() => onFollow(myId, _id)}/>
             <Button children={isEditing ? 'Cancel' : 'Edit profile'}
                     className='primeBtn'
                     onClick={() => isEditingToggle()}/>
             <div>
-                <p>{getLengthNum(followers,'followers')}</p>
-                <p>{getLengthNum(following,'followings')}</p>
+                <Link to={`/followers/${_id}`}>
+                    <p>{getLengthNum(followers,'followers')}</p>
+                </Link>
+                <Link to={`/followings/${_id}`}>
+                    <p>{getLengthNum(following,'followings')}</p>
+                </Link>
+                <p>{getLengthNum(posts,'posts')}</p>
             </div>
 
             {/*<Button children={newPost ? 'Cancel' : '+ post'} */}
             {/*        onClick={() => newPostToggle()}/>*/}
+            <div className="wrapper-info">
+
+
+
+            </div>
         </div>
     );
 };
@@ -121,4 +134,5 @@ export const CProfile = connect((state) => ({
     getAboutMe: actionAboutMe,
     setAvatar: actionSetAvatar,
     onUserById: actionUserById,
+    onFollow: actionSubscribe
 })(Profile);

@@ -14,6 +14,7 @@ export const actionFullLogin = (login, password) => (
     async (dispatch) => {
         let token = await dispatch(actionLogin(login, password));
         if (token) {
+            console.log(111)
             dispatch(actionAuthLogin(token))
             dispatch(actionAboutMe())
             dispatch(actionAboutMe())
@@ -23,9 +24,11 @@ export const actionFullLogin = (login, password) => (
 
 export const actionFullRegister = (login, password) => (
     async (dispatch) => {
+        console.log(login, password)
         let registerId = await dispatch(actionRegister(login, password))
 
         if (registerId) {
+            console.log('okay')
             dispatch(actionFullLogin(login, password))
         }
     }
@@ -78,3 +81,5 @@ export const actionSetAvatar = (file) => async (dispatch, getState) => {
     dispatch(actionAboutMe());
     dispatch(actionUserById(idUser));
 };
+
+

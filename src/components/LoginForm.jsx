@@ -67,4 +67,6 @@ export const CLoginForm = connect(
         }),
     { onLogin: actionFullLogin}
 )(LoginForm);
-
+// id
+//6308f0bd73ca650acb933cc0 - vsim
+//632dc22b73ca650acb933ea8 - lol

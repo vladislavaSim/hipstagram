@@ -7,6 +7,8 @@ import Search from "./Search";
 import Settings from "./Settings";
 import {CRegistrationForm} from "./RegistrationForm";
 import {connect} from "react-redux";
+import {CFollowers} from "./Followers";
+import {CFollowings} from "./Followings";
 
 const MainContainer = ({isLogged}) => {
     // useEffect(() =>{
@@ -25,6 +27,8 @@ const MainContainer = ({isLogged}) => {
                         <Route path='/settings' element={<Settings/>}/>
                         <Route path='/login' element={<CLoginForm/>}/>
                         <Route path='/registration' element={<CRegistrationForm/>} />
+                        <Route path="/followers/:_id" element={<CFollowers/>} />
+                        <Route path="/followings/:_id" element={<CFollowings/>} />
                     </Routes>
                     :
                     <Routes>
