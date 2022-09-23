@@ -5,14 +5,20 @@ import {connect} from "react-redux";
 import {actionAuthLogout} from "../redux/reducers/authReducer";
 import Button from "./Button";
 
-const Header = ({onLogout, isLogged}) => {
+const Header = ({id, onLogout, isLogged}) => {
+    console.log(id)
     return (
         <>
+            <Button pathName={'login'}
+                    pathText='Log out!!!'
+                    className='ordinaryBtn'
+                    onClick={() => onLogout()}
+            />
             {
                 isLogged ?
                     <div className='header'>
                         <Link to="/">Feed</Link>
-                        <Link to="/profile">Profile</Link>
+                        <Link to={`/profile/${id}`}>Profile</Link>
                         <Link to="/search">Search</Link>
                         <Link to="/settings">Settings</Link>
                         <Button pathName={'login'}
@@ -22,14 +28,15 @@ const Header = ({onLogout, isLogged}) => {
                         />
                     </div>
                     :
-                    null
+                    <div className='header'>Hello, stranger!</div>
             }
         </>
     );
 };
 
 export  const CHeader = connect((state) => ({
-    isLogged: state?.promise?.login?.payload
+    isLogged: state?.promise?.login?.payload,
+    id: state?.auth?.payload?.sub?.id
 }), {
     onLogout: actionAuthLogout
 })(Header);

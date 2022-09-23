@@ -6,13 +6,13 @@ function jwtDecode(token){
     }
 }
 
-export function authReducer(state = {}, {type, token}) {
+export function authReducer(state, {type, token}) {
     if (!state) {
         if (localStorage.authToken) {
             token = localStorage.authToken
             type = 'AUTH_LOGIN'
         } else {
-            return state
+            return {}
         }
     }
     if (type === 'AUTH_LOGIN') {
@@ -29,7 +29,7 @@ export function authReducer(state = {}, {type, token}) {
         }
     }
     if (type === 'AUTH_LOGOUT') {
-        delete localStorage.authToken
+        localStorage.removeItem('authToken')
         window.location.reload()
         return {}
     }

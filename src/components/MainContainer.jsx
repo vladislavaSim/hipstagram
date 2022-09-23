@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Route, Routes} from "react-router-dom";
 import Feed from "./Feed";
 import {CLoginForm} from "./LoginForm";
@@ -9,6 +9,10 @@ import {CRegistrationForm} from "./RegistrationForm";
 import {connect} from "react-redux";
 
 const MainContainer = ({isLogged}) => {
+    // useEffect(() =>{
+    //     localStorage.removeItem('authToken')
+    // }, [])
+    console.log(isLogged)
     return (
         <div className='main-content'>
             {
@@ -16,7 +20,7 @@ const MainContainer = ({isLogged}) => {
                     <Routes>
                         <Route path='/' element={<Feed/>} exact/>
                         <Route path='/feed' element={<Feed/>}/>
-                        <Route path="/profile" element={<CProfile/>}/>
+                        <Route path="/profile/:_id" element={<CProfile/>}/>
                         <Route path="/search" element={<Search/>}/>
                         <Route path='/settings' element={<Settings/>}/>
                         <Route path='/login' element={<CLoginForm/>}/>
@@ -28,7 +32,6 @@ const MainContainer = ({isLogged}) => {
                         <Route path='/' element={<CLoginForm/>}/>
                         <Route path='/registration' element={<CRegistrationForm/>} />
                     </Routes>
-
             }
 
         </div>

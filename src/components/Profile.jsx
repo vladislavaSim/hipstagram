@@ -7,13 +7,10 @@ import {actionAboutMe, actionSetAvatar} from "../redux/actions/actions";
 import defaultAvatar from "../img/default-avatar.png"
 import DragNDrop from "./DragNDrop";
 import {actionUserById} from "../graphql/userById";
-
-const meObj = {
-
-}
+import {useParams} from 'react-router-dom'
+import {store} from "../redux/store";
 
 const Profile = ({
-                     match: _id,
     promise,
                      onUserById,
                      onPostsById,
@@ -31,16 +28,18 @@ const Profile = ({
                      following,
                      posts,
                  }) => {
-    console.log(me)
+    // console.log(me)
+    const {_id} = useParams()
     const [newPost, setNewPost] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [nickname, setNickname] = useState(nick)
 
-    console.log( myId, following)
+    // console.log( myId, following)
     const navigate = useNavigate()
-    // useEffect(() => {
-    //     onUserById(_id);
-    // }, [_id]);
+
+    useEffect(() => {
+        onUserById(_id);
+    }, [_id]);
 
 
     useEffect(() => {
@@ -55,25 +54,23 @@ const Profile = ({
 
     function isEditingToggle() {
         setIsEditing(!isEditing)
-        if(isEditing) {
-            changeNick()
-        }
+        // if(isEditing) {
+        //     changeNick()
+        // }
     }
 
-    function changeNick() {
-        if(!nickname) {
-            return <input value={nickname} onChange={(e) => setNickname(e.target.value)}/>
-        }
-    }
-
+    // function changeNick() {
+    //     if(!nickname) {
+    //         return <input value={nickname} onChange={(e) => setNickname(e.target.value)}/>
+    //     }
+    // }
+    console.log(store)
     function getLengthNum (array, text) {
        let num = !array ? '0' : array.length
        return num + ' ' + text
     }
 
-    // console.log(userAvatar)
-    // console.log(avatar)
-    console.log(promise)
+    console.log(me)
     return (
         <div>
             <div className='profile-info-box'>

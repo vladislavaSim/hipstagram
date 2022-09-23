@@ -10,16 +10,17 @@ export const logoutUser = () => ({
     type: actions.AUTH_LOGOUT
 })
 
-export const actionFullLogin = (login, password) =>
+export const actionFullLogin = (login, password) => (
     async (dispatch) => {
         let token = await dispatch(actionLogin(login, password));
         if (token) {
             dispatch(actionAuthLogin(token))
             dispatch(actionAboutMe())
-        } else {
-            // dispatch(actionClearPromise('login'));
+            dispatch(actionAboutMe())
         }
-    };
+    }
+)
+
 export const actionFullRegister = (login, password) => (
     async (dispatch) => {
         let registerId = await dispatch(actionRegister(login, password))

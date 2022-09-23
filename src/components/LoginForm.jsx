@@ -9,15 +9,14 @@ import {useNavigate} from "react-router";
 import {store} from "../redux/store";
 
 
-const LoginForm = ({onLogin, loginStatus, promise}) => {
+const LoginForm = ({onLogin, isLogged, promise}) => {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
 
     const navigate = useNavigate()
-
     useEffect(()=>{
-        if(promise && loginStatus){
+        if(promise && isLogged){
             if(login && password) {
                 navigate('/profile');
                 setErrorMessage('')
@@ -30,7 +29,7 @@ const LoginForm = ({onLogin, loginStatus, promise}) => {
                 setErrorMessage('Please, enter correct login and password')
             }
         }
-    },[loginStatus, navigate, promise])
+    },[isLogged, navigate, promise])
 
     return (
         <div className='loginBox'>
@@ -62,7 +61,7 @@ const LoginForm = ({onLogin, loginStatus, promise}) => {
 
 export const CLoginForm = connect(
     (state) => (
-        {loginStatus: state?.auth?.token,
+        {isLogged: state?.auth?.token,
         promise: state?.promise?.login
         }),
     { onLogin: actionFullLogin}
