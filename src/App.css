@@ -136,7 +136,7 @@ a:hover::before, .ordinaryBtn:hover::before{
 }
 
 .drop-area {
-  /*height: 20vh;*/
+  height: 15vh;
   border: 2px dashed #7d7d7d;
   font-size: 20px;
   display: flex;
@@ -145,11 +145,6 @@ a:hover::before, .ordinaryBtn:hover::before{
 }
 .drop-active {
   border: 2px dashed black;
-}
-.avatarPic {
-
-  /*border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #fd1892 100%) 1*/
-
 }
 .avatarPic {
   width: 150px;

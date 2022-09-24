@@ -6,7 +6,6 @@ import {actionAuthLogout} from "../redux/reducers/authReducer";
 import Button from "./Button";
 
 const Header = ({id, onLogout, isLogged, login}) => {
-    console.log(id)
     return (
         <>
             <Button pathName={'login'}

@@ -3,7 +3,7 @@ import Button from "./Button";
 import {CFileUploader} from "./FileUploader";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router";
-import {actionAboutMe, actionSetAvatar, actionSubscribe} from "../redux/actions/actions";
+import {actionAboutMe, actionFullSubscribe, actionSetAvatar, actionSubscribe} from "../redux/actions/actions";
 import defaultAvatar from "../img/default-avatar.png"
 import DragNDrop from "./DragNDrop";
 import {actionUserById} from "../graphql/userById";
@@ -18,7 +18,6 @@ const Profile = ({
                      onUnSubscribe,
                      myId,
     me,
-    avatar,
     nick,
                      myFollowing,
                      userAvatar,
@@ -40,8 +39,8 @@ const Profile = ({
     useEffect(() => {
         onUserById(_id);
     }, [_id]);
-    console.log(followers)
-    console.log(following)
+    // console.log(followers)
+    // console.log(following)
 
     useEffect(() => {
         if(!localStorage.authToken){
@@ -71,12 +70,14 @@ const Profile = ({
        return num + ' ' + text
     }
 
-    console.log(promise)
+    const doIFollow = (myFollowing || []).find((item) => item._id === _id);
+    console.log(promise?.userById?.payload?.avatar)
+    // console.log(promise?.userById)
     return (
         <div>
             <div className='profile-info-box'>
                 <div className="avatar">
-                    {avatar?.url === null ? (
+                    {userAvatar?.url === null ? (
                         <img src={defaultAvatar} alt="avatar" className='avatarPic'/>
                     ) : (
                         <img
@@ -87,8 +88,15 @@ const Profile = ({
                 </div>
                 <h4> <span>{`${userLogin ? userLogin : 'no name'}`}</span></h4>
             </div>
+            <div>
+                {myId !== userId &&
+                (!doIFollow ? (
+                    <Button onClick={() => onFollow(myId, _id)} className='primeBtn' children='Follow'/>
+                ) : null
+                )}
+            </div>
             {isEditing ? <CFileUploader isActive={true}/> : null}
-            {newPost ? <CFileUploader isActive={false}/> : null}
+            {/*{newPost ? <CFileUploader isActive={false}/> : null}*/}
             <Button children={'Follow'}
                     className='primeBtn'
                     onClick={() => onFollow(myId, _id)}/>
@@ -120,7 +128,6 @@ export const CProfile = connect((state) => ({
     promise: state.promise,
     me: state.promise?.me,
     myId: state?.promise?.me?.payload?._id,
-    avatar: state.promise?.me?.payload?.avatar,
     myFollowing: state?.promise?.me?.payload?.following,
     nick: state.promise?.me?.payload?.nick,
     userAvatar: state?.promise?.userById?.payload?.avatar,
@@ -134,5 +141,6 @@ export const CProfile = connect((state) => ({
     getAboutMe: actionAboutMe,
     setAvatar: actionSetAvatar,
     onUserById: actionUserById,
-    onFollow: actionSubscribe
+    onFollow: actionFullSubscribe
+
 })(Profile);

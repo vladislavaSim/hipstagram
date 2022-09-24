@@ -35,20 +35,18 @@ export const actionFullRegister = (login, password) => (
 )
 
 export const actionUploadFile = (file) => {
-    let formData = new FormData();
-    formData.append('photo', file);
-    for (const value of formData.entries()) {
-        console.log(value);
-    }
+    console.log(file)
+    let fd = new FormData();
+    fd.append('photo', file);
     return actionPromise(
         'uploadFile',
-        fetch('http://hipstagram.node.ed.asmer.org.ua/upload', {
+        fetch('/upload', {
             method: 'POST',
             headers: localStorage.authToken
                 ? { Authorization: 'Bearer ' + localStorage.authToken }
                 : {},
-            body: formData,
-        }).then((res) => res.json()).then(json => console.log('UPLOAD RESULT', json))
+            body: fd,
+        }).then((res) => res.json())
     );
 };
 
@@ -59,7 +57,8 @@ export const actionAboutMe = () => {
     }
 }
 export const actionSetAvatar = (file) => async (dispatch, getState) => {
-    await dispatch(actionUploadFile(file));
+    let data = await dispatch(actionUploadFile(file));
+    console.log(data)
     let idImg = getState().promise?.uploadFile?.payload?._id;
     let idUser = getState().auth?.payload?.sub?.id;
     await dispatch(
@@ -67,8 +66,8 @@ export const actionSetAvatar = (file) => async (dispatch, getState) => {
             'setAvatar',
 
             gql(
-                `mutation setAvatar($avatar:UserInput){
-    UserUpsert(user:$avatar){
+                `mutation setAvatar($avatar:ImageInput){
+    UserInput(user:$avatar){
         _id, avatar{
             _id
         }
@@ -80,18 +79,6 @@ export const actionSetAvatar = (file) => async (dispatch, getState) => {
     );
     dispatch(actionAboutMe());
     dispatch(actionUserById(idUser));
-};
-
-export const actionFullSubscribe = (id, userId) => async (dispatch, getState) => {
-    let prevFollowers = (getState().promise?.me?.payload?.following || []).map((item) => ({
-        _id: item._id,
-    }));
-
-    let followingId = await dispatch(actionSubscribe(id, userId, prevFollowers));
-
-    if (followingId) {
-        await Promise.all([dispatch(actionUserById(userId)), dispatch(actionAboutMe())]);
-    }
 };
 
 export const actionSubscribe = (id, userId, oldFollowing) =>
@@ -106,4 +93,14 @@ export const actionSubscribe = (id, userId, oldFollowing) =>
             { user: { _id: id, following: [...(oldFollowing || []), { _id: userId }] } }
         )
     );
+export const actionFullSubscribe = (id, userId) => async (dispatch, getState) => {
+    let prevFollowers = (getState().promise?.me?.payload?.following || []).map((item) => ({
+        _id: item._id,
+    }));
 
+    let followingId = await dispatch(actionSubscribe(id, userId, prevFollowers));
+
+    if (followingId) {
+        await Promise.all([dispatch(actionUserById(userId)), dispatch(actionAboutMe())]);
+    }
+};

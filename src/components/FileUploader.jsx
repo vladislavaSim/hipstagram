@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import {connect} from "react-redux";
-import {actionUploadFile} from "../redux/actions/actions";
+import {actionSetAvatar, actionUploadFile} from "../redux/actions/actions";
 import DragNDrop from "./DragNDrop";
 
 const FileUploader = ({onUpload, isActive}) => {
     const [drag, setDrag] = useState(isActive)
 
     function uploadCb(e) {
-        console.log(e.dataTransfer)
+        // console.log(e.dataTransfer)
         return onUpload(e.dataTransfer.files[0])
     }
 
@@ -20,5 +20,5 @@ const FileUploader = ({onUpload, isActive}) => {
     );
 }
 export const CFileUploader = connect(null,
-    {onUpload: actionUploadFile}
+    {onUpload: actionSetAvatar}
 )(FileUploader);
