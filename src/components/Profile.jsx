@@ -59,6 +59,7 @@ const Profile = ({
         // }
     }
 
+    console.log(promise)
     // function changeNick() {
     //     if(!nickname) {
     //         return <input value={nickname} onChange={(e) => setNickname(e.target.value)}/>

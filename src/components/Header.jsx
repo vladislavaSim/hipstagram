@@ -6,6 +6,7 @@ import {actionAuthLogout} from "../redux/reducers/authReducer";
 import Button from "./Button";
 
 const Header = ({id, onLogout, isLogged, login}) => {
+    console.log(isLogged)
     return (
         <>
             <Button pathName={'login'}
@@ -35,7 +36,7 @@ const Header = ({id, onLogout, isLogged, login}) => {
 };
 
 export  const CHeader = connect((state) => ({
-    isLogged: state?.promise?.login?.payload,
+    isLogged: state?.promise?.me?.payload,
     id: state?.auth?.payload?.sub?.id,
     login: state.promise?.me?.payload?.login
 }), {
