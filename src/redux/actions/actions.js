@@ -17,7 +17,6 @@ export const actionFullLogin = (login, password) => (
             console.log(111)
             dispatch(actionAuthLogin(token))
             dispatch(actionAboutMe())
-            dispatch(actionAboutMe())
         }
     }
 )
@@ -36,20 +35,43 @@ export const actionFullRegister = (login, password) => (
 
 export const actionUploadFile = (file) => {
     console.log(file)
-    let fd = new FormData();
-    fd.append('photo', file);
+    let formdata = new FormData();
+    formdata.append('photo', file);
+    // for(let i of formdata) {
+    //     console.log(i)
+    // }
     return actionPromise(
         'uploadFile',
-        fetch('/upload', {
+        fetch('http://hipstagram.node.ed.asmer.org.ua' + '/upload', {
+        method: "POST",
+        headers: localStorage.authToken
+            ? {Authorization: 'Bearer ' + localStorage.authToken}
+            : {},
+        body: formdata
+    }).then(res => res.json()))
+};
+export const actionUploadFiles = (files) => {
+    let promiseResult = [];
+
+    for (let i = 0; i < files.length; i++) {
+        let formdata = new FormData();
+        formdata.append('photo', files[i]);
+        let oneRes = fetch('http://hipstagram.node.ed.asmer.org.ua/upload', {
             method: 'POST',
             headers: localStorage.authToken
                 ? { Authorization: 'Bearer ' + localStorage.authToken }
                 : {},
-            body: fd,
-        }).then((res) => res.json())
+            body: formdata,
+        });
+        promiseResult.push(oneRes);
+    }
+    return actionPromise(
+        'uploadFile',
+        Promise.all(promiseResult)
+            .then((res) => res.map((item) => item.json()))
+            .then((res) => Promise.all(res))
     );
 };
-
 export const actionAboutMe = () => {
     return async (dispatch, getState) => {
         let id = getState().auth?.payload?.sub?.id
@@ -57,8 +79,8 @@ export const actionAboutMe = () => {
     }
 }
 export const actionSetAvatar = (file) => async (dispatch, getState) => {
-    let data = await dispatch(actionUploadFile(file));
-    console.log(data)
+    console.log(file)
+    await dispatch(actionUploadFile(file));
     let idImg = getState().promise?.uploadFile?.payload?._id;
     let idUser = getState().auth?.payload?.sub?.id;
     await dispatch(
@@ -66,8 +88,8 @@ export const actionSetAvatar = (file) => async (dispatch, getState) => {
             'setAvatar',
 
             gql(
-                `mutation setAvatar($avatar:ImageInput){
-    UserInput(user:$avatar){
+                `mutation setAvatar($avatar:UserInput){
+    UserUpsert(user:$avatar){
         _id, avatar{
             _id
         }
@@ -76,12 +98,12 @@ export const actionSetAvatar = (file) => async (dispatch, getState) => {
                 { avatar: { _id: idUser, avatar: { _id: idImg } } }
             )
         )
-    );
-    dispatch(actionAboutMe());
-    dispatch(actionUserById(idUser));
+    )
+    await dispatch(actionAboutMe());
+    await dispatch(actionUserById(idUser));
 };
 
-export const actionSubscribe = (id, userId, oldFollowing) =>
+export const actionSubscribe = (id, userId, prevFollowing) =>
     actionPromise(
         'subscribe',
         gql(
@@ -90,7 +112,7 @@ export const actionSubscribe = (id, userId, oldFollowing) =>
             following{_id}
         }
       }`,
-            { user: { _id: id, following: [...(oldFollowing || []), { _id: userId }] } }
+            { user: { _id: id, following: [...(prevFollowing || []), { _id: userId }] } }
         )
     );
 export const actionFullSubscribe = (id, userId) => async (dispatch, getState) => {
@@ -104,3 +126,35 @@ export const actionFullSubscribe = (id, userId) => async (dispatch, getState) =>
         await Promise.all([dispatch(actionUserById(userId)), dispatch(actionAboutMe())]);
     }
 };
+export const actionUnSubscribe = (id, prevFollowing) =>
+    actionPromise(
+        'unSubscribe',
+        gql(
+            `mutation unSubscribe($user:UserInput){
+      UserUpsert( user:$user){
+          following{_id}
+      }
+    }`,
+            { user: { _id: id, following: [...prevFollowing] } }
+        )
+    );
+
+export const actionFullUnSubscribe = (id, userId) => async (dispatch, getState) => {
+    let prevFollowingsFiltered = (getState().promise?.me?.payload?.following || []).filter(
+        (item) => item._id !== userId
+    );
+
+    let prevFollowings = (prevFollowingsFiltered || []).map((item) => ({
+        _id: item._id,
+    }));
+
+    if (prevFollowings) {
+        await dispatch(actionUnSubscribe(id, prevFollowings));
+        Promise.all([dispatch(actionUserById(userId)), dispatch(actionAboutMe())]);
+    }
+};
+//и ещё подскажите, пожалуйста, такой момент:
+// при диспатче uploader action (который через fetch шлёт formdata) даёт результат rejected с такой ошибкой:
+// Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+//
+// судя по тексту ошибки, я отправляю html? Проверила, что передаётся туда, это объект типа file, то есть как и должно быть

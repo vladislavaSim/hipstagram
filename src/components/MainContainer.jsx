@@ -14,7 +14,7 @@ const MainContainer = ({isLogged}) => {
     // useEffect(() =>{
     //     localStorage.removeItem('authToken')
     // }, [])
-    console.log(isLogged)
+
     return (
         <div className='main-content'>
             {
@@ -43,5 +43,5 @@ const MainContainer = ({isLogged}) => {
 };
 
 export const CMainContainer = connect((state) => (
-    { isLogged: state?.auth.token }))
+    { isLogged: state?.promise?.me }))
 (MainContainer);

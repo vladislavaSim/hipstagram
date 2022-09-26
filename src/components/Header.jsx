@@ -4,9 +4,11 @@ import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {actionAuthLogout} from "../redux/reducers/authReducer";
 import Button from "./Button";
+import {CDropzoneAvatar} from "./AvatarDrop";
 
-const Header = ({id, onLogout, isLogged, login}) => {
-    console.log(isLogged)
+const Header = ({onLogout, login, state}) => {
+    const id = state?.promise?.userById?.payload?._id
+
     return (
         <>
             <Button pathName={'login'}
@@ -15,7 +17,7 @@ const Header = ({id, onLogout, isLogged, login}) => {
                     onClick={() => onLogout()}
             />
             {
-                isLogged ?
+                localStorage.authToken ?
                     <div className='header'>
                         <h3>{'@' + login}</h3>
                         <Link to="/">Feed</Link>
@@ -36,7 +38,6 @@ const Header = ({id, onLogout, isLogged, login}) => {
 };
 
 export  const CHeader = connect((state) => ({
-    isLogged: state?.promise?.me?.payload,
     id: state?.auth?.payload?.sub?.id,
     login: state.promise?.me?.payload?.login
 }), {

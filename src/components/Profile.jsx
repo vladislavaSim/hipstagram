@@ -3,19 +3,26 @@ import Button from "./Button";
 import {CFileUploader} from "./FileUploader";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router";
-import {actionAboutMe, actionFullSubscribe, actionSetAvatar, actionSubscribe} from "../redux/actions/actions";
+import {
+    actionAboutMe,
+    actionFullSubscribe, actionFullUnSubscribe,
+    actionSetAvatar,
+    actionSubscribe,
+    actionUnSubscribe
+} from "../redux/actions/actions";
 import defaultAvatar from "../img/default-avatar.png"
 import DragNDrop from "./DragNDrop";
 import {actionUserById} from "../graphql/userById";
 import {Link, useParams} from 'react-router-dom'
 import {store} from "../redux/store";
+import {CDropzoneAvatar} from "./AvatarDrop";
 
 const Profile = ({
     promise,
+    auth,
                      onUserById,
                      onPostsById,
                      onFollow,
-                     onUnSubscribe,
                      myId,
     me,
     nick,
@@ -26,6 +33,7 @@ const Profile = ({
                      followers,
                      following,
                      posts,
+    onUnfollow
                  }) => {
 
     const {_id} = useParams()
@@ -33,7 +41,6 @@ const Profile = ({
     const [isEditing, setIsEditing] = useState(false);
     const [nickname, setNickname] = useState(nick)
 
-    // console.log( myId, following)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -48,9 +55,6 @@ const Profile = ({
         }
     },[localStorage,navigate])
 
-    function newPostToggle() {
-        return setNewPost(!newPost)
-    }
 
     function isEditingToggle() {
         setIsEditing(!isEditing)
@@ -59,7 +63,6 @@ const Profile = ({
         // }
     }
 
-    console.log(promise)
     // function changeNick() {
     //     if(!nickname) {
     //         return <input value={nickname} onChange={(e) => setNickname(e.target.value)}/>
@@ -71,21 +74,25 @@ const Profile = ({
        return num + ' ' + text
     }
 
+    console.log(promise)
     const doIFollow = (myFollowing || []).find((item) => item._id === _id);
-    console.log(promise?.userById?.payload?.avatar)
+
     // console.log(promise?.userById)
+    // console.log(promise?.setAvatar?.payload?.avatar?._id)
     return (
         <div>
             <div className='profile-info-box'>
                 <div className="avatar">
-                    {userAvatar?.url === null ? (
-                        <img src={defaultAvatar} alt="avatar" className='avatarPic'/>
-                    ) : (
-                        <img
-                            src={`http://hipstagram.asmer.fs.a-level.com.ua/${userAvatar?.url}`}
-                            alt="avatar"
-                        />
-                    )}
+                    <CDropzoneAvatar />
+                    {/*{userAvatar === null ? (*/}
+                    {/*    <img src={defaultAvatar} alt="avatar" className='avatarPic'/>*/}
+                    {/*) : (*/}
+                    {/*    <img*/}
+                    {/*        className='avatarPic'*/}
+                    {/*        src={`http://hipstagram.asmer.fs.a-level.com.ua/${userAvatar?.url}`}*/}
+                    {/*        alt="avatar"*/}
+                    {/*    />*/}
+                    {/*)}*/}
                 </div>
                 <h4> <span>{`${userLogin ? userLogin : 'no name'}`}</span></h4>
             </div>
@@ -93,14 +100,12 @@ const Profile = ({
                 {myId !== userId &&
                 (!doIFollow ? (
                     <Button onClick={() => onFollow(myId, _id)} className='primeBtn' children='Follow'/>
-                ) : null
-                )}
+                ) : (
+                    <Button onClick={() => onUnfollow(myId, _id)} className='primeBtn' children='Unfollow'/>
+                ))}
             </div>
-            {isEditing ? <CFileUploader isActive={true}/> : null}
+            {/*{isEditing ? <CFileUploader isActive={false}/> : null}*/}
             {/*{newPost ? <CFileUploader isActive={false}/> : null}*/}
-            <Button children={'Follow'}
-                    className='primeBtn'
-                    onClick={() => onFollow(myId, _id)}/>
             <Button children={isEditing ? 'Cancel' : 'Edit profile'}
                     className='primeBtn'
                     onClick={() => isEditingToggle()}/>
@@ -127,6 +132,7 @@ const Profile = ({
 
 export const CProfile = connect((state) => ({
     promise: state.promise,
+    auth: state.auth,
     me: state.promise?.me,
     myId: state?.promise?.me?.payload?._id,
     myFollowing: state?.promise?.me?.payload?.following,
@@ -142,6 +148,6 @@ export const CProfile = connect((state) => ({
     getAboutMe: actionAboutMe,
     setAvatar: actionSetAvatar,
     onUserById: actionUserById,
-    onFollow: actionFullSubscribe
-
+    onFollow: actionFullSubscribe,
+    onUnfollow: actionFullUnSubscribe
 })(Profile);

@@ -148,12 +148,13 @@ a:hover::before, .ordinaryBtn:hover::before{
 }
 .avatarPic {
   width: 150px;
-  height: auto;
+  height: 150px;
   border: double 4px transparent;
   border-radius: 80px;
   background-image: linear-gradient(white, white), radial-gradient(circle at top left, #0077ff, #ff0088);
   background-origin: border-box;
   background-clip: padding-box, border-box;
+  object-fit: cover;
 }
 
 
