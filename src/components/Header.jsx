@@ -10,11 +10,6 @@ const Header = ({onLogout, login, state}) => {
     console.log(state)
     return (
         <>
-            <Button pathName={'login'}
-                    pathText='Log out!!!'
-                    className='ordinaryBtn'
-                    onClick={() => onLogout()}
-            />
             {
                 localStorage.authToken ?
                     <div className='header'>
@@ -30,7 +25,7 @@ const Header = ({onLogout, login, state}) => {
                         />
                     </div>
                     :
-                    <div className='header'>Hello, stranger!</div>
+                    null
             }
         </>
     );

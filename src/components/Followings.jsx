@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {OneUserInList} from "./oneUserInList";
+import {OneUserInList} from "./OneUserInList";
 
 const Followings = ({ users }) => {
     return (

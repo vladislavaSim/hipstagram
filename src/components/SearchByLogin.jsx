@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import {actionUserByLogin} from "../redux/actions/actions";
-import {OneUserInList} from "./oneUserInList";
+import {OneUserInList} from "./OneUserInList";
 import Button from "./Button";
 import {TextField} from "@mui/material";
 
