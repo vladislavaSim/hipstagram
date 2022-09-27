@@ -8,8 +8,9 @@ const Followers = ({ users }) => {
         <>
             {users ? (
                 <>
-                    <h2>Followers </h2>
+                    <h3>Followers </h3>
                     {(users || []).map((user) => {
+                        console.log(user)
                         return <OneUserInList key={user._id} user={user} />;
                     })}
                 </>

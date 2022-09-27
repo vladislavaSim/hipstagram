@@ -70,7 +70,7 @@ a {
   margin-bottom: 5px;
   height: 15vh;
 }
-a, .ordinaryBtn {
+.header a, .ordinaryBtn {
   position: relative;
   text-align: center;
   text-transform: uppercase;
@@ -83,7 +83,7 @@ a, .ordinaryBtn {
   font-size: 17px;
   border: white;
 }
-a::before, .ordinaryBtn::before{
+.header a::before, .ordinaryBtn::before{
   content: '';
   position: absolute;
   width: 110%;
@@ -97,7 +97,7 @@ a::before, .ordinaryBtn::before{
   transition: transform .3s ease-in-out;
 }
 
-a:hover::before, .ordinaryBtn:hover::before{
+.header a:hover::before, .ordinaryBtn:hover::before{
   transform-origin: left;
   transform: scaleX(1)
 }
@@ -156,6 +156,34 @@ a:hover::before, .ordinaryBtn:hover::before{
   background-clip: padding-box, border-box;
   object-fit: cover;
 }
+.material-icons {
+  font-size: 30px;
+}
+.search-box {
+  display: flex;
+  align-items: center;
+}
+.small-input {
+  padding: 7px;
+  font-size: 18px;
+}
+
+.small-btn {
+  padding: 5px;
+  display: flex;
+}
+.search-item {
+  padding: 7px 100px 7px 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 1px solid lightgray;
+  border-radius: 6px;
+  margin: 10px 0;
+
+}
+
+
 
 
 

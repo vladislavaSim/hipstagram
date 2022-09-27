@@ -64,12 +64,6 @@ const Profile = ({
         // }
     }
 
-    // function changeNick() {
-    //     if(!nickname) {
-    //         return <input value={nickname} onChange={(e) => setNickname(e.target.value)}/>
-    //     }
-    // }
-
     function getLengthNum (array, text) {
        let num = !array ? '0' : array.length
        return num + ' ' + text
@@ -98,18 +92,22 @@ const Profile = ({
                 <h4> <span>{`${userLogin ? userLogin : 'no name'}`}</span></h4>
             </div>
             <div>
-                {myId !== userId &&
-                (!doIFollow ? (
-                    <Button onClick={() => onFollow(myId, _id)} className='primeBtn' children='Follow'/>
-                ) : (
-                    <Button onClick={() => onUnfollow(myId, _id)} className='primeBtn' children='Unfollow'/>
-                ))}
+
             </div>
-            {/*{isEditing ? <CFileUploader isActive={false}/> : null}*/}
-            {/*{newPost ? <CFileUploader isActive={false}/> : null}*/}
-            <Button children={isEditing ? 'Cancel' : 'Edit profile'}
-                    className='primeBtn'
-                    onClick={() => isEditingToggle()}/>
+           <div className='profile-buttons'>
+               {myId === userId &&
+                <Button children={isEditing ? 'Cancel' : 'Edit profile'}
+                        className='primeBtn'
+                        onClick={() => isEditingToggle()}/>}
+
+               {myId !== userId &&
+               (!doIFollow ? (
+                   <Button onClick={() => onFollow(myId, _id)} className='primeBtn' children='Follow'/>
+               ) : (
+                   <Button onClick={() => onUnfollow(myId, _id)} className='primeBtn' children='Unfollow'/>
+               ))}
+           </div>
+
             <div>
                 <Link to={`/followers/${_id}`}>
                     <p>{getLengthNum(followers,'followers')}</p>
@@ -118,14 +116,6 @@ const Profile = ({
                     <p>{getLengthNum(following,'followings')}</p>
                 </Link>
                 <p>{getLengthNum(posts,'posts')}</p>
-            </div>
-
-            {/*<Button children={newPost ? 'Cancel' : '+ post'} */}
-            {/*        onClick={() => newPostToggle()}/>*/}
-            <div className="wrapper-info">
-
-
-
             </div>
         </div>
     );

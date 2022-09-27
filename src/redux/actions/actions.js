@@ -153,4 +153,45 @@ export const actionFullUnSubscribe = (id, userId) => async (dispatch, getState) 
         Promise.all([dispatch(actionUserById(userId)), dispatch(actionAboutMe())]);
     }
 };
+export const actionUserByLogin = (login) =>
+    actionPromise(
+        'userByLogin',
+        gql(
+            `query UserById($login:String) {
+        UserFindOne(query: $login){
+          _id, nick, login, createdAt, avatar {url}
+          followers {_id, nick, login},
+          following {_id, nick, login}
+          } 
+        }`,
+            { login: JSON.stringify([{ login: login }]) }
+        )
+    );
+
+const actionGetUsers = (skip) =>
+    actionPromise(
+        'allUsers',
+        gql(
+            `query allUsers($query: String!){
+      UserFind(query: $query){
+        _id, login, createdAt, nick, avatar 
+         {_id, url}
+       }
+    }`,
+            {
+                query: JSON.stringify([{}, { sort: [{ login: -1 }], skip: [skip || 0], limit: [15] }]),
+            }
+        )
+    );
+
+
+export const actionFullGetUsers = () => async (dispatch, getState) => {
+    const {
+        feed: { feedUsers = [] },
+    } = getState();
+    let searchUsers = await dispatch(actionGetUsers(feedUsers?.length));
+    // if (searchUsers) {
+    //     dispatch(actionAddUsers(searchUsers));
+    // }
+};
 

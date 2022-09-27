@@ -4,11 +4,10 @@ import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {actionAuthLogout} from "../redux/reducers/authReducer";
 import Button from "./Button";
-import {CDropzoneAvatar} from "./AvatarDrop";
 
 const Header = ({onLogout, login, state}) => {
     const id = state?.promise?.userById?.payload?._id
-    console.log(state?.promise)
+    console.log(state)
     return (
         <>
             <Button pathName={'login'}
