@@ -19,9 +19,9 @@ function App({token}) {
 
 //git reset --hard [COMMIT CODE]
 // git push -f
-    useEffect(() => {
-        localStorage.removeItem('authToken');
-    },[])
+//     useEffect(() => {
+//         localStorage.removeItem('authToken');
+//     },[])
   return (
       <main>
           <div className="App">

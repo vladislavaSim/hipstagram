@@ -6,28 +6,30 @@ import {connect} from "react-redux";
 import {actionFullRegister} from "../redux/actions/actions";
 import {useNavigate} from "react-router";
 
-const RegistrationForm = ({onRegister, isLogged, myId, promise}) => {
+const RegistrationForm = ({onRegister, isLogged, myId, promise, auth}) => {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
 
     const navigate = useNavigate()
     useEffect(()=>{
+        console.log(isLogged)
         console.log(promise)
-        if(promise && login && password) {
+        if(promise && isLogged){
+            if(login && password) {
+                console.log('!!! navigate')
                 navigate('/profile/' + myId);
                 setError('')
             } else {
                 setError('Login and password cannot be empty')
             }
-        },[isLogged, navigate, promise])
-    // useEffect(()=>{
-    //     console.log(loginStatus)
-    //     if(loginStatus){
-    //         navigate('/profile');
-    //     }
-    //
-    // },[loginStatus, navigate])
+        }
+        // if(promise) {
+        //     if(promise.status === 'RESOLVED' && !promise.payload) {
+        //         setError('Please, enter correct login and password')
+        //     }
+        // }
+    },[isLogged, navigate, promise])
 
     return (
         <div className='loginBox'>
@@ -40,7 +42,8 @@ const RegistrationForm = ({onRegister, isLogged, myId, promise}) => {
             <TextField
                 variant="filled"
                 label="Password"
-                type="password" />
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}/>
             <div>
                 {<p style={{color: 'red', fontSize: '16px'}}>{error}</p>}
                 <Button pathName={'login'}
@@ -57,8 +60,10 @@ const RegistrationForm = ({onRegister, isLogged, myId, promise}) => {
 };
 
 export const CRegistrationForm = connect( (state) => ({
+    promise: state?.promise,
+    auth: state?.auth,
     isLogged: state?.auth?.token,
-    myId: state?.auth?.payload?.sub?.id
+    myId: state?.me?.payload?.sub?.id
     }), {
     onRegister: actionFullRegister
     }

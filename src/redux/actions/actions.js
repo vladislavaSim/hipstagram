@@ -14,20 +14,20 @@ export const actionFullLogin = (login, password) => (
     async (dispatch) => {
         let token = await dispatch(actionLogin(login, password));
         if (token) {
-            console.log(111)
+            console.log('token received from back')
             dispatch(actionAuthLogin(token))
             dispatch(actionAboutMe())
+            console.log(login, password)
         }
     }
 )
 
 export const actionFullRegister = (login, password) => (
     async (dispatch) => {
-        console.log(login, password)
+        console.log(password)
         let registerId = await dispatch(actionRegister(login, password))
 
         if (registerId) {
-            console.log('okay')
             dispatch(actionFullLogin(login, password))
         }
     }
@@ -153,8 +153,4 @@ export const actionFullUnSubscribe = (id, userId) => async (dispatch, getState) 
         Promise.all([dispatch(actionUserById(userId)), dispatch(actionAboutMe())]);
     }
 };
-//и ещё подскажите, пожалуйста, такой момент:
-// при диспатче uploader action (который через fetch шлёт formdata) даёт результат rejected с такой ошибкой:
-// Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
-//
-// судя по тексту ошибки, я отправляю html? Проверила, что передаётся туда, это объект типа file, то есть как и должно быть
+

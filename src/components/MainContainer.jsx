@@ -9,6 +9,7 @@ import {CRegistrationForm} from "./RegistrationForm";
 import {connect} from "react-redux";
 import {CFollowers} from "./Followers";
 import {CFollowings} from "./Followings";
+import {NotFound} from "./NotFound";
 
 const MainContainer = ({isLogged}) => {
     // useEffect(() =>{
@@ -29,12 +30,14 @@ const MainContainer = ({isLogged}) => {
                         <Route path='/registration' element={<CRegistrationForm/>} />
                         <Route path="/followers/:_id" element={<CFollowers/>} />
                         <Route path="/followings/:_id" element={<CFollowings/>} />
+                        <Route path="*" element={<NotFound/>} />
                     </Routes>
                     :
                     <Routes>
                         <Route path='/login' element={<CLoginForm/>}/>
                         <Route path='/' element={<CLoginForm/>}/>
                         <Route path='/registration' element={<CRegistrationForm/>} />
+                        <Route path="*" element={<NotFound/>} />
                     </Routes>
             }
 

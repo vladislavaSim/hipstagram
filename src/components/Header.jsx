@@ -8,7 +8,7 @@ import {CDropzoneAvatar} from "./AvatarDrop";
 
 const Header = ({onLogout, login, state}) => {
     const id = state?.promise?.userById?.payload?._id
-
+    console.log(state?.promise)
     return (
         <>
             <Button pathName={'login'}

@@ -16,6 +16,7 @@ import {actionUserById} from "../graphql/userById";
 import {Link, useParams} from 'react-router-dom'
 import {store} from "../redux/store";
 import {CDropzoneAvatar} from "./AvatarDrop";
+import {NotFound} from "./NotFound";
 
 const Profile = ({
     promise,
