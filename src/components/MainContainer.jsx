@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {Route, Routes} from "react-router-dom";
-import Feed from "./Feed";
 import {CLoginForm} from "./LoginForm";
 import {CProfile} from "./Profile";
 import Search, {CSearch} from "./Search";
@@ -10,6 +9,7 @@ import {connect} from "react-redux";
 import {CFollowers} from "./Followers";
 import {CFollowings} from "./Followings";
 import {NotFound} from "./NotFound";
+import {CShowPosts} from "./Posts/ShowPosts";
 
 const MainContainer = ({isLogged}) => {
     // useEffect(() =>{
@@ -21,8 +21,8 @@ const MainContainer = ({isLogged}) => {
             {
                 isLogged ?
                     <Routes>
-                        <Route path='/' element={<Feed/>} exact/>
-                        <Route path='/feed' element={<Feed/>}/>
+                        <Route path='/' element={<CShowPosts/>} exact/>
+                        <Route path='/feed' element={<CShowPosts/>}/>
                         <Route path="/profile/:_id" element={<CProfile/>}/>
                         <Route path="/search" element={<CSearch/>}/>
                         <Route path='/settings' element={<Settings/>}/>

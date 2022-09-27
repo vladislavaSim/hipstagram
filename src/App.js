@@ -1,12 +1,4 @@
 import './App.css';
-// import Header from "./components/Header";
-import Feed from "./components/Feed";
-import {CProfile} from "./components/Profile";
-import Search from "./components/Search";
-import Settings from "./components/Settings";
-import {CRegistrationForm} from './components/RegistrationForm'
-import logo from './img/logo.jpg'
-import {CLoginForm} from "./components/LoginForm";
 import {BrowserRouter as Router, Routes, Route, BrowserRouter, Link} from 'react-router-dom';
 import {CHeader} from "./components/Header";
 import {connect} from "react-redux";
@@ -19,9 +11,13 @@ function App({token}) {
 
 //git reset --hard [COMMIT CODE]
 // git push -f
-//     useEffect(() => {
-//         localStorage.removeItem('authToken');
-//     },[])
+
+//  DELETE LAST COMMIT WITHOUT CHANGING LOCAL CODE TO REMAKE COMMIT PROPERLY
+
+//git reset --soft [COMMIT CODE]
+    useEffect(() => {
+        localStorage.removeItem('authToken');
+    },[])
 
   return (
       <main>

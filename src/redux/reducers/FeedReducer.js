@@ -24,6 +24,7 @@ export function feedReducer(state = {}, { type, newPosts, newUsers, updateNewPos
             feedPosts: [],
         };
     }
+    console.log(state)
     return state;
 }
 

@@ -4,10 +4,10 @@ import {actionFullGetUsers} from "../redux/actions/actions";
 import {UserCardFromSearch} from "./UserCardFromSearch";
 import {CSearchByLogin} from "./SearchByLogin";
 
-const Search = ({ users = [], onGetUsers}) => {
+const Search = ({ users = [], onGetUsers, feed}) => {
     const [flag, setFlag] = useState(true);
     const [flagControl, setFlagControl] = useState(true);
-
+    console.log(feed)
     useEffect(() => {
         if (flag && flagControl) {
             onGetUsers();
@@ -37,14 +37,12 @@ const Search = ({ users = [], onGetUsers}) => {
     return (
         <>
             <CSearchByLogin />
-            {users.map((user, i) => {
-                return <UserCardFromSearch key={user._id} user={user} />;
-            })}
         </>
     );
 };
 
 export const CSearch = connect((state) => ({
+    feed: state?.feed,
     users: state?.feed?.feedUsers }), {
     onGetUsers: actionFullGetUsers,
 })(Search);

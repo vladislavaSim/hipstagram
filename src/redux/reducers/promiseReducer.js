@@ -3,6 +3,7 @@ export function promiseReducer(state={}, {type, status, payload, error, name}) {
         return {}
     }
     if (type === 'PROMISE') {
+        console.log(type + ' from promise reducer', name)
         return {
             ...state,
             [name]: {
@@ -12,7 +13,7 @@ export function promiseReducer(state={}, {type, status, payload, error, name}) {
             }
         }
     }
-
+    console.log(state)
     return state
 }
 

@@ -4,6 +4,7 @@ import {actionRegister} from "../../graphql/registrateUser";
 import {actionPromise} from "../../promises/promises";
 import {actionUserById} from "../../graphql/userById";
 import {gql} from "../../graphql/getgql";
+import {actionAddPosts, actionAddUsers} from "../reducers/FeedReducer";
 
 export const actionAuthLogin = (token) => ({type: 'AUTH_LOGIN', token})
 export const logoutUser = () => ({
@@ -17,6 +18,7 @@ export const actionFullLogin = (login, password) => (
             console.log('token received from back')
             dispatch(actionAuthLogin(token))
             dispatch(actionAboutMe())
+            await dispatch(actionFullGetAllPosts());
             console.log(login, password)
         }
     }
@@ -179,7 +181,7 @@ const actionGetUsers = (skip) =>
        }
     }`,
             {
-                query: JSON.stringify([{}, { sort: [{ login: -1 }], skip: [skip || 0], limit: [15] }]),
+                query: JSON.stringify([{}, { sort: [{ login: -1 }], skip: [skip || 0], paginationNumber: [10] }]),
             }
         )
     );
@@ -190,8 +192,54 @@ export const actionFullGetUsers = () => async (dispatch, getState) => {
         feed: { feedUsers = [] },
     } = getState();
     let searchUsers = await dispatch(actionGetUsers(feedUsers?.length));
-    // if (searchUsers) {
-    //     dispatch(actionAddUsers(searchUsers));
-    // }
+    if (searchUsers) {
+        console.log(searchUsers)
+        dispatch(actionAddUsers(searchUsers));
+    }
 };
+export const actionGetAllPosts = (skip, mappedFollowings) =>
+    // console.log(skip, mappedFollowings)
+        actionPromise(
+            'allPosts',
+            gql(
+                `query PostsFeed($authorId:String){
+        PostFind(query:$authorId){
+        author{_id login avatar{url}}
+        images{_id url originalFileName} title text
+        _id likesCount 
+    }
+}
+}`,
+                {
+                    ownerId: JSON.stringify([
+                        {
+                            ___owner: {
+                                $in: mappedFollowings,
+                            },
+                        },
+                        {
+                            sort: [{ _id: -1 }],
+                            skip: [skip || 0],
+                            limit: [10],
+                        },
+                    ]),
+                },
+            ),
+    )
+
+export const actionFullGetAllPosts = () => async (dispatch, getState) => {
+    const {
+        feed: {feedPosts = []},
+    } = getState();
+    let myFollowings = (getState().promise?.me?.payload?.following || []).map(
+        (item) => item._id
+    );
+    let usersPosts = await dispatch(actionGetAllPosts(feedPosts?.length, myFollowings));
+    console.log(usersPosts)
+    if (usersPosts) {
+
+        dispatch(actionAddPosts(usersPosts));
+    }
+}
+
 

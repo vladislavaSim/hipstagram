@@ -69,7 +69,7 @@ const Profile = ({
        return num + ' ' + text
     }
 
-    console.log(promise)
+    // console.log(promise)
     const doIFollow = (myFollowing || []).find((item) => item._id === _id);
 
     // console.log(promise?.userById)

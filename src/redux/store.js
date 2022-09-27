@@ -3,8 +3,9 @@ import {promiseReducer} from "./reducers/promiseReducer";
 import thunk from "redux-thunk";
 import {authReducer} from "./reducers/authReducer";
 import {feedReducer} from "./reducers/FeedReducer";
+import {actionAboutMe} from "./actions/actions";
 
-export const store = createStore(
+const store = createStore(
     combineReducers({
         auth: authReducer,
         promise: promiseReducer,
@@ -12,3 +13,6 @@ export const store = createStore(
     }),
     applyMiddleware(thunk)
 )
+store.dispatch(actionAboutMe)
+
+export default store
