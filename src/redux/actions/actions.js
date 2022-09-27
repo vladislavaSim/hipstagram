@@ -15,11 +15,9 @@ export const actionFullLogin = (login, password) => (
     async (dispatch) => {
         let token = await dispatch(actionLogin(login, password));
         if (token) {
-            console.log('token received from back')
             dispatch(actionAuthLogin(token))
             dispatch(actionAboutMe())
             await dispatch(actionFullGetAllPosts());
-            console.log(login, password)
         }
     }
 )
@@ -198,35 +196,30 @@ export const actionFullGetUsers = () => async (dispatch, getState) => {
     }
 };
 export const actionGetAllPosts = (skip, mappedFollowings) =>
-    // console.log(skip, mappedFollowings)
-        actionPromise(
-            'allPosts',
-            gql(
-                `query PostsFeed($authorId:String){
-        PostFind(query:$authorId){
-        author{_id login avatar{url}}
-        images{_id url originalFileName} title text
-        _id likesCount 
+    actionPromise(
+        'allPosts',
+        gql(
+            `query allposts($query: String!){
+      PostFind(query: $query){
+        _id, text, title,
+        owner{_id, nick, login, avatar
+         {url}
+        },
+        likes { _id owner {_id login avatar{url}}},
+        likesCount,
+        images{url},
+        comments{text _id owner{login _id avatar{url}} createdAt},
+        createdAt
     }
-}
-}`,
-                {
-                    ownerId: JSON.stringify([
-                        {
-                            ___owner: {
-                                $in: mappedFollowings,
-                            },
-                        },
-                        {
-                            sort: [{ _id: -1 }],
-                            skip: [skip || 0],
-                            limit: [10],
-                        },
-                    ]),
-                },
-            ),
-    )
-
+  }`,
+            {
+                query: JSON.stringify([
+                    { ___owner: { $in: mappedFollowings } },
+                    { sort: [{ _id: -1 }], skip: [skip || 0], limit: [15] },
+                ]),
+            }
+        )
+    );
 export const actionFullGetAllPosts = () => async (dispatch, getState) => {
     const {
         feed: {feedPosts = []},
@@ -235,7 +228,6 @@ export const actionFullGetAllPosts = () => async (dispatch, getState) => {
         (item) => item._id
     );
     let usersPosts = await dispatch(actionGetAllPosts(feedPosts?.length, myFollowings));
-    console.log(usersPosts)
     if (usersPosts) {
 
         dispatch(actionAddPosts(usersPosts));

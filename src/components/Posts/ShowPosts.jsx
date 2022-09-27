@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {actionFullGetAllPosts} from "../../redux/actions/actions";
-import Post from "./Post";
+import {CPost} from "./Post";
 
 const ShowPosts = ({ posts = [], getPosts, feed, state}) => {
     const [flag, setFlag] = useState(true);
@@ -25,7 +25,7 @@ const ShowPosts = ({ posts = [], getPosts, feed, state}) => {
         <>
             {(posts || []).map((post) => {
                 console.log(posts)
-                return <Post key={post._id} post={post} />;
+                return <CPost key={post._id} post={post} />;
             })}
         </>
     );

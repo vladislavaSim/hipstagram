@@ -15,9 +15,9 @@ function App({token}) {
 //  DELETE LAST COMMIT WITHOUT CHANGING LOCAL CODE TO REMAKE COMMIT PROPERLY
 
 //git reset --soft [COMMIT CODE]
-    useEffect(() => {
-        localStorage.removeItem('authToken');
-    },[])
+//     useEffect(() => {
+//         localStorage.removeItem('authToken');
+//     },[])
 
   return (
       <main>

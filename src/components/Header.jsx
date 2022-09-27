@@ -12,7 +12,7 @@ const Header = ({onLogout, login, state}) => {
         <>
             {
                 localStorage.authToken ?
-                    (<div className='header'>
+                    <div className='header'>
                         <h3>{'@' + login}</h3>
                         <Link to="/feed">Feed</Link>
                         <Link to={`/profile/${id}`}>Profile</Link>
@@ -23,7 +23,7 @@ const Header = ({onLogout, login, state}) => {
                                 className='ordinaryBtn'
                                 onClick={() => onLogout()}
                         />
-                    </div>)
+                    </div>
                     :
                     null
             }
