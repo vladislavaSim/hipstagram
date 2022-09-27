@@ -22,6 +22,7 @@ function App({token}) {
 //     useEffect(() => {
 //         localStorage.removeItem('authToken');
 //     },[])
+
   return (
       <main>
           <div className="App">

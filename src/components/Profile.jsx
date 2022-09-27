@@ -47,8 +47,8 @@ const Profile = ({
     useEffect(() => {
         onUserById(_id);
     }, [_id]);
-    // console.log(followers)
-    // console.log(following)
+
+
 
     useEffect(() => {
         if(!localStorage.authToken){
