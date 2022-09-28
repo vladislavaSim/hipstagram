@@ -1,10 +1,11 @@
 import React from 'react';
+import {backendUrl} from "../graphql/BackendUrl";
 
 const Avatar = ({url, className = 'avatarPic'}) => {
 
     return (
         <div>
-            <img src={`http://hipstagram.node.ed.asmer.org.ua/${url}`}
+            <img src={`${backendUrl + url}`}
                  alt="ava"
                  className={className} />
         </div>

@@ -1,3 +1,5 @@
+import {backendUrl} from "./BackendUrl";
+
 const getGQL = url => (
     async (query, variables={}) => {
         let obj = await fetch(url, {
@@ -17,4 +19,4 @@ const getGQL = url => (
     }
 )
 
-export const gql = getGQL('http://hipstagram.node.ed.asmer.org.ua/graphql');
+export const gql = getGQL(backendUrl + 'graphql');

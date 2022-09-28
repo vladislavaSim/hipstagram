@@ -5,6 +5,7 @@ import {actionPromise} from "../../promises/promises";
 import {actionUserById} from "../../graphql/userById";
 import {gql} from "../../graphql/getgql";
 import {actionAddPosts, actionAddUsers} from "../reducers/FeedReducer";
+import {backendUrl} from "../../graphql/BackendUrl";
 
 export const actionAuthLogin = (token) => ({type: 'AUTH_LOGIN', token})
 export const logoutUser = () => ({
@@ -42,7 +43,7 @@ export const actionUploadFile = (file) => {
     // }
     return actionPromise(
         'uploadFile',
-        fetch('http://hipstagram.node.ed.asmer.org.ua' + '/upload', {
+        fetch(backendUrl + '/upload', {
         method: "POST",
         headers: localStorage.authToken
             ? {Authorization: 'Bearer ' + localStorage.authToken}
@@ -56,7 +57,7 @@ export const actionUploadFiles = (files) => {
     for (let i = 0; i < files.length; i++) {
         let formdata = new FormData();
         formdata.append('photo', files[i]);
-        let oneRes = fetch('http://hipstagram.node.ed.asmer.org.ua/upload', {
+        let oneRes = fetch(backendUrl +'upload', {
             method: 'POST',
             headers: localStorage.authToken
                 ? { Authorization: 'Bearer ' + localStorage.authToken }

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import defaultAvatar from '../img/default-avatar.png';
+import DefaultAvatar from "./DefaultAvatar";
+import Avatar from "./Avatar";
 
 export const OneUserInList = ({ user }) => {
 
@@ -10,14 +12,11 @@ export const OneUserInList = ({ user }) => {
             <div className="search-item">
                 <Link to={`/profile/${user?._id}`}>
                     {user?.avatar === null ? (
-                        <img src={defaultAvatar} alt="avatar" style={{width: '50px', height: '50px'}} className='avatarPic'/>
+                        <DefaultAvatar className='small-ava'/>
                     ) : (
-                        <img
-                            src={`http://hipstagram.node.ed.asmer.org.ua/${user?.avatar?.url}`}
-                            style={{width: '50px', height: '50px'}}
-                            alt="avatar"
-                            className='avatarPic'
-                        />
+                        <Avatar
+                            url={user?.avatar?.url}
+                            className='small-ava'/>
                     )}
                 </Link>
                 <Link to={`/profile/${user?._id}`}>

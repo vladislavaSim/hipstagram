@@ -22,15 +22,9 @@ function DropzoneAvatar({ onLoadAvatar, avatar }) {
     return (
         <div {...getRootProps()}>
             <input {...getInputProps()} />
-            {avatar ? (
-                // <img src={`http://hipstagram.node.ed.asmer.org.ua/${avatar}`} alt="ava" className='avatarPic' />
-                <Avatar url={avatar}/>
-                ) : (
-                // <img src={defaultAva} alt="ava" className='avatarPic' />
-                <DefaultAvatar />
-            )
+            {avatar ?
+                <Avatar url={avatar}/> : <DefaultAvatar />
             }
-
         </div>
     );
 }

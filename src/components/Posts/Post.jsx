@@ -4,6 +4,7 @@ import Card from "@material-ui/core/Card"
 import {CardActions, CardContent, CardHeader, CardMedia, IconButton, Typography} from "@material-ui/core";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import defaultAva from '../../img/default-avatar.png'
+import {backendUrl} from "../../graphql/BackendUrl";
 
 const Post = ({post, feed, feedPosts}) => {
     const timestamp = post?.createdAt;
@@ -34,7 +35,7 @@ const Post = ({post, feed, feedPosts}) => {
                                             component="img"
                                             height="580"
                                             // style={{width: '100%', height: '50%'}}
-                                            image={`http://hipstagram.node.ed.asmer.org.ua/${images[0]?.url}`}
+                                            image={`${backendUrl + images[0]?.url}`}
                                             alt="post-picture"
                                         />) : null
                                     }

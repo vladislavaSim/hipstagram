@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import defaultAva from '../img/default-avatar.png';
+import Avatar from "./Avatar";
+import DefaultAvatar from "./DefaultAvatar";
 
 export const UserCardFromSearch = ({ user }) => {
     return (
@@ -8,14 +10,11 @@ export const UserCardFromSearch = ({ user }) => {
             <div className="user-search">
                 <Link to={`/user/${user?._id}`}>
                     {user?.avatar === null ? (
-                        <img src={defaultAva}
-                             alt="avatar"
-                             className='avatarPic small-ava'/>
+                        <DefaultAvatar className='small-ava'/>
                     ) : (
-                        <img
-                            className='avatarPic small-ava'
-                            src={`http://hipstagram.node.ed.asmer.org.ua/${user?.avatar?.url}`}
-                            alt="avatar"
+                        <Avatar
+                            className='small-ava'
+                            url={user?.avatar?.url}
                         />
                     )}
                 </Link>
