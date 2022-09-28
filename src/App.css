@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  font-family: system-ui;
 }
 body {
   height: 100vh;
@@ -172,6 +173,10 @@ a {
   padding: 5px;
   display: flex;
 }
+.small-ava {
+  width: 50px;
+  height: 50px;
+}
 .search-item {
   padding: 7px 100px 7px 0;
   display: flex;
@@ -180,6 +185,14 @@ a {
   border: 1px solid lightgray;
   border-radius: 6px;
   margin: 10px 0;
+}
+.post-owner {
+  font-size: 17px;
+}
+.post-title {
+  font-size: 16px;
+}
+.post-text {
 
 }
 

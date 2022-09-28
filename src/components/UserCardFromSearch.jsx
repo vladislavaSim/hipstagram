@@ -8,9 +8,12 @@ export const UserCardFromSearch = ({ user }) => {
             <div className="user-search">
                 <Link to={`/user/${user?._id}`}>
                     {user?.avatar === null ? (
-                        <img src={defaultAva} alt="avatar" />
+                        <img src={defaultAva}
+                             alt="avatar"
+                             className='avatarPic small-ava'/>
                     ) : (
                         <img
+                            className='avatarPic small-ava'
                             src={`http://hipstagram.node.ed.asmer.org.ua/${user?.avatar?.url}`}
                             alt="avatar"
                         />
