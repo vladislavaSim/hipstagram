@@ -7,17 +7,21 @@ import Button from "./Button";
 
 const Header = ({onLogout, login, state}) => {
     const id = state?.promise?.userById?.payload?._id
-    console.log(state)
+
     return (
         <>
             {
                 localStorage.authToken ?
                     <div className='header'>
                         <h3>{'@' + login}</h3>
+                        <Link to='/create'>Add post</Link>
                         <Link to="/feed">Feed</Link>
                         <Link to={`/profile/${id}`}>Profile</Link>
                         <Link to="/search">Search</Link>
                         <Link to="/settings">Settings</Link>
+                        {/*<Link to='/explore'>*/}
+                        {/*    <span className="material-icons-outlined">explore</span>*/}
+                        {/*</Link>*/}
                         <Button pathName={'login'}
                                 pathText='Log out'
                                 className='ordinaryBtn'
@@ -33,7 +37,7 @@ const Header = ({onLogout, login, state}) => {
 
 export  const CHeader = connect((state) => ({
     id: state?.auth?.payload?.sub?.id,
-    login: state.promise?.me?.payload?.login
+    login: state.auth?.payload?.sub?.login
 }), {
     onLogout: actionAuthLogout
 })(Header);

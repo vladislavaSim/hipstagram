@@ -14,12 +14,11 @@ const Post = ({post, feed, feedPosts}) => {
         "/"+date.getFullYear()+
         " "+date.getHours()+
         ":"+date.getMinutes()
-    console.log(feedPosts)
+
     return (
         <div>
-            {post?.images?.[0]?.url ?
+            {post?.images[0]?.url ?
                 (feedPosts.map(({title, text, owner, likesCount, createdAt, images}) => {
-                        console.log(post.images)
                         return (
                                 <Card className='card'
                                     sx={{maxWidth: 345}}>
@@ -37,7 +36,14 @@ const Post = ({post, feed, feedPosts}) => {
                                             // style={{width: '100%', height: '50%'}}
                                             image={`${backendUrl + images[0]?.url}`}
                                             alt="post-picture"
-                                        />) : null
+                                        />) : (
+                                        <CardMedia
+                                            component="img"
+                                            height="580"
+                                            // style={{width: '100%', height: '50%'}}
+                                            image={`${backendUrl + images[0]?.url}`}
+                                            alt="post-picture"
+                                        />)
                                     }
                                     <CardContent>
                                         <Typography variant="body2" className='post-title'>

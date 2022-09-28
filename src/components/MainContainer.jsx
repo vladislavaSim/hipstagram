@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Route, Routes} from "react-router-dom";
 import {CLoginForm} from "./LoginForm";
 import {CProfile} from "./Profile";
-import Search, {CSearch} from "./Search";
+import {CSearch} from "./Search";
 import Settings from "./Settings";
 import {CRegistrationForm} from "./RegistrationForm";
 import {connect} from "react-redux";
@@ -10,6 +10,8 @@ import {CFollowers} from "./Followers";
 import {CFollowings} from "./Followings";
 import {NotFound} from "./NotFound";
 import {CShowPosts} from "./Posts/ShowPosts";
+import {CCreatePost} from "./Posts/CreatePost";
+import {CExploreUsers} from "./ExploreUsers";
 
 const MainContainer = ({isLogged}) => {
     // useEffect(() =>{
@@ -19,7 +21,7 @@ const MainContainer = ({isLogged}) => {
     return (
         <div className='main-content'>
             {
-                isLogged ?
+                localStorage.authToken ?
                     <Routes>
                         <Route path='/' element={<CShowPosts/>} exact/>
                         <Route path='/feed' element={<CShowPosts/>}/>
@@ -30,7 +32,9 @@ const MainContainer = ({isLogged}) => {
                         <Route path='/registration' element={<CRegistrationForm/>} />
                         <Route path="/followers/:_id" element={<CFollowers/>} />
                         <Route path="/followings/:_id" element={<CFollowings/>} />
+                        <Route path='/create' element={<CCreatePost />} />
                         <Route path="*" element={<NotFound/>} />
+                        <Route path='/explore' element={<CExploreUsers/>}/>
                     </Routes>
                     :
                     <Routes>

@@ -17,6 +17,7 @@ import {Link, useParams} from 'react-router-dom'
 import {store} from "../redux/store";
 import {CDropzoneAvatar} from "./AvatarDrop";
 import {NotFound} from "./NotFound";
+import {CPost} from "./Posts/Post";
 
 const Profile = ({
     promise,
@@ -38,7 +39,6 @@ const Profile = ({
                  }) => {
 
     const {_id} = useParams()
-    const [newPost, setNewPost] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [nickname, setNickname] = useState(nick)
 
@@ -47,15 +47,6 @@ const Profile = ({
     useEffect(() => {
         onUserById(_id);
     }, [_id]);
-
-
-
-    useEffect(() => {
-        if(!localStorage.authToken){
-            navigate('/login');
-        }
-    },[localStorage,navigate])
-
 
     function isEditingToggle() {
         setIsEditing(!isEditing)
@@ -69,7 +60,8 @@ const Profile = ({
        return num + ' ' + text
     }
 
-    // console.log(promise)
+    console.log(promise)
+    console.log(posts)
     const doIFollow = (myFollowing || []).find((item) => item._id === _id);
 
     // console.log(promise?.userById)
@@ -79,15 +71,6 @@ const Profile = ({
             <div className='profile-info-box'>
                 <div className="avatar">
                     <CDropzoneAvatar />
-                    {/*{userAvatar === null ? (*/}
-                    {/*    <img src={defaultAvatar} alt="avatar" className='avatarPic'/>*/}
-                    {/*) : (*/}
-                    {/*    <img*/}
-                    {/*        className='avatarPic'*/}
-                    {/*        src={`http://hipstagram.asmer.fs.a-level.com.ua/${userAvatar?.url}`}*/}
-                    {/*        alt="avatar"*/}
-                    {/*    />*/}
-                    {/*)}*/}
                 </div>
                 <h4> <span>{`${userLogin ? userLogin : 'no name'}`}</span></h4>
             </div>
@@ -117,6 +100,9 @@ const Profile = ({
                 </Link>
                 <p>{getLengthNum(posts,'posts')}</p>
             </div>
+            {(posts || []).map((post) => {
+                return <CPost key={post._id} post={post} />;
+            })}
         </div>
     );
 };

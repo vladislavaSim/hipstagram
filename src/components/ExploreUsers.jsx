@@ -4,6 +4,7 @@ import {actionFullGetUsers} from "../redux/actions/actions";
 import {UserCardFromSearch} from "./UserCardFromSearch";
 
 const ExploreUsers = ({users}) => {
+    console.log(users)
     return (
         <div>
             {users.map((user) => {
@@ -17,4 +18,4 @@ export const CExploreUsers = connect((state) => ({
     feed: state?.feed,
     users: state?.feed?.feedUsers }), {
     onGetUsers: actionFullGetUsers,
-})(ExploreUsers); ;
+})(ExploreUsers);

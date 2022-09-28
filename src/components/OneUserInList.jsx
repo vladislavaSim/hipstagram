@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import defaultAvatar from '../img/default-avatar.png';
 import DefaultAvatar from "./DefaultAvatar";
 import Avatar from "./Avatar";
 
 export const OneUserInList = ({ user }) => {
 
-    console.log(user)
     return (
         <>
             <div className="search-item">
@@ -16,7 +14,7 @@ export const OneUserInList = ({ user }) => {
                     ) : (
                         <Avatar
                             url={user?.avatar?.url}
-                            className='small-ava'/>
+                            className='small-ava avatarPic'/>
                     )}
                 </Link>
                 <Link to={`/profile/${user?._id}`}>

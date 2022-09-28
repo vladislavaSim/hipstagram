@@ -43,7 +43,7 @@ export const actionUploadFile = (file) => {
     // }
     return actionPromise(
         'uploadFile',
-        fetch(backendUrl + '/upload', {
+        fetch(backendUrl + 'upload', {
         method: "POST",
         headers: localStorage.authToken
             ? {Authorization: 'Bearer ' + localStorage.authToken}
@@ -234,5 +234,24 @@ export const actionFullGetAllPosts = () => async (dispatch, getState) => {
         dispatch(actionAddPosts(usersPosts));
     }
 }
+
+const actionUploadPost = (title, text, photosId, postId = undefined) => {
+    return actionPromise(
+        'uploadPost',
+        gql(
+            `mutation newPost($post:PostInput){
+    PostUpsert(post:$post){
+      _id owner{_id}
+    }
+  }`,
+            { post: { _id: postId, title: title, text: text, images: photosId } }
+        )
+    );
+};
+
+export const actionFullUploadPost = (title, text, photos, postId) => async (dispatch) => {
+    let photosId = (photos || []).map((photo) => ({ _id: photo._id }));
+    await dispatch(actionUploadPost(title, text, photosId, postId));
+};
 
 
