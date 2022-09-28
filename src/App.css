@@ -195,7 +195,28 @@ a {
 .post-text {
 
 }
-
+.card-header{
+  display: flex;
+  padding: 3px 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-author-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/*card*/
+.MuiCard-root {
+  margin-bottom: 15px;
+}
+.MuiCardContent-root {
+  padding: 5px 15px;
+}
+/*like button holder*/
+.MuiCardActions-root {
+  padding: 0;
+}
 
 
 

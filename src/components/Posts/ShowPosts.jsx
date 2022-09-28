@@ -22,12 +22,20 @@ const ShowPosts = ({ posts = [], getPosts, feed, state}) => {
     console.log(state)
 
     return (
-        <>
-            {(posts || []).map((post) => {
-                console.log(posts)
-                return <CPost key={post._id} post={post} />;
-            })}
-        </>
+        <div style={{width: '50%'}}>
+            {posts.length ?
+                (posts || []).map((post) => {
+                    console.log(posts)
+                    return <CPost key={post._id} post={post} />;
+                }) :
+                (
+                    <div>
+                        <h3>Your feed is empty...</h3>
+                        <h4>Let`s use search for something interesting!</h4>
+                    </div>
+                )
+            }
+        </div>
     );
 };
 

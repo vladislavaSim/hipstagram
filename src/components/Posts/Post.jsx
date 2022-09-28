@@ -16,53 +16,58 @@ const Post = ({post, feed, feedPosts}) => {
     console.log(feedPosts)
     return (
         <div>
-            {feedPosts.map(({title, text, owner, likesCount, createdAt}) => {
-                console.log(date)
-                return (
-                <div style={{border: "1px solid"}}>
-                    <Card sx={{ maxWidth: 345 }}>
-                        <CardHeader
-                            avatar={
-                                <img src={defaultAva} aria-label="recipe" className='avatarPic small-ava'/>
-                            }
-                            title={owner.login}
-                            subheader={date}
-                            className='post-owner'
-                        />
-                        {/*<CardMedia*/}
-                        {/*    component="img"*/}
-                        {/*    height="194"*/}
-                        {/*    image="/static/images/cards/paella.jpg"*/}
-                        {/*    alt="Paella dish"*/}
-                        {/*/>*/}
-                        <CardContent>
-                            <Typography variant="body2" color="text.primary" className='post-title'>
-                                {title}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary" className='post-text'>
-                                {text}
-                            </Typography>
-                        </CardContent>
-                        <CardActions disableSpacing>
-                            <IconButton aria-label="add to favorites">
-                                {likesCount ? likesCount : '0 '}
-                                <FavoriteIcon />
-                            </IconButton>
-                        </CardActions>
-                    </Card>
-                    {/*<p>{title}</p>*/}
-                    {/*<p>{text}</p>*/}
-                    {/*<p></p>*/}
-                    {/*<p></p>*/}
-                </div>
-            )
-            })}
+            {post?.images?.[0]?.url ?
+                (feedPosts.map(({title, text, owner, likesCount, createdAt, images}) => {
+                        console.log(post.images)
+                        return (
+                                <Card className='card'
+                                    sx={{maxWidth: 345}}>
+                                    <header className='card-header'>
+                                        <div className='card-author-box'>
+                                            <img src={defaultAva} aria-label="recipe" className='avatarPic small-ava' style={{marginRight: '10px'}}/>
+                                            <h4>{'@' + owner.login}</h4>
+                                        </div>
+                                        <div style={{color: '#959292'}}>{date}</div>
+                                    </header>
+                                    {post?.images[1] ? (
+                                        <CardMedia
+                                            component="img"
+                                            height="580"
+                                            // style={{width: '100%', height: '50%'}}
+                                            image={`http://hipstagram.node.ed.asmer.org.ua/${images[0]?.url}`}
+                                            alt="post-picture"
+                                        />) : null
+                                    }
+                                    <CardContent>
+                                        <Typography variant="body2" className='post-title'>
+                                            {title}
+                                        </Typography>
+                                        <Typography variant="body2" className='post-text'>
+                                            {text}
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions disableSpacing>
+                                        <IconButton aria-label="add to favorites">
+                                            {likesCount ? likesCount : '0 '}
+                                            <FavoriteIcon/>
+                                        </IconButton>
+                                    </CardActions>
+                                </Card>
+                        )
+                    })
+                ) : (
+                    <div>
+                        <h3>Your feed is empty...</h3>
+                        <h4>Let`s use search for something interesting!</h4>
+                    </div>
+                )
+            }
         </div>
     );
 };
 
 export const CPost = connect((state) => ({
-    feedPosts: state?.feed?.feedPosts,
-    feed: state?.feed
+        feedPosts: state?.feed?.feedPosts,
+        feed: state?.feed
     })
-, {})(Post);
+    , {})(Post);
