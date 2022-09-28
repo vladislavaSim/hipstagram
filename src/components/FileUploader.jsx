@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {connect} from "react-redux";
-import {actionSetAvatar, actionUploadFile} from "../redux/actions/actions";
+import {actionSetAvatar} from "../redux/actions/actions";
 import DragNDrop from "./DragNDrop";
+import Avatar from "./Avatar";
 
 const FileUploader = ({onUpload, isActive, avatar}) => {
     const [drag, setDrag] = useState(isActive)
@@ -16,10 +17,7 @@ const FileUploader = ({onUpload, isActive, avatar}) => {
            <DragNDrop drag={drag}
                       setDrag={setDrag}
                       actionOnUpload={(e) => uploadCb(e)}/>
-            {isActive ?
-                <img src={`http://hipstagram.asmer.fs.a-level.com.ua/${avatar}`} alt="avatar" className='avatarPic' />
-                :    <img src={`http://hipstagram.asmer.fs.a-level.com.ua/${avatar}`} alt="avatar" className='avatarPic' />
-            }
+            {isActive && <Avatar url={avatar} />}
         </>
     );
 }

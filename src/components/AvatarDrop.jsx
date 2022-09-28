@@ -3,6 +3,8 @@ import {useDropzone} from 'react-dropzone'
 import { connect } from 'react-redux';
 import {actionSetAvatar, logoutUser} from "../redux/actions/actions";
 import defaultAva from '../img/default-avatar.png'
+import Avatar from "./Avatar";
+import DefaultAvatar from "./DefaultAvatar";
 function DropzoneAvatar({ onLoadAvatar, avatar }) {
     // const [ava, setAva] = useState(defAva)
     const onDrop = useCallback((acceptedFiles) => {
@@ -21,9 +23,11 @@ function DropzoneAvatar({ onLoadAvatar, avatar }) {
         <div {...getRootProps()}>
             <input {...getInputProps()} />
             {avatar ? (
-                <img src={`http://hipstagram.node.ed.asmer.org.ua/${avatar}`} alt="ava" className='avatarPic' />
+                // <img src={`http://hipstagram.node.ed.asmer.org.ua/${avatar}`} alt="ava" className='avatarPic' />
+                <Avatar url={avatar}/>
                 ) : (
-                <img src={defaultAva} alt="ava" className='avatarPic' />
+                // <img src={defaultAva} alt="ava" className='avatarPic' />
+                <DefaultAvatar />
             )
             }
 
