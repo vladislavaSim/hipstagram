@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Card from "@material-ui/core/Card"
-import {CardActions, CardContent, CardHeader, CardMedia, IconButton, Typography} from "@material-ui/core";
+import {CardActions, CardContent, CardMedia, IconButton, Typography} from "@material-ui/core";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import defaultAva from '../../img/default-avatar.png'
 import {backendUrl} from "../../graphql/BackendUrl";
@@ -24,7 +24,7 @@ const Post = ({post, feed, feedPosts}) => {
                                     sx={{maxWidth: 345}}>
                                     <header className='card-header'>
                                         <div className='card-author-box'>
-                                            <img src={defaultAva} aria-label="recipe" className='avatarPic small-ava' style={{marginRight: '10px'}}/>
+                                            <img src={defaultAva} aria-label="recipe" className='avatarPic small-ava' style={{marginRight: '10px'}} alt='avatar'/>
                                             <h4>{'@' + owner.login}</h4>
                                         </div>
                                         <div style={{color: '#959292'}}>{date}</div>
@@ -33,14 +33,12 @@ const Post = ({post, feed, feedPosts}) => {
                                         <CardMedia
                                             component="img"
                                             height="580"
-                                            // style={{width: '100%', height: '50%'}}
                                             image={`${backendUrl + images[0]?.url}`}
                                             alt="post-picture"
                                         />) : (
                                         <CardMedia
                                             component="img"
                                             height="580"
-                                            // style={{width: '100%', height: '50%'}}
                                             image={`${backendUrl + images[0]?.url}`}
                                             alt="post-picture"
                                         />)

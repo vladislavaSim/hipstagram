@@ -6,19 +6,12 @@ import defaultAva from '../img/default-avatar.png'
 import Avatar from "./Avatar";
 import DefaultAvatar from "./DefaultAvatar";
 function DropzoneAvatar({ onLoadAvatar, avatar }) {
-    // const [ava, setAva] = useState(defAva)
+
     const onDrop = useCallback((acceptedFiles) => {
         onLoadAvatar(acceptedFiles[0]);
     }, []);
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
-    //
-    // useEffect(() => {
-    //     if(avatar) {
-    //         setAva(`http://hipstagram.asmer.fs.a-level.com.ua/${avatar}`)
-    //     }
-    // }, [avatar])
 
-    // console.log(ava)
     return (
         <div {...getRootProps()}>
             <input {...getInputProps()} />

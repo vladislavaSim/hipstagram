@@ -4,7 +4,7 @@ import {actionRegister} from "../../graphql/registrateUser";
 import {actionPromise} from "../../promises/promises";
 import {actionUserById} from "../../graphql/userById";
 import {gql} from "../../graphql/getgql";
-import {actionAddPosts, actionAddUsers} from "../reducers/FeedReducer";
+import {actionAddPosts, actionAddUsers, actionUpdatePosts} from "../reducers/FeedReducer";
 import {backendUrl} from "../../graphql/BackendUrl";
 
 export const actionAuthLogin = (token) => ({type: 'AUTH_LOGIN', token})
@@ -102,6 +102,7 @@ export const actionSetAvatar = (file) => async (dispatch, getState) => {
     )
     await dispatch(actionAboutMe());
     await dispatch(actionUserById(idUser));
+    await dispatch(actionPostById(idUser));
 };
 
 export const actionSubscribe = (id, userId, prevFollowing) =>
@@ -252,6 +253,92 @@ const actionUploadPost = (title, text, photosId, postId = undefined) => {
 export const actionFullUploadPost = (title, text, photos, postId) => async (dispatch) => {
     let photosId = (photos || []).map((photo) => ({ _id: photo._id }));
     await dispatch(actionUploadPost(title, text, photosId, postId));
+};
+export const actionPostById = (id, name = 'postByIdUser') =>
+    actionPromise(
+        name,
+        gql(
+            `query PostById($_id:String) {
+        PostFind(query: $_id){
+          _id createdAt title text,
+          images {url}, comments{text _id owner{login _id avatar{url}} createdAt},
+          owner {login, _id, nick, avatar {url},
+          followers {_id, nick, login},
+          following {_id, nick, login}},
+          likesCount, likes { _id owner {_id login avatar{url}}}
+        }
+    } `,
+            { _id: JSON.stringify([{ ___owner: id }, { sort: [{ _id: -1 }] }]) }
+        )
+    );
+
+export const actionLike = (id) =>
+    actionPromise(
+        'likePost',
+        gql(
+            `mutation likePost($like:LikeInput){
+        LikeUpsert( like:$like){
+            _id post{_id owner{_id}}
+        }
+      }`,
+            { like: { post: { _id: id } } }
+        )
+    );
+
+export const actionRemoveLike = (id) =>
+    actionPromise(
+        'removeLike',
+        gql(
+            `mutation LikeRemove($like:LikeInput){
+          LikeDelete(like:$like){
+              _id post{_id owner{_id}} 
+          }
+      }`,
+            { like: { _id: id } }
+        )
+    );
+export const actionGetPostById = (id, name = 'postById') => {
+    return actionPromise(
+        name,
+        gql(
+            `query onePost ($id:String!){
+        PostFindOne(query:$id){
+         _id, text, title,
+         owner{_id, nick, login, avatar
+        {url}
+        },  images{url _id},  createdAt
+        likes { _id owner {_id login avatar{url}}}
+        comments{text _id owner{login _id avatar{url}}  createdAt}
+        }
+    }`,
+            { id: JSON.stringify([{ _id: id }]) }
+        )
+    );
+};
+
+export const actionFullAddLike = (postId) => async (dispatch, getState) => {
+    let likeId = await dispatch(actionLike(postId));
+    if (likeId) {
+        let likedPost = await dispatch(actionGetPostById(postId));
+        let newPosts = (getState().feed?.feedPosts || []).map((item) =>
+            item._id === likedPost._id ? likedPost : item
+        );
+
+        await dispatch(actionUpdatePosts(newPosts));
+        await dispatch(actionPostById(likeId?.post?.owner._id));
+    }
+};
+
+export const actionFullRemoveLike = (likeId) => async (dispatch, getState) => {
+    let response = await dispatch(actionRemoveLike(likeId));
+    if (response) {
+        let likedRemovePost = await dispatch(actionGetPostById(response?.post?._id));
+        let updPosts = (getState().feed?.feedPosts || []).map((item) =>
+            item._id === likedRemovePost._id ? likedRemovePost : item
+        );
+        await dispatch(actionUpdatePosts(updPosts));
+        await dispatch(actionPostById(response?.post?.owner._id));
+    }
 };
 
 
