@@ -8,9 +8,7 @@ const ShowPosts = ({ posts = [], getPosts, feed, state}) => {
     const [flagHandle, setFlagHandle] = useState(true);
 
     useEffect(() => {
-        console.log(flag)
         if (flag && flagHandle) {
-            console.log(flag)
             getPosts();
             setFlag(false);
             setFlagHandle(false);

@@ -8,7 +8,7 @@ import {TextField} from "@mui/material";
 const SearchByLogin = ({ user, onGetUser }) => {
     const [login, setLogin] = useState('');
     const timeoutRef = useRef()
-    console.log(timeoutRef.current)
+    // console.log(timeoutRef.current)
     // function formHandler(e) {
     //     e.preventDefault();
     //     onGetUser(login);
@@ -19,7 +19,7 @@ const SearchByLogin = ({ user, onGetUser }) => {
         clearInterval(timeoutRef.current)
         let timeout = setTimeout(() => onGetUser(login), 100)
         if (login)
-            console.log(login)
+            // console.log(login)
             timeoutRef.current = timeout
     }, [login])
 

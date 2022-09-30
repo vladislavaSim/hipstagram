@@ -14,11 +14,12 @@ export const logoutUser = () => ({
 
 export const actionFullLogin = (login, password) => (
     async (dispatch) => {
+        console.log(login, password)
         let token = await dispatch(actionLogin(login, password));
         if (token) {
             dispatch(actionAuthLogin(token))
             dispatch(actionAboutMe())
-            await dispatch(actionFullGetAllPosts());
+            dispatch(actionFullGetAllPosts());
         }
     }
 )

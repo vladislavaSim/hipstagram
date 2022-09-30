@@ -41,12 +41,12 @@ const Profile = ({
 
     const {_id} = useParams()
     const [isEditing, setIsEditing] = useState(false);
-    const [nickname, setNickname] = useState(nick)
 
     const navigate = useNavigate()
 
     useEffect(() => {
         onUserById(_id);
+        console.log(_id)
     }, [_id]);
 
     function isEditingToggle() {
