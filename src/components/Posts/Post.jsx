@@ -2,11 +2,17 @@ import React from 'react';
 import {connect} from "react-redux";
 import Card from "@material-ui/core/Card"
 import {CardActions, CardContent, CardMedia, IconButton, Typography} from "@material-ui/core";
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import defaultAva from '../../img/default-avatar.png'
 import {backendUrl} from "../../graphql/BackendUrl";
+import FavoriteBorderTwoToneIcon from '@mui/icons-material/FavoriteBorderTwoTone';
+import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
+import {actionFullAddLike, actionFullRemoveLike, logoutUser} from "../../redux/actions/actions";
+import Avatar from "../Avatar";
+import DefaultAvatar from "../DefaultAvatar";
+import {Link} from "react-router-dom";
 
-const Post = ({post, feed, feedPosts}) => {
+const Post = ({post = [], myId, onLike, onDeleteLike, className}) => {
+
     const timestamp = post?.createdAt;
     let date = new Date(+timestamp)
         date = date.getDate()+
@@ -14,18 +20,26 @@ const Post = ({post, feed, feedPosts}) => {
         "/"+date.getFullYear()+
         " "+date.getHours()+
         ":"+date.getMinutes()
-
+    // console.log(post.likes)
+    let isLiked = post.likes.filter((like) => like.owner._id === myId)
+    console.log(post)
+    // console.log(isLiked)
     return (
         <div>
-            {post?.images[0]?.url ?
-                (feedPosts.map(({title, text, owner, likesCount, createdAt, images}) => {
-                        return (
-                                <Card className='card'
+            {post?.images?.[0]?.url ?
+                         (
+                                <Card className={className}
                                     sx={{maxWidth: 345}}>
-                                    <header className='card-header'>
+                                    <header className='card-header' onClick={() => console.log(post?.owner?._id)}>
                                         <div className='card-author-box'>
-                                            <img src={defaultAva} aria-label="recipe" className='avatarPic small-ava' style={{marginRight: '10px'}} alt='avatar'/>
-                                            <h4>{'@' + owner.login}</h4>
+                                            <Link to={`/profile/${post?.owner?._id}`}>
+                                                {post?.owner?.avatar === null ? (
+                                                    <DefaultAvatar className='small-ava'/>
+                                                ) : (
+                                                    <Avatar url={post?.owner?.avatar?.url} className='small-ava'/>
+                                                )}
+                                            </Link>
+                                             <h4>{'@' + post?.owner.login}</h4>
                                         </div>
                                         <div style={{color: '#959292'}}>{date}</div>
                                     </header>
@@ -33,34 +47,49 @@ const Post = ({post, feed, feedPosts}) => {
                                         <CardMedia
                                             component="img"
                                             height="580"
-                                            image={`${backendUrl + images[0]?.url}`}
+                                            image={`${backendUrl + post?.images[0]?.url}`}
                                             alt="post-picture"
+                                            className='gallery-image'
                                         />) : (
                                         <CardMedia
                                             component="img"
                                             height="580"
-                                            image={`${backendUrl + images[0]?.url}`}
+                                            image={`${backendUrl + post?.images?.[0]?.url}`}
                                             alt="post-picture"
+                                            className='gallery-image'
                                         />)
                                     }
                                     <CardContent>
-                                        <Typography variant="body2" className='post-title'>
-                                            {title}
+                                        <Typography className='post-title'>
+                                            {post?.title}
                                         </Typography>
                                         <Typography variant="body2" className='post-text'>
-                                            {text}
+                                            {post?.text}
                                         </Typography>
                                     </CardContent>
                                     <CardActions disableSpacing>
                                         <IconButton aria-label="add to favorites">
-                                            {likesCount ? likesCount : '0 '}
-                                            <FavoriteIcon/>
+                                            <div
+                                                className="like-button"
+                                                onClick={() => {
+                                                    isLiked.length !== 0 ? onDeleteLike(isLiked[0]._id) : onLike(post._id);
+                                                }}
+                                            >
+                                                {isLiked.length !== 0 ? (
+                                                    <FavoriteTwoToneIcon className='red'/>
+                                                ) : (
+                                                    <FavoriteBorderTwoToneIcon />
+                                                )}
+                                                {post?.likes && (
+                                                    <p className="like-count">
+                                                        {post.likes.length === 0 ? 0 : post.likes.length}
+                                                    </p>
+                                                )}
+                                            </div>
                                         </IconButton>
                                     </CardActions>
                                 </Card>
-                        )
-                    })
-                ) : (
+                    ) : (
                     <div>
                         <h3>Your feed is empty...</h3>
                         <h4>Let`s use search for something interesting!</h4>
@@ -72,7 +101,10 @@ const Post = ({post, feed, feedPosts}) => {
 };
 
 export const CPost = connect((state) => ({
-        feedPosts: state?.feed?.feedPosts,
-        feed: state?.feed
-    })
-    , {})(Post);
+    myId: state?.promise?.me?.payload?._id,
+    feedPosts: state?.feed?.feedPosts,
+    feed: state?.feed
+}), {
+    onLike: actionFullAddLike,
+    onDeleteLike: actionFullRemoveLike
+})(Post);

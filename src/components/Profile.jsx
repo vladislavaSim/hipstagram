@@ -19,6 +19,7 @@ import {CDropzoneAvatar} from "./AvatarDrop";
 import {NotFound} from "./NotFound";
 import {CPost} from "./Posts/Post";
 
+
 const Profile = ({
     promise,
     auth,
@@ -100,9 +101,12 @@ const Profile = ({
                 </Link>
                 <p>{getLengthNum(posts,'posts')}</p>
             </div>
-            {(posts || []).map((post) => {
-                return <CPost key={post._id} post={post} />;
-            })}
+            <div className='gallery'>
+                {(posts || []).map((post) => {
+                    return <CPost key={post._id} post={post} className='gallery-item'/>;
+                })}
+            </div>
+
         </div>
     );
 };

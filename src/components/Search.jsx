@@ -7,7 +7,7 @@ import {CSearchByLogin} from "./SearchByLogin";
 const Search = ({ users = [], onGetUsers, feed}) => {
     const [flag, setFlag] = useState(true);
     const [flagControl, setFlagControl] = useState(true);
-    console.log(feed)
+
     useEffect(() => {
         if (flag && flagControl) {
             onGetUsers();

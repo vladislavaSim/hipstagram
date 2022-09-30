@@ -11,7 +11,7 @@ const Header = ({onLogout, login, state}) => {
     return (
         <>
             {
-                localStorage.authToken ?
+                login ?
                     <div className='header'>
                         <h3>{'@' + login}</h3>
                         <Link to='/create'>Add post</Link>
