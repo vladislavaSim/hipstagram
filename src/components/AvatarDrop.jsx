@@ -5,7 +5,9 @@ import {actionSetAvatar, logoutUser} from "../redux/actions/actions";
 import defaultAva from '../img/default-avatar.png'
 import Avatar from "./Avatar";
 import DefaultAvatar from "./DefaultAvatar";
-function DropzoneAvatar({ onLoadAvatar, avatar }) {
+import {CFileUploader} from "./FileUploader";
+
+function DropzoneAvatar({ onLoadAvatar }) {
 
     const onDrop = useCallback((acceptedFiles) => {
         onLoadAvatar(acceptedFiles[0]);
@@ -15,10 +17,9 @@ function DropzoneAvatar({ onLoadAvatar, avatar }) {
     return (
         <div {...getRootProps()}>
             <input {...getInputProps()} />
-
-            {/*{avatar ?*/}
-            {/*    <Avatar url={avatar}/> : <DefaultAvatar />*/}
-            {/*}*/}
+            {
+                <CFileUploader/>
+            }
         </div>
     );
 }

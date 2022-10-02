@@ -7,7 +7,7 @@ import Button from "./Button";
 
 const Header = ({onLogout, userLogin, id, promise}) => {
 
-    // console.log(login)
+    console.log(promise)
     return (
         <>
             {

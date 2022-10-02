@@ -22,12 +22,12 @@ const DragNDrop = ({drag = false, setDrag, actionOnUpload}) => {
                     onDragOver={(e) => dragStartHandler(e)}
                     onDragLeave={(e) => dragLeaveHandler(e)}
                     onDrop={(e) => onDropHandler(e)}
-                    className='drop-area drop-active'>drop a file to download</div>
+                    className='drop-area drop-active'>drop! drop! drop!</div>
                 : <div
                     onDragStart={(e) => dragStartHandler(e)}
                     onDragOver={(e) => dragStartHandler(e)}
                     onDragLeave={(e) => dragLeaveHandler(e)}
-                    className='drop-area'>drag files here</div>
+                    className='drop-area'>drag file here</div>
             }
         </div>
     );

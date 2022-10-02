@@ -23,7 +23,7 @@ const MainContainer = ({isLogged}) => {
             {
                 localStorage.authToken ?
                     <Routes>
-                        <Route path='/' element={<CShowPosts/>} exact/>
+                        <Route path='/' element={<CProfile/>} exact/>
                         <Route path='/feed' element={<CShowPosts/>}/>
                         <Route path="/profile/:_id" element={<CProfile/>}/>
                         <Route path="/search" element={<CSearch/>}/>

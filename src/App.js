@@ -4,10 +4,10 @@ import {CHeader} from "./components/Header";
 import {connect} from "react-redux";
 import {CMainContainer} from "./components/MainContainer";
 import {useEffect} from "react";
-import {actionAuthLogin} from "./redux/actions/actions";
+import {actionAboutMe, actionAuthLogin, actionFullGetAllPosts, actionFullLogin} from "./redux/actions/actions";
 
 
-function App({actionAuthLogin}) {
+function App({aboutMe, authLogin, getAllPosts}) {
 // RETURN TO LAST REMOTE COMMIT ON GIT
 
 //git reset --hard [COMMIT CODE]
@@ -18,7 +18,9 @@ function App({actionAuthLogin}) {
 //git reset --soft [COMMIT CODE]
     useEffect(() => {
         if(localStorage.authToken) {
-            actionAuthLogin(localStorage.authToken)
+            aboutMe()
+            authLogin(localStorage.authToken)
+            getAllPosts()
         }
     },[])
 
@@ -35,5 +37,8 @@ function App({actionAuthLogin}) {
 }
 
 export const CApp = connect(null, {
-    actionAuthLogin: actionAuthLogin
+    // onLogin: actionFullLogin,
+    aboutMe: actionAboutMe,
+    authLogin: actionAuthLogin,
+    getAllPosts: actionFullGetAllPosts
 })(App);

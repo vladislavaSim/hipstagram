@@ -47,6 +47,10 @@ const Profile = ({
         console.log(_id)
     }, [_id]);
 
+    useEffect(() => {
+        setIsEditing(false)
+    }, [userAvatar?.url])
+
     function isEditingToggle() {
         setIsEditing(!isEditing)
     }
@@ -56,22 +60,33 @@ const Profile = ({
        return num + ' ' + text
     }
 
+    function setOrShowAvatar(){
+        if(isEditing) {
+            return <CDropzoneAvatar/>
+        } else {
+            if(userAvatar) {
+                return <Avatar url={userAvatar.url} className='avatarPic'/>
+            } else {
+                return <DefaultAvatar/>
+            }
+        }
+    }
+
     console.log(isEditing)
     console.log(promise)
     // console.log(posts)
     const doIFollow = (myFollowing || []).find((item) => item._id === _id);
 
-    // console.log(promise?.userById)
-    // console.log(promise?.setAvatar?.payload?.avatar?._id)
     return (
         <div>
             <div className='profile-info-box'>
                 <div className="avatar">
-                    {isEditing && <CDropzoneAvatar/>}
-                    {userAvatar ?
-                    <Avatar url={userAvatar.url} className='avatarPic'/>
-                        : <DefaultAvatar/>
-                    }
+                    {setOrShowAvatar()}
+                    {/*{isEditing && <CDropzoneAvatar/>}*/}
+                    {/*{userAvatar ?*/}
+                    {/*<Avatar url={userAvatar.url} className='avatarPic'/>*/}
+                    {/*    : <DefaultAvatar/>*/}
+                    {/*}*/}
                 </div>
                 <h4> <span>{`${userLogin ? userLogin : 'no name'}`}</span></h4>
             </div>

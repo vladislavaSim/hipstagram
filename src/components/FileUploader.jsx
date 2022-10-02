@@ -17,7 +17,6 @@ const FileUploader = ({onUpload, isActive, avatar}) => {
            <DragNDrop drag={drag}
                       setDrag={setDrag}
                       actionOnUpload={(e) => uploadCb(e)}/>
-            {/*{isActive && <Avatar url={avatar} />}*/}
         </>
     );
 }
