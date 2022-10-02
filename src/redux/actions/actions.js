@@ -16,6 +16,7 @@ export const actionFullLogin = (login, password) => (
     async (dispatch) => {
         console.log(login, password)
         let token = await dispatch(actionLogin(login, password));
+        console.log(token)
         if (token) {
             dispatch(actionAuthLogin(token))
             dispatch(actionAboutMe())
@@ -167,7 +168,8 @@ export const actionUserByLogin = (login) =>
           following {_id, nick, login}
           } 
         }`,
-            { login: JSON.stringify([{ login: login }]) }
+            {query: JSON.stringify({login: `/${login}/`} )
+            }
         )
     );
 
@@ -194,7 +196,7 @@ export const actionFullGetUsers = () => async (dispatch, getState) => {
     } = getState();
     let searchUsers = await dispatch(actionGetUsers(feedUsers?.length));
     if (searchUsers) {
-        console.log(searchUsers)
+
         dispatch(actionAddUsers(searchUsers));
     }
 };
@@ -232,7 +234,7 @@ export const actionFullGetAllPosts = () => async (dispatch, getState) => {
     );
     let usersPosts = await dispatch(actionGetAllPosts(feedPosts?.length, myFollowings));
     if (usersPosts) {
-
+        console.log(usersPosts)
         dispatch(actionAddPosts(usersPosts));
     }
 }
@@ -339,6 +341,29 @@ export const actionFullRemoveLike = (likeId) => async (dispatch, getState) => {
         );
         await dispatch(actionUpdatePosts(updPosts));
         await dispatch(actionPostById(response?.post?.owner._id));
+    }
+};
+
+const actionChangeLogin = (newLogin) =>
+    actionPromise(
+        'changeLogin',
+        gql(
+            `mutation changeLogin($user:UserInput){
+                    UserUpsert(user:$user){
+                        _id  login                        
+                    }
+            }`,
+            { user: newLogin }
+        )
+    );
+
+export const actionFullChangeLogin = (login) => async (dispatch, getState) => {
+    const _id = getState().auth?.payload?.sub?.id;
+    const newData = { _id, login };
+    let res = await dispatch(actionChangeLogin(newData));
+    if (res) {
+        await dispatch(actionAboutMe());
+        await dispatch(actionFullGetAllPosts());
     }
 };
 

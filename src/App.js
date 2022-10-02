@@ -4,9 +4,10 @@ import {CHeader} from "./components/Header";
 import {connect} from "react-redux";
 import {CMainContainer} from "./components/MainContainer";
 import {useEffect} from "react";
+import {actionAuthLogin} from "./redux/actions/actions";
 
 
-function App({token}) {
+function App({actionAuthLogin}) {
 // RETURN TO LAST REMOTE COMMIT ON GIT
 
 //git reset --hard [COMMIT CODE]
@@ -15,9 +16,11 @@ function App({token}) {
 //  DELETE LAST COMMIT WITHOUT CHANGING LOCAL CODE TO REMAKE COMMIT PROPERLY
 
 //git reset --soft [COMMIT CODE]
-//     useEffect(() => {
-//         localStorage.removeItem('authToken');
-//     },[])
+    useEffect(() => {
+        if(localStorage.authToken) {
+            actionAuthLogin(localStorage.authToken)
+        }
+    },[])
 
   return (
       <main>
@@ -31,6 +34,6 @@ function App({token}) {
   );
 }
 
-export const CApp = connect((state) => ({
-
-}))(App);
+export const CApp = connect(null, {
+    actionAuthLogin: actionAuthLogin
+})(App);

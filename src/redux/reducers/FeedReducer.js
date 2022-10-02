@@ -2,7 +2,6 @@ export function feedReducer(state = {}, { type, newPosts, newUsers, updateNewPos
     if (type === 'ADD-POSTS') {
         return {
             ...state,
-
             feedPosts: state?.feedPosts ? [...state.feedPosts, ...newPosts] : [...newPosts],
         };
     }
@@ -24,6 +23,7 @@ export function feedReducer(state = {}, { type, newPosts, newUsers, updateNewPos
             feedPosts: [],
         };
     }
+    console.log(type, state)
     return state;
 }
 

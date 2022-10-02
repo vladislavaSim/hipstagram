@@ -3,7 +3,7 @@ import {Route, Routes} from "react-router-dom";
 import {CLoginForm} from "./LoginForm";
 import {CProfile} from "./Profile";
 import {CSearch} from "./Search";
-import Settings from "./Settings";
+import {CSettings} from "./Settings";
 import {CRegistrationForm} from "./RegistrationForm";
 import {connect} from "react-redux";
 import {CFollowers} from "./Followers";
@@ -27,7 +27,7 @@ const MainContainer = ({isLogged}) => {
                         <Route path='/feed' element={<CShowPosts/>}/>
                         <Route path="/profile/:_id" element={<CProfile/>}/>
                         <Route path="/search" element={<CSearch/>}/>
-                        <Route path='/settings' element={<Settings/>}/>
+                        <Route path='/settings' element={<CSettings/>}/>
                         <Route path='/login' element={<CLoginForm/>}/>
                         <Route path='/registration' element={<CRegistrationForm/>} />
                         <Route path="/followers/:_id" element={<CFollowers/>} />

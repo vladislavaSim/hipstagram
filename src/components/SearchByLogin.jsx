@@ -2,27 +2,23 @@ import React, {useEffect, useRef, useState} from 'react';
 import { connect } from 'react-redux';
 import {actionUserByLogin} from "../redux/actions/actions";
 import {OneUserInList} from "./OneUserInList";
-import Button from "./Button";
 import {TextField} from "@mui/material";
 
-const SearchByLogin = ({ user, onGetUser }) => {
-    const [login, setLogin] = useState('');
-    const timeoutRef = useRef()
-    // console.log(timeoutRef.current)
-    // function formHandler(e) {
-    //     e.preventDefault();
-    //     onGetUser(login);
-    // }
-
+const useDebounce = (cb, depArray, delay) => {
+    const [state, setState] = useState('');
+    let timeoutRef = useRef()
+    timeoutRef.current = setTimeout
     useEffect(() => {
-        timeoutRef.current = null
         clearInterval(timeoutRef.current)
-        let timeout = setTimeout(() => onGetUser(login), 100)
-        if (login)
-            // console.log(login)
-            timeoutRef.current = timeout
-    }, [login])
+        timeoutRef.current === undefined ? timeoutRef = -1 : timeoutRef.current = setTimeout(cb(), delay)
+    }, [depArray])
 
+    // setState(timeoutRef)
+    return [state, setState];
+};
+
+const SearchByLogin = ({ user, onGetUser }) => {
+    const [login, setLogin] = useDebounce(() => onGetUser(login), login, 2000);
 
     return (
         <form>
@@ -33,11 +29,6 @@ const SearchByLogin = ({ user, onGetUser }) => {
                     value={login}
                     onChange={(e) => setLogin(e.target.value)}
                 />
-                {/*<Button*/}
-                {/*    children={*/}
-                {/*    <i className="material-icons">search</i>}*/}
-                {/*    className='primeBtn small-btn'*/}
-                {/*    />*/}
             </div>
             {user && (
                 <div>
@@ -54,7 +45,9 @@ const SearchByLogin = ({ user, onGetUser }) => {
 };
 
 export const CSearchByLogin = connect(
-    (state) => ({ user: state?.promise?.userByLogin?.payload }),
+    (state) => ({
+        user: state?.promise?.userByLogin?.payload
+    }),
     {
         onGetUser: actionUserByLogin,
     }

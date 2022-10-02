@@ -18,17 +18,15 @@ import {store} from "../redux/store";
 import {CDropzoneAvatar} from "./AvatarDrop";
 import {NotFound} from "./NotFound";
 import {CPost} from "./Posts/Post";
+import Avatar from "./Avatar";
+import DefaultAvatar from "./DefaultAvatar";
 
 
 const Profile = ({
-    promise,
-    auth,
+                    promise,
                      onUserById,
-                     onPostsById,
                      onFollow,
                      myId,
-    me,
-    nick,
                      myFollowing,
                      userAvatar,
                      userLogin,
@@ -36,7 +34,7 @@ const Profile = ({
                      followers,
                      following,
                      posts,
-    onUnfollow
+                    onUnfollow
                  }) => {
 
     const {_id} = useParams()
@@ -51,9 +49,6 @@ const Profile = ({
 
     function isEditingToggle() {
         setIsEditing(!isEditing)
-        // if(isEditing) {
-        //     changeNick()
-        // }
     }
 
     function getLengthNum (array, text) {
@@ -61,8 +56,9 @@ const Profile = ({
        return num + ' ' + text
     }
 
+    console.log(isEditing)
     console.log(promise)
-    console.log(posts)
+    // console.log(posts)
     const doIFollow = (myFollowing || []).find((item) => item._id === _id);
 
     // console.log(promise?.userById)
@@ -71,7 +67,11 @@ const Profile = ({
         <div>
             <div className='profile-info-box'>
                 <div className="avatar">
-                    <CDropzoneAvatar />
+                    {isEditing && <CDropzoneAvatar/>}
+                    {userAvatar ?
+                    <Avatar url={userAvatar.url} className='avatarPic'/>
+                        : <DefaultAvatar/>
+                    }
                 </div>
                 <h4> <span>{`${userLogin ? userLogin : 'no name'}`}</span></h4>
             </div>
@@ -103,6 +103,7 @@ const Profile = ({
             </div>
             <div className='gallery'>
                 {(posts || []).map((post) => {
+                    console.log(post)
                     return <CPost key={post._id} post={post} className='gallery-item'/>;
                 })}
             </div>

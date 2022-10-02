@@ -22,7 +22,6 @@ const Post = ({post = [], myId, onLike, onDeleteLike, className}) => {
         ":"+date.getMinutes()
     // console.log(post.likes)
     let isLiked = post.likes.filter((like) => like.owner._id === myId)
-    console.log(post)
     // console.log(isLiked)
     return (
         <div>

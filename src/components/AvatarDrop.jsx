@@ -15,9 +15,10 @@ function DropzoneAvatar({ onLoadAvatar, avatar }) {
     return (
         <div {...getRootProps()}>
             <input {...getInputProps()} />
-            {avatar ?
-                <Avatar url={avatar}/> : <DefaultAvatar />
-            }
+
+            {/*{avatar ?*/}
+            {/*    <Avatar url={avatar}/> : <DefaultAvatar />*/}
+            {/*}*/}
         </div>
     );
 }
