@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Button from "./Button";
 import {CFileUploader} from "./FileUploader";
-import {connect} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import {useNavigate} from "react-router";
 import {
     actionAboutMe,
@@ -24,6 +24,7 @@ import DefaultAvatar from "./DefaultAvatar";
 
 const Profile = ({
                     promise,
+                    auth,
                      onUserById,
                      onFollow,
                      myId,
@@ -36,16 +37,15 @@ const Profile = ({
                      posts,
                     onUnfollow
                  }) => {
-
+    console.log(auth)
     const {_id} = useParams()
     const [isEditing, setIsEditing] = useState(false);
 
     const navigate = useNavigate()
-
-    useEffect(() => {
-        onUserById(_id);
-        console.log(_id)
-    }, [_id]);
+    const dispatch = useDispatch()
+    // useEffect(() => {
+    //     onUserById(_id);
+    // }, [_id]);
 
     useEffect(() => {
         setIsEditing(false)
@@ -54,6 +54,11 @@ const Profile = ({
     function isEditingToggle() {
         setIsEditing(!isEditing)
     }
+
+    useEffect(() => {
+        dispatch(actionAboutMe())
+        onUserById(_id)
+    }, [dispatch, _id])
 
     function getLengthNum (array, text) {
        let num = !array ? '0' : array.length
@@ -78,47 +83,55 @@ const Profile = ({
     const doIFollow = (myFollowing || []).find((item) => item._id === _id);
 
     return (
-        <div>
+        <div className='profile-box'>
+            <div className="avatar">
+                {setOrShowAvatar()}
+            </div>
             <div className='profile-info-box'>
-                <div className="avatar">
-                    {setOrShowAvatar()}
-                    {/*{isEditing && <CDropzoneAvatar/>}*/}
-                    {/*{userAvatar ?*/}
-                    {/*<Avatar url={userAvatar.url} className='avatarPic'/>*/}
-                    {/*    : <DefaultAvatar/>*/}
-                    {/*}*/}
+                <h3> <span>{`${userLogin ? userLogin : 'no name'}`}</span></h3>
+                <div>
+                    <div className='profile-buttons'>
+                        <div>
+                            <Button className='primeBtn'>
+                                <Link to='/create'>Add post</Link>
+                            </Button>
+                        </div>
+                        {myId === userId &&
+                        <Button children={isEditing ? 'Cancel' : 'Edit profile'}
+                                className='primeBtn'
+                                onClick={() => isEditingToggle()}/>}
+
+                        {myId !== userId &&
+                        (!doIFollow ? (
+                            <Button onClick={() => onFollow(myId, _id)} className='primeBtn' children='Follow'/>
+                        ) : (
+                            <Button onClick={() => onUnfollow(myId, _id)} className='primeBtn' children='Unfollow'/>
+                        ))}
+                    </div>
+                   <div className='profile-nums'>
+                      <Button className='ordinaryBtn'>
+                          <Link to={`/followers/${_id}`}>
+                              <div>{getLengthNum(followers,'followers')}</div>
+                          </Link>
+                      </Button>
+                       <Button className='ordinaryBtn'>
+                           <Link to={`/followings/${_id}`}>
+                               <div>{getLengthNum(following,'followings')}</div>
+                           </Link>
+                       </Button>
+                       <Button className='ordinaryBtn'>
+                           <div>{getLengthNum(posts,'posts')}</div>
+                       </Button>
+                   </div>
                 </div>
-                <h4> <span>{`${userLogin ? userLogin : 'no name'}`}</span></h4>
-            </div>
-            <div>
+
 
             </div>
-           <div className='profile-buttons'>
-               {myId === userId &&
-                <Button children={isEditing ? 'Cancel' : 'Edit profile'}
-                        className='primeBtn'
-                        onClick={() => isEditingToggle()}/>}
 
-               {myId !== userId &&
-               (!doIFollow ? (
-                   <Button onClick={() => onFollow(myId, _id)} className='primeBtn' children='Follow'/>
-               ) : (
-                   <Button onClick={() => onUnfollow(myId, _id)} className='primeBtn' children='Unfollow'/>
-               ))}
-           </div>
 
-            <div>
-                <Link to={`/followers/${_id}`}>
-                    <p>{getLengthNum(followers,'followers')}</p>
-                </Link>
-                <Link to={`/followings/${_id}`}>
-                    <p>{getLengthNum(following,'followings')}</p>
-                </Link>
-                <p>{getLengthNum(posts,'posts')}</p>
-            </div>
+
             <div className='gallery'>
                 {(posts || []).map((post) => {
-                    console.log(post)
                     return <CPost key={post._id} post={post} className='gallery-item'/>;
                 })}
             </div>

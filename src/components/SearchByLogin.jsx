@@ -11,7 +11,9 @@ const useDebounce = (cb, depArray, delay) => {
     useEffect(() => {
         clearInterval(timeoutRef.current)
         timeoutRef.current === undefined ? timeoutRef = -1 : timeoutRef.current = setTimeout(cb(), delay)
+        setTimeout(cb(), delay)
     }, [depArray])
+
     return [state, setState];
 };
 

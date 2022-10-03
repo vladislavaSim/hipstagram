@@ -23,7 +23,6 @@ export function feedReducer(state = {}, { type, newPosts, newUsers, updateNewPos
             feedPosts: [],
         };
     }
-    console.log(type, state)
     return state;
 }
 

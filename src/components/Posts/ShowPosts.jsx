@@ -15,14 +15,12 @@ const ShowPosts = ({ posts = [], getPosts, feed, state}) => {
         }
     }, [flag, flagHandle]);
 
-    // console.log(posts)
-    // console.log(feed)
-    // console.log(state)
 
     return (
         <div style={{width: '50%'}}>
             {posts.length ?
                 (posts || []).map((post) => {
+                    console.log(post)
                     return <CPost key={post._id} post={post} className={'card'}/>;
                 }) :
                 (

@@ -13,14 +13,17 @@ export const logoutUser = () => ({
 })
 
 export const actionFullLogin = (login, password) => (
-    async (dispatch) => {
+    async (dispatch, getState) => {
+        let idUser = getState().auth?.payload?.sub?.id;
         console.log(login, password)
         let token = await dispatch(actionLogin(login, password));
         console.log(token)
         if (token) {
             dispatch(actionAuthLogin(token))
-            dispatch(actionAboutMe())
-            dispatch(actionFullGetAllPosts());
+            dispatch(actionAboutMe());
+            dispatch(actionUserById(idUser));
+            dispatch(actionPostById(idUser));
+            // dispatch(actionFullGetAllPosts());
         }
     }
 )
@@ -77,12 +80,13 @@ export const actionUploadFiles = (files) => {
 };
 export const actionAboutMe = () => {
     return async (dispatch, getState) => {
+        console.log('about me!!!!')
         let id = getState().auth?.payload?.sub?.id
+        console.log('id - '  + id)
         await dispatch(actionUserById(id, 'me'))
     }
 }
 export const actionSetAvatar = (file) => async (dispatch, getState) => {
-    console.log(file)
     await dispatch(actionUploadFile(file));
     let idImg = getState().promise?.uploadFile?.payload?._id;
     let idUser = getState().auth?.payload?.sub?.id;
@@ -102,6 +106,7 @@ export const actionSetAvatar = (file) => async (dispatch, getState) => {
             )
         )
     )
+    console.log(idImg + ' idImg')
     await dispatch(actionAboutMe());
     await dispatch(actionUserById(idUser));
     await dispatch(actionPostById(idUser));

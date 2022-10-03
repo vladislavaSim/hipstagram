@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import {connect} from "react-redux";
-import {actionSetAvatar} from "../redux/actions/actions";
+import {actionUploadFile} from "../redux/actions/actions";
 import DragNDrop from "./DragNDrop";
-import Avatar from "./Avatar";
 
 const FileUploader = ({onUpload, isActive, avatar}) => {
     const [drag, setDrag] = useState(isActive)
@@ -22,5 +21,5 @@ const FileUploader = ({onUpload, isActive, avatar}) => {
 }
 export const CFileUploader = connect((state) =>(
     {avatar: state?.promise?.me?.payload?.avatar?.url}),
-    {onUpload: actionSetAvatar}
+    {onUpload: actionUploadFile}
 )(FileUploader);
