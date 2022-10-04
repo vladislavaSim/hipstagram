@@ -11,7 +11,6 @@ import {CFollowings} from "./Followings";
 import {NotFound} from "./NotFound";
 import {CShowPosts} from "./Posts/ShowPosts";
 import {CCreatePost} from "./Posts/CreatePost";
-import {CExploreUsers} from "./ExploreUsers";
 
 const MainContainer = ({promise}) => {
     // {(promise.status == "PENDING") &&
@@ -35,7 +34,6 @@ const MainContainer = ({promise}) => {
                         <Route path="/following/:_id" element={<CFollowings/>} />
                         <Route path='/create' element={<CCreatePost />} />
                         <Route path="*" element={<NotFound/>} />
-                        <Route path='/explore' element={<CExploreUsers/>}/>
                     </Routes>
                     :
                     <Routes>

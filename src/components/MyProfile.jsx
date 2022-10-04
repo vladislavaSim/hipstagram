@@ -14,6 +14,7 @@ import {CPost} from "./Posts/Post";
 import {CDropzoneAvatar} from "./AvatarDrop";
 import Avatar from "./Avatar";
 import DefaultAvatar from "./DefaultAvatar";
+import {backendUrl} from "../graphql/BackendUrl";
 
 const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollowers, myId, posts, getPostById}) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -38,7 +39,7 @@ const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollower
         }
     }
 
-
+    console.log(posts)
     console.log(promise)
     return (
         <>
@@ -79,9 +80,18 @@ const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollower
             </div>
             <div className='gallery'>
                 {(posts || []).map((post) => {
-                    console.log(post)
+                    console.log(post?.owner?.login, myLogin)
                     return <CPost key={post._id} post={post} className='gallery-item'/>;
                 })}
+                    {/*{(posts || []).map((post) => {*/}
+                    {/*    {*/}
+                    {/*        return post?.images?.[0]?.url ?*/}
+                    {/*            <div key={post?._id} className={'card-item'}>*/}
+                    {/*                <img src={`${backendUrl + post?.images?.[0]?.url}`} alt='post-picture'/>*/}
+                    {/*            </div> : null*/}
+                    {/*        // return <CPost key={post._id} post={post} cardClassName={'card-item'}/>;*/}
+                    {/*    }}*/}
+                    {/*)}*/}
             </div>
         </>
     );

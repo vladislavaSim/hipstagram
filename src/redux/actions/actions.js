@@ -14,14 +14,10 @@ export const logoutUser = () => ({
 
 export const actionFullLogin = (login, password) => (
     async (dispatch, getState) => {
-        // console.log(getState().auth?.payload)
-        // let idUser = getState().auth?.payload?.sub?.id;
-        // console.log(idUser)
         let token = await dispatch(actionLogin(login, password));
         if (token) {
             dispatch(actionAuthLogin(token))
             dispatch(actionAboutMe());
-            // dispatch(actionUserById(idUser));
             dispatch(actionFullGetAllPosts());
         }
     }
@@ -207,6 +203,7 @@ export const actionFullGetUsers = () => async (dispatch, getState) => {
         dispatch(actionAddUsers(searchUsers));
     }
 };
+
 export const actionGetAllPosts = (skip, mappedFollowings) =>
     actionPromise(
         'allPosts',

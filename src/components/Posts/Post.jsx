@@ -11,7 +11,7 @@ import Avatar from "../Avatar";
 import DefaultAvatar from "../DefaultAvatar";
 import {Link} from "react-router-dom";
 
-const Post = ({post = [], myId, onLike, onDeleteLike, className}) => {
+const Post = ({post = [], myId, onLike, onDeleteLike, className, cardClassName}) => {
 
     const timestamp = post?.createdAt;
     let date = new Date(+timestamp)
@@ -20,15 +20,13 @@ const Post = ({post = [], myId, onLike, onDeleteLike, className}) => {
         "/"+date.getFullYear()+
         " "+date.getHours()+
         ":"+date.getMinutes()
-    // console.log(post.likes)
+
     let isLiked = post.likes.filter((like) => like.owner._id === myId)
-    // console.log(isLiked)
     return (
-        <div>
+        <div className={cardClassName}>
             {post?.images?.[0]?.url ?
                          (
-                                <Card className={className}
-                                    sx={{maxWidth: 345}}>
+                                <Card sx={{maxWidth: 345}}>
                                     <header className='card-header' onClick={() => console.log(post?.owner?._id)}>
                                         <div className='card-author-box'>
                                             <Link to={`/profile/${post?.owner?._id}`}>
@@ -37,8 +35,9 @@ const Post = ({post = [], myId, onLike, onDeleteLike, className}) => {
                                                 ) : (
                                                     <Avatar url={post?.owner?.avatar?.url} className='small-ava avatarPic'/>
                                                 )}
+                                                <h4>{'@' + post?.owner.login}</h4>
                                             </Link>
-                                             <h4>{'@' + post?.owner.login}</h4>
+
                                         </div>
                                         <div style={{color: '#959292'}}>{date}</div>
                                     </header>
@@ -66,7 +65,9 @@ const Post = ({post = [], myId, onLike, onDeleteLike, className}) => {
                                             {post?.text}
                                         </Typography>
                                     </CardContent>
-                                    <CardActions disableSpacing>
+                                    <CardActions disableSpacing className='card-bottom'
+                                        style={{padding: '0 8px 17px'}}
+                                    >
                                         <IconButton aria-label="add to favorites">
                                             <div
                                                 className="like-button"

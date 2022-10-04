@@ -3,6 +3,8 @@ import {connect, useDispatch} from 'react-redux';
 import {actionFullGetUser, actionUserByLogin} from "../redux/actions/actions";
 import {OneUserInList} from "./OneUserInList";
 import {TextField} from "@mui/material";
+import Button from "./Button";
+import {Link} from "react-router-dom";
 
 const useDebounce = (cb, depArray, delay) => {
     let timeoutRef = useRef()
@@ -35,18 +37,6 @@ const SearchByLogin = ({ user, onGetUser, foundUsers, state }) => {
                     })
                 : null
             }
-
-
-            {/*{foundUsers ? (*/}
-            {/*    <>*/}
-            {/*        {(foundUsers || []).map((user) => {*/}
-            {/*            console.log(user)*/}
-            {/*            return <OneUserInList key={user._id} user={user} />;*/}
-            {/*        })}*/}
-            {/*    </>*/}
-            {/*) : (*/}
-            {/*    <h2>Users not found :(</h2>*/}
-            {/*)}*/}
         </form>
     );
 };
