@@ -13,10 +13,7 @@ import {CShowPosts} from "./Posts/ShowPosts";
 import {CCreatePost} from "./Posts/CreatePost";
 import {CExploreUsers} from "./ExploreUsers";
 
-const MainContainer = ({isLogged}) => {
-    // useEffect(() =>{
-    //     localStorage.removeItem('authToken')
-    // }, [])
+const MainContainer = () => {
 
     return (
         <div className='main-content'>
@@ -31,7 +28,7 @@ const MainContainer = ({isLogged}) => {
                         <Route path='/login' element={<CLoginForm/>}/>
                         <Route path='/registration' element={<CRegistrationForm/>} />
                         <Route path="/followers/:_id" element={<CFollowers/>} />
-                        <Route path="/followings/:_id" element={<CFollowings/>} />
+                        <Route path="/following/:_id" element={<CFollowings/>} />
                         <Route path='/create' element={<CCreatePost />} />
                         <Route path="*" element={<NotFound/>} />
                         <Route path='/explore' element={<CExploreUsers/>}/>

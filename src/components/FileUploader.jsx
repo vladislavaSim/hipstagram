@@ -7,7 +7,6 @@ const FileUploader = ({onUpload, isActive, avatar}) => {
     const [drag, setDrag] = useState(isActive)
 
     function uploadCb(e) {
-        console.log(e.dataTransfer.files[0])
         return onUpload(e.dataTransfer.files[0])
     }
 

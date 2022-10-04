@@ -13,8 +13,8 @@ body {
 .App{
   background: linear-gradient(238deg, rgba(253, 136, 0, 0.6), rgba(253, 0, 143, 0.57), rgba(151, 0, 253, 0.63), rgba(0, 61, 253, 0.64), #05c7e6, #4bd58d);
   background-size: 350% 500%;
-  -webkit-animation: rainbow 10s ease infinite;
-  animation: rainbow 10s ease infinite;
+  -webkit-animation: rainbow 7s ease infinite;
+  animation: rainbow 7s ease infinite;
   min-height: 100vh;
 }
 @-webkit-keyframes rainbow {
@@ -36,6 +36,9 @@ body {
 a {
   text-decoration: none;
   color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .loginBox {
   margin: 0 auto;

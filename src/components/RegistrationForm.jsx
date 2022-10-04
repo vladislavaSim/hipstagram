@@ -6,29 +6,23 @@ import {connect} from "react-redux";
 import {actionFullRegister} from "../redux/actions/actions";
 import {useNavigate} from "react-router";
 
-const RegistrationForm = ({onRegister, isLogged, myId, promise, auth}) => {
+const RegistrationForm = ({onRegister, isLogged, myId, promise}) => {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
 
     const navigate = useNavigate()
     useEffect(()=>{
-        console.log(isLogged)
-        console.log(promise)
+
         if(promise && isLogged){
             if(login && password) {
-                console.log('!!! navigate')
                 navigate('/profile/' + myId);
                 setError('')
             } else {
                 setError('Login and password cannot be empty')
             }
         }
-        // if(promise) {
-        //     if(promise.status === 'RESOLVED' && !promise.payload) {
-        //         setError('Please, enter correct login and password')
-        //     }
-        // }
+
     },[isLogged, navigate, promise])
 
     return (
@@ -46,12 +40,15 @@ const RegistrationForm = ({onRegister, isLogged, myId, promise, auth}) => {
                 onChange={(e) => setPassword(e.target.value)}/>
             <div>
                 {<p style={{color: 'red', fontSize: '16px'}}>{error}</p>}
-                <Button pathName={'login'}
-                        pathText='Sign in'
+                <Button
                         onClick={() => onRegister(login, password)}
-                        className='primeBtn'/>
+                        className='primeBtn'>
+                    <Link to='/login'>Create account</Link>
+                </Button>
                 <p>Already have an account? <br/>
-                    <Link to='/login'>Log in</Link>
+                    <Button className='ordinaryBtn'>
+                        <Link to='/login'>Log in</Link>
+                    </Button>
                 </p>
 
             </div>

@@ -1,25 +1,22 @@
 import React, {useEffect, useRef, useState} from 'react';
-import { connect } from 'react-redux';
-import {actionUserByLogin} from "../redux/actions/actions";
+import {connect, useDispatch} from 'react-redux';
+import {actionFullGetUser, actionUserByLogin} from "../redux/actions/actions";
 import {OneUserInList} from "./OneUserInList";
 import {TextField} from "@mui/material";
 
 const useDebounce = (cb, depArray, delay) => {
-    const [state, setState] = useState('');
     let timeoutRef = useRef()
-    timeoutRef.current = setTimeout
+    // timeoutRef.current = setTimeout
     useEffect(() => {
         clearInterval(timeoutRef.current)
-        timeoutRef.current === undefined ? timeoutRef = -1 : timeoutRef.current = setTimeout(cb(), delay)
-        setTimeout(cb(), delay)
-    }, [depArray])
-
-    return [state, setState];
+        timeoutRef.current === undefined ? timeoutRef.current = -1 : timeoutRef.current = setTimeout(cb, delay)
+    }, depArray)
 };
 
-const SearchByLogin = ({ user, onGetUser }) => {
-    const [login, setLogin] = useDebounce(() => onGetUser(login), login, 2000);
-
+const SearchByLogin = ({ user, onGetUser, foundUsers, state }) => {
+    const [login, setLogin] = useState('')
+    useDebounce( () => onGetUser(login), [login], 2000);
+    console.log(foundUsers)
     return (
         <form>
             <div className='search-box'>
@@ -30,41 +27,35 @@ const SearchByLogin = ({ user, onGetUser }) => {
                     onChange={(e) => setLogin(e.target.value)}
                 />
             </div>
-            {user && (
-                <div>
-                   {user && <OneUserInList user={user} />}
-                </div>
-            )}
-            {user === null && (
-                <div>
-                    <h3>User not found :(</h3>
-                </div>
-            )}
+
+            {foundUsers  ?
+                    foundUsers.map((user) => {
+                        return <OneUserInList key={user._id} user={user}/>
+                    })
+                : <h3>Users not found :(</h3>
+            }
+
+
+            {/*{foundUsers ? (*/}
+            {/*    <>*/}
+            {/*        {(foundUsers || []).map((user) => {*/}
+            {/*            console.log(user)*/}
+            {/*            return <OneUserInList key={user._id} user={user} />;*/}
+            {/*        })}*/}
+            {/*    </>*/}
+            {/*) : (*/}
+            {/*    <h2>Users not found :(</h2>*/}
+            {/*)}*/}
         </form>
     );
 };
 
 export const CSearchByLogin = connect(
     (state) => ({
-        user: state?.promise?.userByLogin?.payload
+        foundUsers: state?.promise?.foundUsers?.payload,
+        state: state
     }),
     {
         onGetUser: actionUserByLogin,
     }
 )(SearchByLogin);
-
-//const InputDebounce = e = ({}) => {
-//
-// const [text, setText] = useState('')
-//
-// const timeoutRef = useRef()
-//
-//
-// useEffect (0) => {
-//
-// clearInterval(timeoutRef.current)
-//
-// if (text)
-//
-// timeoutRef.current = setTimeout(() => console.log('YPА, получилось', text), 2000)
-// }, [text])

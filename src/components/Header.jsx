@@ -5,27 +5,27 @@ import {connect} from "react-redux";
 import {actionAuthLogout} from "../redux/reducers/authReducer";
 import Button from "./Button";
 
-const Header = ({onLogout, userLogin, id, login}) => {
+const Header = ({onLogout, userLogin, myId, login, promise}) => {
+    console.log(promise)
 
-    console.log(login)
     return (
         <>
             {
-                userLogin ?
+                login ?
                     <div className='header'>
                         <h3>{'@' + login}</h3>
                         <Link to="/feed">Feed</Link>
-                        <Link to={`/profile/${id}`}>Profile</Link>
+                        <Link to={`/profile/${myId}`}>Profile</Link>
                         <Link to="/search">Search</Link>
                         <Link to="/settings">Settings</Link>
-                        <Button pathName={'login'}
-                                pathText='Log out'
+                        <Button
                                 className='ordinaryBtn'
-                                onClick={() => onLogout()}
-                        />
+                                onClick={() => onLogout()}>
+                            <Link to={'/login'}>Log out</Link>
+                        </Button>
                     </div>
                     :
-                    null
+                    <p>логина нет, хедер в разработке</p>
             }
         </>
     );
@@ -33,7 +33,7 @@ const Header = ({onLogout, userLogin, id, login}) => {
 
 export  const CHeader = connect((state) => ({
     promise: state?.promise,
-    id: state?.promise?.me?.payload?._id,
+    myId: state?.promise?.me?.payload?._id,
     // login: state.auth?.payload?.sub?.login,
     login: state?.promise?.me?.payload?.login,
     userLogin: state?.promise?.userById?.payload?.login,

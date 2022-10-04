@@ -4,7 +4,7 @@ import {actionFullGetUsers} from "../redux/actions/actions";
 import {UserCardFromSearch} from "./UserCardFromSearch";
 
 const ExploreUsers = ({users}) => {
-    console.log(users)
+
     return (
         <div>
             {users.map((user) => {

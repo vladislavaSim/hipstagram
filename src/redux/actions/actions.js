@@ -14,15 +14,16 @@ export const logoutUser = () => ({
 
 export const actionFullLogin = (login, password) => (
     async (dispatch, getState) => {
-        let idUser = getState().auth?.payload?.sub?.id;
-        console.log(login, password)
+        // console.log(getState().auth?.payload)
+        // let idUser = getState().auth?.payload?.sub?.id;
+        // console.log(idUser)
         let token = await dispatch(actionLogin(login, password));
         console.log(token)
         if (token) {
             dispatch(actionAuthLogin(token))
             dispatch(actionAboutMe());
-            dispatch(actionUserById(idUser));
-            dispatch(actionPostById(idUser));
+            // dispatch(actionUserById(idUser));
+            // dispatch(actionPostById(idUser));
             // dispatch(actionFullGetAllPosts());
         }
     }
@@ -80,9 +81,8 @@ export const actionUploadFiles = (files) => {
 };
 export const actionAboutMe = () => {
     return async (dispatch, getState) => {
-        console.log('about me!!!!')
         let id = getState().auth?.payload?.sub?.id
-        console.log('id - '  + id)
+        console.log(id)
         await dispatch(actionUserById(id, 'me'))
     }
 }
@@ -163,20 +163,24 @@ export const actionFullUnSubscribe = (id, userId) => async (dispatch, getState) 
     }
 };
 export const actionUserByLogin = (login) =>
-    actionPromise(
-        'userByLogin',
-        gql(
-            `query UserById($login:String) {
-        UserFindOne(query: $login){
+    async (dispatch) => {
+        console.log('user search action test worked')
+        let promise = await actionPromise(
+            'foundUsers',
+            await gql(
+                `query UserById($login:String) {
+        UserFind(query: $login){
           _id, nick, login, createdAt, avatar {url}
           followers {_id, nick, login},
           following {_id, nick, login}
           } 
         }`,
-            {query: JSON.stringify({login: `/${login}/`} )
-            }
+                {login: JSON.stringify([{login: `/${login}/`}] )
+                }
+            )
         )
-    );
+        await dispatch(promise)
+    }
 
 const actionGetUsers = (skip) =>
     actionPromise(
@@ -239,7 +243,6 @@ export const actionFullGetAllPosts = () => async (dispatch, getState) => {
     );
     let usersPosts = await dispatch(actionGetAllPosts(feedPosts?.length, myFollowings));
     if (usersPosts) {
-        console.log(usersPosts)
         dispatch(actionAddPosts(usersPosts));
     }
 }

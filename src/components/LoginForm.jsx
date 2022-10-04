@@ -46,13 +46,15 @@ const LoginForm = ({onLogin, isLogged, promise, myId}) => {
                 onChange={(e) => setPassword(e.target.value)}/>
             <div>
                 {<p style={{color: 'red', fontSize: '16px'}}>{errorMessage}</p>}
-                <Button pathName={'login'}
-                        pathText='Log in'
+                <Button
                         className='primeBtn'
-                        onClick={() => onLogin(login, password)}
-                />
+                        onClick={() => onLogin(login, password)}>
+                    <Link to={'/login'}>Log in</Link>
+                </Button>
                 <p>Don't have an account? <br/>
-                    <Link to='/registration'>Register quickly</Link>
+                    <Button className='ordinaryBtn'>
+                        <Link to='/registration'>Register quickly</Link>
+                    </Button>
                  </p>
             </div>
         </div>
