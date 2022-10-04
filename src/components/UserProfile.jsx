@@ -80,6 +80,7 @@ const UserProfile = ({userId,
             </div>
             <div className='gallery'>
                 {(userPosts || []).map((post) => {
+                    console.log(post?.owner?.login, userLogin)
                     return <CPost key={post._id} post={post} className='gallery-item'/>;
                 })}
             </div>

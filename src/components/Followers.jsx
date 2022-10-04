@@ -12,7 +12,7 @@ const Followers = ({ userFollowers, myId, myFollowers }) => {
         return id === myId ? myFollowers : userFollowers
     }
 
-    console.log(id)
+    // console.log(id)
     console.log(getFollowersArray())
     return (
         <>

@@ -19,6 +19,7 @@ const SearchByLogin = ({ user, onGetUser, foundUsers, state }) => {
     console.log(foundUsers)
     return (
         <form>
+            <h3>Enter login to search users</h3>
             <div className='search-box'>
                 <TextField
                     className='small-input'
@@ -32,7 +33,7 @@ const SearchByLogin = ({ user, onGetUser, foundUsers, state }) => {
                     foundUsers.map((user) => {
                         return <OneUserInList key={user._id} user={user}/>
                     })
-                : <h3>Users not found :(</h3>
+                : null
             }
 
 

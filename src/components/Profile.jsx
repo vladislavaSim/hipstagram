@@ -32,8 +32,8 @@ useEffect(() => {
 }, [_id])
 
     const doIFollow = (myFollowing || []).find((item) => item._id === _id);
-    console.log(myId + 'myId')
-    console.log(_id + ' id')
+    // console.log(myId + 'myId')
+    // console.log(_id + ' id')
     return (
         <>
             {
