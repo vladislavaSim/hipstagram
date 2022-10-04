@@ -17,9 +17,9 @@ import {CMyProfile} from "./MyProfile";
 import {CUserProfile} from "./UserProfile";
 
 
-const Profile = ({
-                     onUserById,
-                    auth,
+const Profile = ({promise,
+                     posts,
+                    onUserById,
                      myId,
                      myFollowing,
 
@@ -28,6 +28,7 @@ const Profile = ({
     const {_id} = useParams()
 useEffect(() => {
     onUserById(_id)
+    console.log(promise)
 }, [_id])
 
     const doIFollow = (myFollowing || []).find((item) => item._id === _id);
@@ -36,9 +37,13 @@ useEffect(() => {
     return (
         <>
             {
-                _id === myId ?
-                    <CMyProfile/>
-                    : <CUserProfile doIFollow={doIFollow} myId={myId}/>
+                _id === myId
+                    ? <CMyProfile
+                        posts={posts}/>
+                    : <CUserProfile
+                        doIFollow={doIFollow}
+                        myId={myId}
+                        />
             }
         </>
     );
@@ -56,7 +61,8 @@ export const CProfile = connect((state) => ({
     userId: state?.promise?.userById?.payload?._id,
     followers: state?.promise?.userById?.payload?.followers,
     following: state?.promise?.userById?.payload?.following,
-    posts: state?.promise?.postByIdUser?.payload,
+    // posts: state?.promise?.postByIdUser?.payload,
+    posts: state?.promise?.postByIdUser?.payload
 
 }), {
     getAboutMe: actionAboutMe,

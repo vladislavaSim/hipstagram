@@ -33,9 +33,9 @@ const Post = ({post = [], myId, onLike, onDeleteLike, className}) => {
                                         <div className='card-author-box'>
                                             <Link to={`/profile/${post?.owner?._id}`}>
                                                 {post?.owner?.avatar === null ? (
-                                                    <DefaultAvatar className='small-ava'/>
+                                                    <DefaultAvatar className='small-ava avatarPic'/>
                                                 ) : (
-                                                    <Avatar url={post?.owner?.avatar?.url} className='small-ava'/>
+                                                    <Avatar url={post?.owner?.avatar?.url} className='small-ava avatarPic'/>
                                                 )}
                                             </Link>
                                              <h4>{'@' + post?.owner.login}</h4>
@@ -88,12 +88,7 @@ const Post = ({post = [], myId, onLike, onDeleteLike, className}) => {
                                         </IconButton>
                                     </CardActions>
                                 </Card>
-                    ) : (
-                    <div>
-                        <h3>Your feed is empty...</h3>
-                        <h4>Let`s use search for something interesting!</h4>
-                    </div>
-                )
+                    ) : null
             }
         </div>
     );

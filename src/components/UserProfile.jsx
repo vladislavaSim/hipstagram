@@ -1,6 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from "react-redux";
-import {actionAboutMe, actionFullSubscribe, actionFullUnSubscribe, actionSetAvatar} from "../redux/actions/actions";
+import {
+    actionAboutMe,
+    actionFullSubscribe,
+    actionFullUnSubscribe,
+    actionPostById,
+    actionSetAvatar
+} from "../redux/actions/actions";
 import {actionUserById} from "../graphql/userById";
 import {CMyProfile} from "./MyProfile";
 import Avatar from "./Avatar";
@@ -19,62 +25,65 @@ const UserProfile = ({userId,
                          doIFollow,
                          onFollow,
                          onUnfollow,
+                         getPostById,
                          myId}) => {
 
-    console.log(promise)
+
     function getLengthNum (array, text) {
         let num = !array ? '0' : array.length
         return num + ' ' + text
     }
+    // console.log(userPosts)
 
+    useEffect(() => {
+        console.log(userPosts)
+        getPostById(userId)
+        console.log(userPosts)
+    }, [userId])
     return (
-        <div className='profile-box'>
-            <div className="avatar">
-                {userAvatar ?
-                    <Avatar url={userAvatar} className='avatarPic'/>
-                    : <DefaultAvatar/>
-                }
+        <>
+            <div className='profile-box'>
+                <div className="avatar">
+                    {userAvatar ?
+                        <Avatar url={userAvatar} className='avatarPic'/>
+                        : <DefaultAvatar/>
+                    }
 
-            </div>
-            <div className='profile-info-box'>
-                <h3> <span>{`${userLogin ? userLogin : 'no name'}`}</span></h3>
-                <div>
-                    <div className='profile-buttons'>
-                        {(!doIFollow ? (
-                            <Button onClick={() => onFollow(myId, userId)} className='primeBtn' children='Follow'/>
-                        ) : (
-                            <Button onClick={() => onUnfollow(myId, userId)} className='primeBtn' children='Unfollow'/>
-                        ))}
-                    </div>
-                   <div className='profile-nums'>
-                      <Button className='ordinaryBtn'>
-                          <Link to={`/followers/${userId}`}>
-                              <div>{getLengthNum(userFollowers,'followers')}</div>
-                          </Link>
-                      </Button>
-                       <Button className='ordinaryBtn'>
-                           <Link to={`/following/${userId}`}>
-                               <div>{getLengthNum(userFollowing,'followings')}</div>
-                           </Link>
-                       </Button>
-                       <Button className='ordinaryBtn'>
-                           <div>{getLengthNum(userPosts,'posts')}</div>
-                       </Button>
-                   </div>
                 </div>
-
-
+                <div className='profile-info-box'>
+                    <h3> <span>{`${userLogin ? userLogin : 'no name'}`}</span></h3>
+                    <div>
+                        <div className='profile-buttons'>
+                            {(!doIFollow ? (
+                                <Button onClick={() => onFollow(myId, userId)} className='primeBtn' children='Follow'/>
+                            ) : (
+                                <Button onClick={() => onUnfollow(myId, userId)} className='primeBtn' children='Unfollow'/>
+                            ))}
+                        </div>
+                        <div className='profile-nums'>
+                            <Button className='ordinaryBtn'>
+                                <Link to={`/followers/${userId}`}>
+                                    <div>{getLengthNum(userFollowers,'followers')}</div>
+                                </Link>
+                            </Button>
+                            <Button className='ordinaryBtn'>
+                                <Link to={`/following/${userId}`}>
+                                    <div>{getLengthNum(userFollowing,'followings')}</div>
+                                </Link>
+                            </Button>
+                            <Button className='ordinaryBtn'>
+                                <div>{getLengthNum(userPosts,'posts')}</div>
+                            </Button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
-
             <div className='gallery'>
                 {(userPosts || []).map((post) => {
                     return <CPost key={post._id} post={post} className='gallery-item'/>;
                 })}
             </div>
-
-        </div>
+        </>
     );
 };
 
@@ -87,10 +96,12 @@ export const CUserProfile = connect((state) => ({
     userFollowers: state?.promise?.userById?.payload?.followers,
     userAvatar: state?.promise?.userById?.payload?.avatar?.url,
     userLogin: state?.promise?.userById?.payload?.login,
-    userPosts: state?.promise?.userById?.payload?.posts
+    userPosts: state?.promise?.postByIdUser?.payload
+
 
 }), {
     onUserById: actionUserById,
     onFollow: actionFullSubscribe,
-    onUnfollow: actionFullUnSubscribe
+    onUnfollow: actionFullUnSubscribe,
+    getPostById: actionPostById
 })(UserProfile);

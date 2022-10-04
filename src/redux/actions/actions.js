@@ -18,13 +18,11 @@ export const actionFullLogin = (login, password) => (
         // let idUser = getState().auth?.payload?.sub?.id;
         // console.log(idUser)
         let token = await dispatch(actionLogin(login, password));
-        console.log(token)
         if (token) {
             dispatch(actionAuthLogin(token))
             dispatch(actionAboutMe());
             // dispatch(actionUserById(idUser));
-            // dispatch(actionPostById(idUser));
-            // dispatch(actionFullGetAllPosts());
+            dispatch(actionFullGetAllPosts());
         }
     }
 )
@@ -82,8 +80,9 @@ export const actionUploadFiles = (files) => {
 export const actionAboutMe = () => {
     return async (dispatch, getState) => {
         let id = getState().auth?.payload?.sub?.id
-        console.log(id)
         await dispatch(actionUserById(id, 'me'))
+        await dispatch(actionPostById(id));
+        // await dispatch(actionFullGetAllPosts())
     }
 }
 export const actionSetAvatar = (file) => async (dispatch, getState) => {
@@ -205,7 +204,6 @@ export const actionFullGetUsers = () => async (dispatch, getState) => {
     } = getState();
     let searchUsers = await dispatch(actionGetUsers(feedUsers?.length));
     if (searchUsers) {
-
         dispatch(actionAddUsers(searchUsers));
     }
 };

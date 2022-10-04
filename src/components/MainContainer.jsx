@@ -13,14 +13,18 @@ import {CShowPosts} from "./Posts/ShowPosts";
 import {CCreatePost} from "./Posts/CreatePost";
 import {CExploreUsers} from "./ExploreUsers";
 
-const MainContainer = () => {
-
+const MainContainer = ({promise}) => {
+    // {(promise.status == "PENDING") &&
+    //          <img style={{ display: 'block', margin: '0 auto', marginBottom:'200px', padding: '10px' }}
+    //         src={loading} width="100" height="100" />
+    //             }
+    console.log(promise)
     return (
         <div className='main-content'>
             {
                 localStorage.authToken ?
                     <Routes>
-                        <Route path='/' element={<CProfile/>} exact/>
+                        <Route path='/' element={<CShowPosts/>} exact/>
                         <Route path='/feed' element={<CShowPosts/>}/>
                         <Route path="/profile/:_id" element={<CProfile/>}/>
                         <Route path="/search" element={<CSearch/>}/>
@@ -47,5 +51,7 @@ const MainContainer = () => {
 };
 
 export const CMainContainer = connect((state) => (
-    { isLogged: state?.promise?.me }))
+    { isLogged: state?.promise?.me,
+    promise: state?.promise
+    }))
 (MainContainer);

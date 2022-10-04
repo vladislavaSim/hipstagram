@@ -242,6 +242,7 @@ a {
 }
 .profile-box {
   display: flex;
+  margin-bottom: 40px;
 }
 .profile-info-box {
   margin-left: 15px;

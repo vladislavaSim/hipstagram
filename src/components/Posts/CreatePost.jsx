@@ -25,7 +25,7 @@ const CreatePost = ({obj = { array: [] }, uploadFile, onUpload, uploadPost,
             });
         }
     }, [uploadFile, uploadPost]);
-
+    const history = useNavigate()
     function uploadHandler() {
         onUpload(title, text, photos.array)
         navigate('/')
@@ -59,9 +59,8 @@ const CreatePost = ({obj = { array: [] }, uploadFile, onUpload, uploadPost,
                     className='primeBtn'>
                     Add post
                 </Button>
-                <Button className='ordinaryBtn'>
-                    <Link to={`/`}>Return</Link>
-                </Button>
+                <Button className='ordinaryBtn'
+                        onClick={() => history(-1)}>go back</Button>
             </div>
         </div>
     );
