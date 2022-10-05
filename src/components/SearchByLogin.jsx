@@ -18,7 +18,6 @@ const useDebounce = (cb, depArray, delay) => {
 const SearchByLogin = ({ user, onGetUser, foundUsers, state }) => {
     const [login, setLogin] = useState('')
     useDebounce( () => onGetUser(login), [login], 2000);
-    console.log(foundUsers)
     return (
         <form>
             <h3>Enter login to search users</h3>

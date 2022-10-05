@@ -34,12 +34,9 @@ const UserProfile = ({userId,
         let num = !array ? '0' : array.length
         return num + ' ' + text
     }
-    // console.log(userPosts)
 
     useEffect(() => {
-        console.log(userId)
         if(userId) {
-            console.log(userId)
             getPostById(userId)
             getPostById(userId, 'usersPost')
         }
@@ -84,8 +81,6 @@ const UserProfile = ({userId,
             </div>
             <div className='gallery'>
                 {(userPosts || []).map((post) => {
-                    // console.log(post?.owner?.login, userLogin)
-                    // console.log(post?.owner?.login)
                     return <CPost key={post._id} post={post} className='gallery-item'/>;
                 })}
             </div>

@@ -27,7 +27,7 @@ const Post = ({post = [], myId, onLike, onDeleteLike, className, cardClassName})
             {post?.images?.[0]?.url ?
                          (
                                 <Card sx={{maxWidth: 345}}>
-                                    <header className='card-header' onClick={() => console.log(post?.owner?._id)}>
+                                    <header className='card-header'>
                                         <div className='card-author-box'>
                                             <Link to={`/profile/${post?.owner?._id}`}>
                                                 {post?.owner?.avatar === null ? (

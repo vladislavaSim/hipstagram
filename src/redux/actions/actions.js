@@ -25,7 +25,6 @@ export const actionFullLogin = (login, password) => (
 
 export const actionFullRegister = (login, password) => (
     async (dispatch) => {
-        console.log(password)
         let registerId = await dispatch(actionRegister(login, password))
 
         if (registerId) {
@@ -35,12 +34,9 @@ export const actionFullRegister = (login, password) => (
 )
 
 export const actionUploadFile = (file) => {
-    console.log(file)
     let formdata = new FormData();
     formdata.append('photo', file);
-    // for(let i of formdata) {
-    //     console.log(i)
-    // }
+
     return actionPromise(
         'uploadFile',
         fetch(backendUrl + 'upload', {
@@ -94,7 +90,6 @@ export const actionSetAvatar = (file) => async (dispatch, getState) => {
             )
         )
     )
-    console.log(idImg + ' idImg')
     await dispatch(actionAboutMe());
     await dispatch(actionUserById(idUser));
     await dispatch(actionPostById(idUser));
@@ -118,7 +113,6 @@ export const actionFullSubscribe = (id, userId) => async (dispatch, getState) =>
     }));
 
     let followingId = await dispatch(actionSubscribe(id, userId, prevFollowers));
-    console.log(userId)
     if (followingId) {
         Promise.all([dispatch(actionUserById(userId)), dispatch(actionAboutMe())]);
     }
@@ -146,7 +140,6 @@ export const actionFullUnSubscribe = (id, userId) => async (dispatch, getState) 
     }));
  
     if (prevFollowings) {
-        console.log(userId)
         await dispatch(actionUnSubscribe(id, prevFollowings));
         Promise.all([dispatch(actionUserById(userId)), dispatch(actionAboutMe())]
         )
@@ -154,7 +147,6 @@ export const actionFullUnSubscribe = (id, userId) => async (dispatch, getState) 
 };
 export const actionUserByLogin = (login) =>
     async (dispatch) => {
-        console.log('user search action test worked')
         let promise = await actionPromise(
             'foundUsers',
             await gql(
@@ -237,10 +229,7 @@ export const actionFullGetAllPosts = () => async (dispatch, getState) => {
     let myFollowings = (getState().promise?.me?.payload?.following || []).map(
         (item) => item._id
     );
-    console.log(myFollowings)
     let usersPosts = await dispatch(actionGetAllPosts(feedPosts?.length, myFollowings));
-    console.log(usersPosts)
-    console.log('test')
     if (usersPosts) {
         dispatch(actionAddPosts(usersPosts));
     }
@@ -263,6 +252,7 @@ const actionUploadPost = (title, text, photosId, postId = undefined) => {
 export const actionFullUploadPost = (title, text, photos, postId) => async (dispatch) => {
     let photosId = (photos || []).map((photo) => ({ _id: photo._id }));
     await dispatch(actionUploadPost(title, text, photosId, postId));
+    await dispatch(actionAboutMe());
 };
 export const actionPostById = (id, name = 'postByIdUser') =>
     actionPromise(

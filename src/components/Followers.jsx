@@ -12,8 +12,6 @@ const Followers = ({ userFollowers, myId, myFollowers }) => {
         return id === myId ? myFollowers : userFollowers
     }
 
-    // console.log(id)
-    console.log(getFollowersArray())
     return (
         <>
             <h2>Followers</h2>
@@ -22,7 +20,6 @@ const Followers = ({ userFollowers, myId, myFollowers }) => {
             {getFollowersArray() ? (
                 <>
                     {(getFollowersArray() || []).map((user) => {
-                        console.log(user)
                         return <OneUserInList key={user._id} user={user} />;
                     })}
                 </>
