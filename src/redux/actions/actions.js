@@ -73,14 +73,7 @@ export const actionUploadFiles = (files) => {
             .then((res) => Promise.all(res))
     );
 };
-export const actionAboutMe = () => {
-    return async (dispatch, getState) => {
-        let id = getState().auth?.payload?.sub?.id
-        await dispatch(actionUserById(id, 'me'))
-        await dispatch(actionPostById(id));
-        // await dispatch(actionFullGetAllPosts())
-    }
-}
+
 export const actionSetAvatar = (file) => async (dispatch, getState) => {
     await dispatch(actionUploadFile(file));
     let idImg = getState().promise?.uploadFile?.payload?._id;
@@ -125,9 +118,9 @@ export const actionFullSubscribe = (id, userId) => async (dispatch, getState) =>
     }));
 
     let followingId = await dispatch(actionSubscribe(id, userId, prevFollowers));
-
+    console.log(userId)
     if (followingId) {
-        await Promise.all([dispatch(actionUserById(userId)), dispatch(actionAboutMe())]);
+        Promise.all([dispatch(actionUserById(userId)), dispatch(actionAboutMe())]);
     }
 };
 export const actionUnSubscribe = (id, prevFollowing) =>
@@ -151,10 +144,12 @@ export const actionFullUnSubscribe = (id, userId) => async (dispatch, getState) 
     let prevFollowings = (prevFollowingsFiltered || []).map((item) => ({
         _id: item._id,
     }));
-
+ 
     if (prevFollowings) {
+        console.log(userId)
         await dispatch(actionUnSubscribe(id, prevFollowings));
-        Promise.all([dispatch(actionUserById(userId)), dispatch(actionAboutMe())]);
+        Promise.all([dispatch(actionUserById(userId)), dispatch(actionAboutMe())]
+        )
     }
 };
 export const actionUserByLogin = (login) =>
@@ -176,7 +171,13 @@ export const actionUserByLogin = (login) =>
         )
         await dispatch(promise)
     }
-
+export const actionAboutMe = () => {
+    return async (dispatch, getState) => {
+        let id = getState().auth?.payload?.sub?.id
+        await dispatch(actionUserById(id, 'me'))
+        // await dispatch(actionFullGetAllPosts())
+    }
+}
 const actionGetUsers = (skip) =>
     actionPromise(
         'allUsers',
@@ -208,7 +209,7 @@ export const actionGetAllPosts = (skip, mappedFollowings) =>
     actionPromise(
         'allPosts',
         gql(
-            `query allposts($query: String!){
+            `query allPosts($query: String!){
       PostFind(query: $query){
         _id, text, title,
         owner{_id, nick, login, avatar
@@ -224,7 +225,7 @@ export const actionGetAllPosts = (skip, mappedFollowings) =>
             {
                 query: JSON.stringify([
                     { ___owner: { $in: mappedFollowings } },
-                    { sort: [{ _id: -1 }], skip: [skip || 0], limit: [15] },
+                    { sort: [{ _id: -1 }], skip: [skip || 0], limit: [20] },
                 ]),
             }
         )

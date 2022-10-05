@@ -8,7 +8,7 @@ import {
     actionSetAvatar
 } from "../redux/actions/actions";
 import {actionUserById} from "../graphql/userById";
-import {CMyProfile} from "./MyProfile";
+
 import Avatar from "./Avatar";
 import DefaultAvatar from "./DefaultAvatar";
 import Button from "./Button";
@@ -36,9 +36,12 @@ const UserProfile = ({userId,
     // console.log(userPosts)
 
     useEffect(() => {
-        console.log(userPosts)
-        getPostById(userId)
-        console.log(userPosts)
+        console.log(userId)
+        if(userId) {
+            console.log(userId)
+            getPostById(userId)
+            getPostById(userId, 'usersPost')
+        }
     }, [userId])
     return (
         <>
@@ -80,7 +83,8 @@ const UserProfile = ({userId,
             </div>
             <div className='gallery'>
                 {(userPosts || []).map((post) => {
-                    console.log(post?.owner?.login, userLogin)
+                    // console.log(post?.owner?.login, userLogin)
+                    // console.log(post?.owner?.login)
                     return <CPost key={post._id} post={post} className='gallery-item'/>;
                 })}
             </div>
@@ -97,9 +101,7 @@ export const CUserProfile = connect((state) => ({
     userFollowers: state?.promise?.userById?.payload?.followers,
     userAvatar: state?.promise?.userById?.payload?.avatar?.url,
     userLogin: state?.promise?.userById?.payload?.login,
-    userPosts: state?.promise?.postByIdUser?.payload
-
-
+    userPosts: state?.promise?.postByIdUser?.payload,
 }), {
     onUserById: actionUserById,
     onFollow: actionFullSubscribe,

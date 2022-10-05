@@ -16,13 +16,15 @@ import Avatar from "./Avatar";
 import DefaultAvatar from "./DefaultAvatar";
 import {backendUrl} from "../graphql/BackendUrl";
 
-const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollowers, myId, posts, getPostById}) => {
+const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollowers, myId, getPostById}) => {
     const [isEditing, setIsEditing] = useState(false);
     console.log(isEditing + ' is Editing')
 
     useEffect(() => {
-        getPostById(myId)
-    }, [myId])
+        if(myId) {
+            getPostById(myId)
+        }
+    }, [])
     function getLengthNum (array, text) {
         let num = !array ? '0' : array.length
         return num + ' ' + text
@@ -39,7 +41,7 @@ const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollower
         }
     }
 
-    console.log(posts)
+    console.log(myPosts)
     console.log(promise)
     return (
         <>
@@ -72,14 +74,14 @@ const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollower
                                 </Link>
                             </Button>
                             <Button className='ordinaryBtn'>
-                                <div>{getLengthNum(posts,'posts')}</div>
+                                <div>{getLengthNum(myPosts,'posts')}</div>
                             </Button>
                         </div>
                     </div>
                 </div>
             </div>
             <div className='gallery'>
-                {(posts || []).map((post) => {
+                {(myPosts || []).map((post) => {
                     console.log(post?.owner?.login, myLogin)
                     return <CPost key={post._id} post={post} className='gallery-item'/>;
                 })}
@@ -106,7 +108,7 @@ export const CMyProfile = connect((state) => ({
     myFollowers: state?.promise?.me?.payload?.followers,
     myAvatar: state?.promise?.me?.payload?.avatar?.url,
     myLogin: state?.promise?.me?.payload?.login,
-    // myPosts: state?.promise?.postByIdUser?.payload
+    myPosts: state?.promise?.postByIdUser?.payload
 
 }), {
     getAboutMe: actionAboutMe,

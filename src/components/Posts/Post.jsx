@@ -68,12 +68,13 @@ const Post = ({post = [], myId, onLike, onDeleteLike, className, cardClassName})
                                     <CardActions disableSpacing className='card-bottom'
                                         style={{padding: '0 8px 17px'}}
                                     >
-                                        <IconButton aria-label="add to favorites">
+                                        <IconButton onClick={() => {
+                                            isLiked.length !== 0 ? onDeleteLike(isLiked[0]._id) : onLike(post._id);
+                                        }}
+                                            aria-label="add to favorites">
                                             <div
                                                 className="like-button"
-                                                onClick={() => {
-                                                    isLiked.length !== 0 ? onDeleteLike(isLiked[0]._id) : onLike(post._id);
-                                                }}
+
                                             >
                                                 {isLiked.length !== 0 ? (
                                                     <FavoriteTwoToneIcon className='red'/>
