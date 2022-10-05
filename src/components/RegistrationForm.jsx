@@ -6,25 +6,28 @@ import {connect} from "react-redux";
 import {actionFullRegister} from "../redux/actions/actions";
 import {useNavigate} from "react-router";
 
-const RegistrationForm = ({onRegister, isLogged, myId, promise}) => {
+const RegistrationForm = ({onRegister, isLogged, myId, promise, status}) => {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
+    console.log(status)
+    function regHandler() {
+        if(login && password) {
+            onRegister(login, password)
+            setError('')
+        } else {
+            setError('Login and password cannot be empty')
+        }
+    }
 
     const navigate = useNavigate()
-    useEffect(()=>{
-
-        if(promise && isLogged){
-            if(login && password) {
+    useEffect(() => {
+        // if(promise && isLogged){
+            if(login && password && status === 'RESOLVED' && myId) {
                 navigate('/profile/' + myId);
-                setError('')
-            } else {
-                setError('Login and password cannot be empty')
-            }
-        }
-
-    },[isLogged, navigate, promise])
-
+         }
+    },[status, login, password, myId])
+    console.log(myId)
     return (
         <div className='loginBox'>
             <h3>Welcome to Hipstagram!</h3>
@@ -41,9 +44,9 @@ const RegistrationForm = ({onRegister, isLogged, myId, promise}) => {
             <div>
                 {<p style={{color: 'red', fontSize: '16px'}}>{error}</p>}
                 <Button
-                        onClick={() => onRegister(login, password)}
+                        onClick={() => regHandler()}
                         className='primeBtn'>
-                    <Link to='/login'>Create account</Link>
+                        Create account
                 </Button>
                 <p>Already have an account? <br/>
                     <Button className='ordinaryBtn'>
@@ -60,8 +63,8 @@ export const CRegistrationForm = connect( (state) => ({
     promise: state?.promise,
     auth: state?.auth,
     isLogged: state?.auth?.token,
-    myId: state?.me?.payload?.sub?.id
-    }), {
-    onRegister: actionFullRegister
-    }
+    myId: state?.promise?.me?.payload?._id,
+    status: state?.promise?.login?.status
+    }),
+    {onRegister: actionFullRegister}
 )(RegistrationForm);

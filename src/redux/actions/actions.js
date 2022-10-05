@@ -14,11 +14,12 @@ export const logoutUser = () => ({
 
 export const actionFullLogin = (login, password) => (
     async (dispatch, getState) => {
-        let token = await dispatch(actionLogin(login, password));
-        if (token) {
-            dispatch(actionAuthLogin(token))
-            dispatch(actionAboutMe());
 
+        let token = await dispatch(actionLogin(login, password));
+        console.log(token)
+        if (token) {
+            await dispatch(actionAuthLogin(token))
+            await dispatch(actionAboutMe());
         }
     }
 )
@@ -26,9 +27,9 @@ export const actionFullLogin = (login, password) => (
 export const actionFullRegister = (login, password) => (
     async (dispatch) => {
         let registerId = await dispatch(actionRegister(login, password))
-
+        console.log(registerId)
         if (registerId) {
-            dispatch(actionFullLogin(login, password))
+            await dispatch(actionFullLogin(login, password))
         }
     }
 )

@@ -62,8 +62,8 @@ const LoginForm = ({onLogin, isLogged, promise, myId}) => {
 };
 
 export const CLoginForm = connect(
-    (state) => (
-        {isLogged: state?.auth?.token,
+    (state) => ({
+        isLogged: state?.auth?.token,
         promise: state?.promise?.login,
         myId: state?.auth?.payload?.sub?.id
         }),

@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {actionAuthLogout} from "../redux/reducers/authReducer";
 import Button from "./Button";
 
-const Header = ({onLogout, userLogin, myId, id, login, promise}) => {
+const Header = ({onLogout, id, login, promise}) => {
 
     return (
         <>
