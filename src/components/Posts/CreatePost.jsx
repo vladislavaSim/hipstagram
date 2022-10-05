@@ -7,15 +7,13 @@ import {CFileUploader} from "../FileUploader";
 import {TextField} from "@material-ui/core";
 import {Link} from "react-router-dom";
 
-const CreatePost = ({obj = { array: [] }, uploadFile, onUpload, uploadPost,
-                                  }) => {
+const CreatePost = ({myId, obj = { array: [] }, uploadFile, onUpload, uploadPost,
+                                  }, ) => {
     const [photos, setPhotos] = useState(obj);
     const [title, setTitle] = useState('');
     const [text, setText] = useState('')
 
-    console.log(obj)
     const navigate = useNavigate()
-
 
     useEffect(() => {
         setPhotos({array: []})
@@ -28,7 +26,9 @@ const CreatePost = ({obj = { array: [] }, uploadFile, onUpload, uploadPost,
     const history = useNavigate()
     function uploadHandler() {
         onUpload(title, text, photos.array)
-        navigate('/')
+        if(myId) {
+            navigate(`/profile/${myId}`)
+        }
     }
 
     return (
@@ -57,7 +57,7 @@ const CreatePost = ({obj = { array: [] }, uploadFile, onUpload, uploadPost,
                     }}
                     disabled={photos?.array?.length === 0}
                     className='primeBtn'>
-                    Add post
+                    Send
                 </Button>
                 <Button className='ordinaryBtn'
                         onClick={() => history(-1)}>go back</Button>
@@ -70,6 +70,7 @@ export const CCreatePost = connect(
     (state) => ({
         uploadFile: state?.promise?.uploadFile,
         uploadPost: state?.promise?.uploadPost,
+        myId: state?.promise?.me?.payload?._id,
     }),
     {
         onUpload: actionFullUploadPost,
