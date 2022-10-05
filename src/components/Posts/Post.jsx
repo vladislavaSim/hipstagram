@@ -26,7 +26,9 @@ const Post = ({post = [], myId, onLike, onDeleteLike, className, cardClassName})
         <div className={cardClassName}>
             {post?.images?.[0]?.url ?
                          (
-                                <Card sx={{maxWidth: 345}}>
+                                <Card sx={{maxWidth: 345}}
+                                      style={{boxShadow: '1px 2px 4px #0000008c'}}
+                                >
                                     <header className='card-header'>
                                         <div className='card-author-box'>
                                             <Link to={`/profile/${post?.owner?._id}`}>
