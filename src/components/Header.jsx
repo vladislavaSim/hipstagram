@@ -18,8 +18,7 @@ const Header = ({onLogout, userLogin, myId, id, login, promise}) => {
                         <Link to={`/profile/${id}`}>Profile</Link>
                         <Link to="/search">Search</Link>
                         <Link to="/settings">Settings</Link>
-                        <Button
-                                className='ordinaryBtn'
+                        <Button className='unstyledBtn'
                                 onClick={() => onLogout()}>
                             <Link to={'/login'}>Log out</Link>
                         </Button>

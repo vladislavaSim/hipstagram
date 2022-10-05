@@ -294,6 +294,10 @@ a {
   height: 35px;
   align-items: center;
 }
+.unstyledBtn {
+  background-color: transparent;
+  border: none;
+}
 
 
 

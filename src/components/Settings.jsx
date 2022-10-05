@@ -6,7 +6,7 @@ import {useNavigate} from "react-router";
 import Button from "./Button";
 
 
-const Settings = ({ onChange, changeData, history, myId }) => {
+const Settings = ({ onChange, changeData, myId }) => {
     const navigate = useNavigate()
     const [newLogin, setNewLogin] = useState('');
 
@@ -24,13 +24,13 @@ const Settings = ({ onChange, changeData, history, myId }) => {
                         value={newLogin}
                         onChange={(e) => setNewLogin(e.target.value)}
                     />
-                    <Button
+                    <button
+                        style={{marginTop: '15px'}}
                         className='primeBtn'
                         disabled={!newLogin}
-                        onClick={() => onChange(newLogin)}
-                    >
+                        onClick={() => onChange(newLogin)}>
                         Submit
-                    </Button>
+                    </button>
         </>
     );
 };
