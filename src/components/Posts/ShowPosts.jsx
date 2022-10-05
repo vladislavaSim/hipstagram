@@ -2,32 +2,27 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {actionFullGetAllPosts} from "../../redux/actions/actions";
 import {CPost} from "./Post";
+import {CPreloaded} from "../Preloader";
 
 const ShowPosts = ({ posts = [], getPosts, feed, state}) => {
-    const [flag, setFlag] = useState(true);
-    const [flagHandle, setFlagHandle] = useState(true);
 
     useEffect(() => {
-        if (flag && flagHandle) {
-            getPosts();
-            setFlag(false);
-            setFlagHandle(false);
-        }
-    }, [flag, flagHandle]);
+            getPosts()
+    }, []);
 
 
     return (
-        <div style={{width: '50%'}}>
-            {posts.length ?
-                (posts || []).map((post) => {
+       <CPreloaded promiseName='allPosts'>
+           <div style={{width: '50%'}}>
+               {posts.length ?
+                   (posts || []).map((post) => {
 
-                    return <CPost key={post._id} post={post} className={'card'}/>;
-                }) :
-                (
+                       return <CPost key={post._id} post={post} className={'card'}/>;
+                   }) :
                    null
-                )
-            }
-        </div>
+               }
+           </div>
+       </CPreloaded>
     );
 };
 

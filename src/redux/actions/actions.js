@@ -18,7 +18,7 @@ export const actionFullLogin = (login, password) => (
         if (token) {
             dispatch(actionAuthLogin(token))
             dispatch(actionAboutMe());
-            dispatch(actionFullGetAllPosts());
+
         }
     }
 )
@@ -175,7 +175,7 @@ export const actionAboutMe = () => {
     return async (dispatch, getState) => {
         let id = getState().auth?.payload?.sub?.id
         await dispatch(actionUserById(id, 'me'))
-        // await dispatch(actionFullGetAllPosts())
+        await dispatch(actionFullGetAllPosts())
     }
 }
 const actionGetUsers = (skip) =>
@@ -237,7 +237,10 @@ export const actionFullGetAllPosts = () => async (dispatch, getState) => {
     let myFollowings = (getState().promise?.me?.payload?.following || []).map(
         (item) => item._id
     );
+    console.log(myFollowings)
     let usersPosts = await dispatch(actionGetAllPosts(feedPosts?.length, myFollowings));
+    console.log(usersPosts)
+    console.log('test')
     if (usersPosts) {
         dispatch(actionAddPosts(usersPosts));
     }

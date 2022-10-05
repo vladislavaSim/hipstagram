@@ -20,14 +20,15 @@ const Profile = ({promise,
                  }) => {
 
     const {_id} = useParams()
-useEffect(() => {
-    onUserById(_id)
-    // console.log(promise)
-}, [_id])
+
+    useEffect(() => {
+        if(_id) {
+        onUserById(_id)
+        }
+    }, [_id])
 
     const doIFollow = (myFollowing || []).find((item) => item._id === _id);
-    // console.log(myId + 'myId')
-    // console.log(_id + ' id')
+
     return (
         <>
             {

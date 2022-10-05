@@ -14,6 +14,7 @@ import DefaultAvatar from "./DefaultAvatar";
 import Button from "./Button";
 import {Link} from "react-router-dom";
 import {CPost} from "./Posts/Post";
+import {CPreloaded} from "./Preloader";
 
 const UserProfile = ({userId,
                          promise,
@@ -44,7 +45,7 @@ const UserProfile = ({userId,
         }
     }, [userId])
     return (
-        <>
+        <CPreloaded promiseName='postByIdUser'>
             <div className='profile-box'>
                 <div className="avatar">
                     {userAvatar ?
@@ -88,7 +89,7 @@ const UserProfile = ({userId,
                     return <CPost key={post._id} post={post} className='gallery-item'/>;
                 })}
             </div>
-        </>
+        </CPreloaded>
     );
 };
 
