@@ -15,10 +15,10 @@ import {CDropzoneAvatar} from "./AvatarDrop";
 import Avatar from "./Avatar";
 import DefaultAvatar from "./DefaultAvatar";
 import {backendUrl} from "../graphql/BackendUrl";
+import {CPreloaded} from "./Preloader";
 
 const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollowers, myId, getPostById}) => {
     const [isEditing, setIsEditing] = useState(false);
-    console.log(isEditing + ' is Editing')
 
     useEffect(() => {
         if(myId) {
@@ -41,10 +41,8 @@ const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollower
         }
     }
 
-    console.log(myPosts)
-    console.log(promise)
     return (
-        <>
+        <CPreloaded promiseName='postByIdUser'>
             <div className='profile-box'>
                 <div className="avatar">
                     {setOrShowAvatar()}
@@ -82,20 +80,10 @@ const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollower
             </div>
             <div className='gallery'>
                 {(myPosts || []).map((post) => {
-                    console.log(post?.owner?.login, myLogin)
                     return <CPost key={post._id} post={post} className='gallery-item'/>;
                 })}
-                    {/*{(posts || []).map((post) => {*/}
-                    {/*    {*/}
-                    {/*        return post?.images?.[0]?.url ?*/}
-                    {/*            <div key={post?._id} className={'card-item'}>*/}
-                    {/*                <img src={`${backendUrl + post?.images?.[0]?.url}`} alt='post-picture'/>*/}
-                    {/*            </div> : null*/}
-                    {/*        // return <CPost key={post._id} post={post} cardClassName={'card-item'}/>;*/}
-                    {/*    }}*/}
-                    {/*)}*/}
             </div>
-        </>
+        </CPreloaded>
     );
 };
 
