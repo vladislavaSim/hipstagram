@@ -14,7 +14,6 @@ import {CPost} from "./Posts/Post";
 import {CDropzoneAvatar} from "./AvatarDrop";
 import Avatar from "./Avatar";
 import DefaultAvatar from "./DefaultAvatar";
-import {backendUrl} from "../graphql/BackendUrl";
 import {CPreloaded} from "./Preloader";
 
 const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollowers, myId, getPostById}) => {
@@ -25,6 +24,7 @@ const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollower
             getPostById(myId)
         }
     }, [])
+
     function getLengthNum (array, text) {
         let num = !array ? '0' : array.length
         return num + ' ' + text

@@ -7,25 +7,23 @@ import {CFileUploader} from "../FileUploader";
 import {TextField} from "@material-ui/core";
 import {Link} from "react-router-dom";
 
-const CreatePost = ({myId, obj = { array: [] }, uploadFile, onUpload, uploadPost,
+const CreatePost = ({myId , uploadFile, onUpload, uploadPost,
                                   }, ) => {
-    const [photos, setPhotos] = useState(obj);
+    const [photos, setPhotos] = useState([]);
     const [title, setTitle] = useState('');
     const [text, setText] = useState('')
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        setPhotos({array: []})
+        setPhotos([])
         if (uploadFile?.status === 'RESOLVED') {
-            setPhotos({
-                ...photos, array: [...photos.array, uploadFile?.payload],
-            });
+            setPhotos([...photos, uploadFile?.payload]);
         }
     }, [uploadFile, uploadPost]);
     const history = useNavigate()
     function uploadHandler() {
-        onUpload(title, text, photos.array)
+        onUpload(title, text, photos)
         if(myId) {
             navigate(`/profile/${myId}`)
         }
@@ -55,7 +53,7 @@ const CreatePost = ({myId, obj = { array: [] }, uploadFile, onUpload, uploadPost
                     onClick={() => {
                         uploadHandler()
                     }}
-                    disabled={photos?.array?.length === 0}
+                    disabled={photos?.length === 0}
                     className='primeBtn'>
                     Send
                 </Button>
