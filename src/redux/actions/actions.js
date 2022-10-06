@@ -14,10 +14,8 @@ export const logoutUser = () => ({
 })
 
 export const actionFullLogin = (login, password) => (
-    async (dispatch, getState) => {
-
+    async (dispatch) => {
         let token = await dispatch(actionLogin(login, password));
-        console.log(token)
         if (token) {
             await dispatch(actionAuthLogin(token))
             await dispatch(actionAboutMe());
@@ -237,7 +235,7 @@ export const actionFullGetAllPosts = () => async (dispatch, getState) => {
     }
 }
 
-const actionUploadPost = (title, text, photosId, postId = undefined) => {
+const actionUploadPost = (title, text, photosId, postId) => {
     return actionPromise(
         'uploadPost',
         gql(

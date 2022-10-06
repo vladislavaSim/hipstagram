@@ -7,19 +7,11 @@ import {useEffect} from "react";
 import {actionAboutMe, actionAuthLogin, actionFullGetAllPosts, actionFullLogin} from "./redux/actions/actions";
 
 
-function App({aboutMe, authLogin, getAllPosts}) {
-// RETURN TO LAST REMOTE COMMIT ON GIT
+function App({aboutMe, getAllPosts}) {
 
-//git reset --hard [COMMIT CODE]
-// git push -f
-
-//  DELETE LAST COMMIT WITHOUT CHANGING LOCAL CODE TO REMAKE COMMIT PROPERLY
-
-//git reset --soft [COMMIT CODE]
     useEffect(() => {
         if(localStorage.authToken) {
             aboutMe()
-            authLogin(localStorage.authToken)
             getAllPosts()
         }
     },[])
@@ -37,7 +29,6 @@ function App({aboutMe, authLogin, getAllPosts}) {
 }
 
 export const CApp = connect(null, {
-    // onLogin: actionFullLogin,
     aboutMe: actionAboutMe,
     authLogin: actionAuthLogin,
     getAllPosts: actionFullGetAllPosts
