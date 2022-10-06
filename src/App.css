@@ -190,13 +190,17 @@ a {
   height: 50px;
 }
 .search-item {
-  padding: 7px 100px 7px 0;
+  padding: 7px 0 7px 15px;
   display: flex;
-  justify-content: space-evenly;
+  width: 250px;
+  height: 75px;
   align-items: center;
   border: 1px solid lightgray;
   border-radius: 6px;
   margin: 10px 0;
+}
+.search-item a {
+  margin-right: 30px;
 }
 .post-owner {
   font-size: 17px;

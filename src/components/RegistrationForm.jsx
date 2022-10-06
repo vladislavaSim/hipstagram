@@ -22,12 +22,11 @@ const RegistrationForm = ({onRegister, isLogged, myId, promise, status}) => {
 
     const navigate = useNavigate()
     useEffect(() => {
-        // if(promise && isLogged){
             if(login && password && status === 'RESOLVED' && myId) {
                 navigate('/profile/' + myId);
          }
     },[status, login, password, myId])
-    console.log(myId)
+
     return (
         <div className='loginBox'>
             <h3>Welcome to Hipstagram!</h3>
