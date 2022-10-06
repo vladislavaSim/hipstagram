@@ -2,12 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {TextField} from "@mui/material";
 import Button from "./Button";
 import {Link} from "react-router-dom";
-import {actionFullLogin, loginAuthUser, logoutUser} from "../redux/actions/actions";
-import {useDispatch, connect} from "react-redux";
-// import {, authReducer} from "../redux/reducers/authReducer";
+import {actionFullLogin} from "../redux/actions/actions";
+import {connect} from "react-redux";
 import {useNavigate} from "react-router";
-import {store} from "../redux/store";
-
 
 const LoginForm = ({onLogin, isLogged, promise, myId}) => {
     const [login, setLogin] = useState('')
@@ -15,7 +12,7 @@ const LoginForm = ({onLogin, isLogged, promise, myId}) => {
     const [errorMessage, setErrorMessage] = useState('')
 
     const navigate = useNavigate()
-    useEffect(()=>{
+    useEffect(() => {
         if(promise && isLogged){
             if(login && password) {
                 navigate('/profile/' + myId);
@@ -69,8 +66,3 @@ export const CLoginForm = connect(
         }),
     { onLogin: actionFullLogin}
 )(LoginForm);
-// id
-//6308f0bd73ca650acb933cc0 - vsim
-//632dc22b73ca650acb933ea8 - lol
-// 632e07ae73ca650acb933eba - 777
-//5da36e6d7997ec298a452c59 - test

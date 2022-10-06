@@ -1,5 +1,6 @@
-import {actionPromise} from '../promises/promises.js'
+
 import {gql} from "./getgql";
+import {actionPromise} from "../redux/reducers/promiseReducer";
 
 export const actionRegister = (login, password) => (
     actionPromise(  'register',

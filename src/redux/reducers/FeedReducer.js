@@ -17,18 +17,12 @@ export function feedReducer(state = {}, { type, newPosts, newUsers, updateNewPos
             feedPosts: [...updateNewPost],
         };
     }
-    if (type === 'DELETE-POSTS') {
-        return {
-            ...state,
-            feedPosts: [],
-        };
-    }
     return state;
 }
 
-export const actionClearFeedPosts = () => ({ type: 'DELETE-POSTS' });
 export const actionAddPosts = (newPosts) => ({ type: 'ADD-POSTS', newPosts });
 export const actionAddUsers = (newUsers) => ({ type: 'ADD-USERS', newUsers });
+//action for update posts info after like or unlike
 export const actionUpdatePosts = (updateNewPost) => ({
     type: 'CHANGE-NEW-POST',
     updateNewPost,

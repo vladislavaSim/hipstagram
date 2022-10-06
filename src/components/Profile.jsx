@@ -12,18 +12,13 @@ import {CMyProfile} from "./MyProfile";
 import {CUserProfile} from "./UserProfile";
 
 
-const Profile = ({promise,
-                    onUserById,
-                     myId,
-                     myFollowing,
-
-                 }) => {
+const Profile = ({onUserById, myId, myFollowing}) => {
 
     const {_id} = useParams()
 
     useEffect(() => {
         if(_id) {
-        onUserById(_id)
+            onUserById(_id)
         }
     }, [_id])
 
@@ -44,23 +39,8 @@ const Profile = ({promise,
 };
 
 export const CProfile = connect((state) => ({
-    promise: state.promise,
-    auth: state.auth,
-    me: state.promise?.me,
     myId: state?.promise?.me?.payload?._id,
     myFollowing: state?.promise?.me?.payload?.following,
-    nick: state.promise?.me?.payload?.nick,
-    userAvatar: state?.promise?.userById?.payload?.avatar,
-    userLogin: state?.promise?.userById?.payload?.login,
-    userId: state?.promise?.userById?.payload?._id,
-    followers: state?.promise?.userById?.payload?.followers,
-    following: state?.promise?.userById?.payload?.following,
-
-
 }), {
-    getAboutMe: actionAboutMe,
-    setAvatar: actionSetAvatar,
     onUserById: actionUserById,
-    onFollow: actionFullSubscribe,
-    onUnfollow: actionFullUnSubscribe
 })(Profile);

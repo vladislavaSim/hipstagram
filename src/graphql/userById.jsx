@@ -1,5 +1,6 @@
-import {actionPromise} from "../promises/promises";
+
 import {gql} from "./getgql";
+import {actionPromise} from "../redux/reducers/promiseReducer";
 
 
 export const actionUserById = (id, name = 'userById') =>

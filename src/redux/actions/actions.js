@@ -1,11 +1,12 @@
 import * as actions from '../actionTypes'
 import {actionLogin} from "../../graphql/actionLogin";
 import {actionRegister} from "../../graphql/registrateUser";
-import {actionPromise} from "../../promises/promises";
+
 import {actionUserById} from "../../graphql/userById";
 import {gql} from "../../graphql/getgql";
 import {actionAddPosts, actionAddUsers, actionUpdatePosts} from "../reducers/FeedReducer";
 import {backendUrl} from "../../graphql/BackendUrl";
+import {actionPromise} from "../reducers/promiseReducer";
 
 export const actionAuthLogin = (token) => ({type: 'AUTH_LOGIN', token})
 export const logoutUser = () => ({
