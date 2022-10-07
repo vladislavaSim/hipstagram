@@ -7,14 +7,7 @@ import {useEffect} from "react";
 import {actionAboutMe, actionAuthLogin, actionFullGetAllPosts, actionFullLogin} from "./redux/actions/actions";
 
 
-function App({aboutMe, getAllPosts}) {
-
-    useEffect(() => {
-        if(localStorage.authToken) {
-            aboutMe()
-            getAllPosts()
-        }
-    },[])
+function App() {
 
   return (
       <main>
@@ -28,8 +21,4 @@ function App({aboutMe, getAllPosts}) {
   );
 }
 
-export const CApp = connect(null, {
-    aboutMe: actionAboutMe,
-    authLogin: actionAuthLogin,
-    getAllPosts: actionFullGetAllPosts
-})(App);
+export default App

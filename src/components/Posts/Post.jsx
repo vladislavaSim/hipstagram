@@ -11,7 +11,7 @@ import Avatar from "../Avatar";
 import DefaultAvatar from "../DefaultAvatar";
 import {Link} from "react-router-dom";
 
-const Post = ({post = [], myId, onLike, onDeleteLike, className, cardClassName}) => {
+const Post = ({post = [], myId, onLike, onDeleteLike, cardClassName}) => {
 
     const timestamp = post?.createdAt;
     let date = new Date(+timestamp)
