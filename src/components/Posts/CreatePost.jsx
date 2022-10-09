@@ -49,14 +49,14 @@ const CreatePost = ({myId , uploadFile, onUpload, uploadPost,
                </div>
             </div>
             <div className='profile-buttons'>
-                <Button
+                <button
                     onClick={() => {
                         uploadHandler()
                     }}
                     disabled={photos?.length === 0}
                     className='primeBtn'>
                     Send
-                </Button>
+                </button>
                 <Button className='ordinaryBtn'
                         onClick={() => history(-1)}>go back</Button>
             </div>
