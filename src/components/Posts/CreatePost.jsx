@@ -7,13 +7,17 @@ import {CFileUploader} from "../FileUploader";
 import {TextField} from "@material-ui/core";
 import {backendUrl} from "../../graphql/BackendUrl";
 
-const CreatePost = ({myId , uploadFile, onUpload, uploadPost, promise, onDelete} ) => {
+const CreatePost = ({myId , uploadFile, onUpload, uploadPost, onDelete} ) => {
     const [photos, setPhotos] = useState([]);
     const [preview, setPreview] = useState('')
     const [title, setTitle] = useState('');
     const [text, setText] = useState('')
 
     const navigate = useNavigate()
+
+    useEffect(() => {
+        onDelete()
+    }, [])
 
     useEffect(() => {
         setPhotos([])
@@ -30,7 +34,6 @@ const CreatePost = ({myId , uploadFile, onUpload, uploadPost, promise, onDelete}
         if(myId) {
             navigate(`/profile/${myId}`)
         }
-        onDelete()
     }
 function getPreviewPic() {
         if(uploadFile?.payload && preview) {
@@ -49,10 +52,6 @@ function getPreviewPic() {
         }
 }
 
-    function goBack() {
-        onDelete()
-        history(-1)
-    }
     return (
         <div>
             {getPreviewPic()}
@@ -82,7 +81,7 @@ function getPreviewPic() {
                     Send
                 </button>
                 <Button className='ordinaryBtn'
-                        onClick={() => goBack()}>go back</Button>
+                        onClick={() => history(-1)}>go back</Button>
             </div>
         </div>
     );
@@ -90,7 +89,6 @@ function getPreviewPic() {
 
 export const CCreatePost = connect(
     (state) => ({
-        promise: state?.promise,
         uploadFile: state?.promise?.uploadFile,
         uploadPost: state?.promise?.uploadPost,
         myId: state?.promise?.me?.payload?._id,
