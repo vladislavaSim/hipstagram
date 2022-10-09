@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DragNDrop = ({drag = false, setDrag, actionOnUpload}) => {
+const DragNDrop = ({drag = false, setDrag, actionOnUpload, file}) => {
 
     function dragStartHandler(e) {
         e.preventDefault()

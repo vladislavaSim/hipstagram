@@ -249,6 +249,8 @@ const actionUploadPost = (title, text, photosId, postId) => {
     );
 };
 
+export const actionClearPreviewPic = () => ({ type: 'PROMISE_CLEAR', name: 'uploadFile'});
+
 export const actionFullUploadPost = (title, text, photos, postId) => async (dispatch) => {
     let photosId = (photos || []).map((photo) => ({ _id: photo._id }));
     await dispatch(actionUploadPost(title, text, photosId, postId));

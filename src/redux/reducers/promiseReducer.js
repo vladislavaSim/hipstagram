@@ -36,5 +36,11 @@ export function promiseReducer(state={}, {type, status, payload, error, name}) {
             }
         }
     }
+    if (type === 'PROMISE_CLEAR') {
+        return {
+            ...state,
+            [name]: null,
+        };
+    }
     return state
 }
