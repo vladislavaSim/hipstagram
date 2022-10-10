@@ -10,6 +10,7 @@ import {actionFullAddLike, actionFullRemoveLike, logoutUser} from "../../redux/a
 import Avatar from "../Avatar";
 import DefaultAvatar from "../DefaultAvatar";
 import {Link} from "react-router-dom";
+import {ImagesSlider} from "./Slider";
 
 const Post = ({post = [], myId, onLike, onDeleteLike, cardClassName}) => {
 
@@ -20,6 +21,7 @@ const Post = ({post = [], myId, onLike, onDeleteLike, cardClassName}) => {
         "/"+date.getFullYear()+
         " "+date.getHours()+
         ":"+date.getMinutes()
+    console.log(post?.images)
 
     let isLiked = post.likes.filter((like) => like.owner._id === myId)
     return (
@@ -43,7 +45,7 @@ const Post = ({post = [], myId, onLike, onDeleteLike, cardClassName}) => {
                                         </div>
                                         <div style={{color: '#959292'}}>{date}</div>
                                     </header>
-                                    {post?.images[1] ? (
+                                    {post?.images.length === 1 ? (
                                         <CardMedia
                                             component="img"
                                             height="580"
@@ -51,13 +53,8 @@ const Post = ({post = [], myId, onLike, onDeleteLike, cardClassName}) => {
                                             alt="post-picture"
                                             className='gallery-image'
                                         />) : (
-                                        <CardMedia
-                                            component="img"
-                                            height="580"
-                                            image={`${backendUrl + post?.images?.[0]?.url}`}
-                                            alt="post-picture"
-                                            className='gallery-image'
-                                        />)
+                                            <ImagesSlider images={post?.images}/>
+                                        )
                                     }
                                     <CardContent>
                                         <Typography className='post-title'>
