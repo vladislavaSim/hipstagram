@@ -149,7 +149,7 @@ a {
 }
 
 .drop-area {
-  height: 15vh;
+  height: 20vh;
   border: 2px dashed #7d7d7d;
   font-size: 20px;
   display: flex;
@@ -264,6 +264,9 @@ a {
   justify-content: space-around;
   margin-bottom: 10px;
 }
+.profile-buttons {
+  margin-top: 20px;
+}
 /*input text and title*/
 .MuiFormControl-root {
   display: inline-table;
@@ -339,4 +342,16 @@ button[disabled]{
   height: 580px;
   margin: 0 auto;
 }
-
+.input-area {
+  width: 50%;
+  margin: 20px auto;
+}
+.preview-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.preview-img {
+  width: 200px;
+  height: auto;
+}

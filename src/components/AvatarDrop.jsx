@@ -18,7 +18,7 @@ function DropzoneAvatar({ onLoadAvatar }) {
         <div {...getRootProps()}>
             <input {...getInputProps()} />
             {
-                <CFileUploader/>
+                <CFileUploader multiply={false}/>
             }
         </div>
     );

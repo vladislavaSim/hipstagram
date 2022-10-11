@@ -1,13 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {connect, useDispatch} from "react-redux";
-import {useNavigate} from "react-router";
-import {
-    actionAboutMe,
-    actionFullSubscribe, actionFullUnSubscribe,
-    actionSetAvatar,
-} from "../redux/actions/actions";
+import React, {useEffect} from 'react';
+import {connect} from "react-redux";
 import {actionUserById} from "../graphql/userById";
-import {Link, useParams} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 import {CMyProfile} from "./MyProfile";
 import {CUserProfile} from "./UserProfile";
 

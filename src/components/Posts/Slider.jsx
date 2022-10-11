@@ -5,7 +5,6 @@ import {backendUrl} from "../../graphql/BackendUrl";
 export const ImagesSlider = ({ images }) => {
     let keys = images.map((image) => image?._id);
 
-    console.log(images)
     return (
        <>
             <Carousel navButtonsAlwaysVisible={true} autoPlay={false} className='carousel'>

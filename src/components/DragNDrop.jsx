@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DragNDrop = ({drag = false, setDrag, actionOnUpload, file}) => {
+const DragNDrop = ({drag = false, setDrag, actionOnUpload, multiply}) => {
 
     function dragStartHandler(e) {
         e.preventDefault()
@@ -15,22 +15,22 @@ const DragNDrop = ({drag = false, setDrag, actionOnUpload, file}) => {
         actionOnUpload(e, file)
     }
     return (
-        <div>
+        <div style={{width: '60%', margin: '20px auto'}}>
             {drag
                 ? <div
                     onDragStart={(e) => dragStartHandler(e)}
                     onDragOver={(e) => dragStartHandler(e)}
                     onDragLeave={(e) => dragLeaveHandler(e)}
                     onDrop={(e) => onDropHandler(e)}
-                    className='drop-area drop-active'>drop! drop! drop!</div>
+                    className='drop-area'>drag {multiply ? 'files' : 'file'} here</div>
                 : <div
                     onDragStart={(e) => dragStartHandler(e)}
                     onDragOver={(e) => dragStartHandler(e)}
                     onDragLeave={(e) => dragLeaveHandler(e)}
-                    className='drop-area'>drag file here</div>
+                    className='drop-area'>drag {multiply ? 'files' : 'file'} here</div>
             }
         </div>
     );
-};
+}
 
 export default DragNDrop;

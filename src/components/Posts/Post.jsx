@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from "react-redux";
 import Card from "@material-ui/core/Card"
 import {CardActions, CardContent, CardMedia, IconButton, Typography} from "@material-ui/core";
-import defaultAva from '../../img/default-avatar.png'
 import {backendUrl} from "../../graphql/BackendUrl";
 import FavoriteBorderTwoToneIcon from '@mui/icons-material/FavoriteBorderTwoTone';
 import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
