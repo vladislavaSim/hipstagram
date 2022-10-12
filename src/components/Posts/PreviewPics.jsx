@@ -1,72 +1,56 @@
+import React, {forwardRef, useEffect, useMemo, useState} from "react";
+import {DndContext, closestCenter, DragOverlay} from "@dnd-kit/core";
 import {
-    DndContext,
-    KeyboardSensor,
-    PointerSensor,
-    useSensor,
-    useSensors, useDroppable, MouseSensor, TouchSensor, closestCenter, DragOverlay
-} from "@dnd-kit/core";
-import {
-    sortableKeyboardCoordinates,
+    arrayMove,
+    horizontalListSortingStrategy,
     rectSortingStrategy,
     SortableContext,
-    useSortable,
-    horizontalListSortingStrategy, arrayMove
+    useSortable
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import React, {useEffect, useState} from "react";
-import {useParams} from "react-router";
-import {connect} from "react-redux";
-import { arrayMoveImmutable } from 'array-move'
-import {SortableItem} from './SortableItem'
 import {backendUrl} from "../../graphql/BackendUrl";
 import {Photo} from "./Photo";
+export function SortableItem(props) {
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition
+    } = useSortable({ id: props.id });
 
-export const PreviewPics = ({photos}) => {
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+    };
+
+    return (
+        <div
+            ref={setNodeRef}
+            style={style}
+            {...attributes}
+            {...listeners}
+        >
+            <img src={backendUrl + props.url} alt={'preview-pic'} className='preview-img'/>
+        </div>
+    );
+}
+
+export default function PreviewPics({photos}) {
     const [items, setItems] = useState(photos);
     const [activeId, setActiveId] = useState(null);
-    const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
-
+    console.log(items)
     useEffect(() => {
         setItems(photos)
     }, [photos])
-    // console.log(photos)
 
-    useEffect(() => {
-        setItems(items)
-    }, [items])
-    console.log(items)
-    return (
-        <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragStart={handleDragStart}
-            onDragEnd={handleDragEnd}
-            onDragCancel={handleDragCancel}
-        >
-
-            <SortableContext items={items} strategy={rectSortingStrategy}>
-
-                    {items.map((pic) => (
-                        <SortableItem
-                            key={pic}
-                            id={pic}
-                            url={backendUrl + pic}
-                            style={{width: '200px', height: 'auto'}}
-                        />
-                    ))}
-
-            </SortableContext>
-            <DragOverlay adjustScale={true} dropAnimation={{
-                duration: 500,
-                easing: 'cubic-bezier(0.18, 0.67, 0.6, 1.22)',
-            }}>
-
-            </DragOverlay>
-        </DndContext>
-    );
+    const itemIds = useMemo(() => items.map((item) => item.id), [items]);
 
     function handleDragStart(event) {
-        setActiveId( event.active.url);
+        setActiveId(event.active.id);
     }
 
     function handleDragEnd(event) {
@@ -74,17 +58,45 @@ export const PreviewPics = ({photos}) => {
 
         if (active.id !== over.id) {
             setItems((items) => {
-                const oldIndex = items.indexOf(active.id);
-                const newIndex = items.indexOf(over.id);
+                const oldIndex = items.findIndex((item) => item._id === active.id);
+                const newIndex = items.findIndex((item) => item._id === over.id);
+
                 return arrayMove(items, oldIndex, newIndex);
             });
         }
-        setActiveId(null);
     }
 
     function handleDragCancel() {
         setActiveId(null);
-    }
-};
+}
 
-export default PreviewPics;
+    console.log(backendUrl + items.find(item => item._id === activeId).url)
+    return (
+            <DndContext
+                collisionDetection={closestCenter}
+                onDragStart={handleDragStart}
+                onDragEnd={handleDragEnd}
+                onDragCancel={handleDragCancel}
+            >
+                <SortableContext items={itemIds} strategy={rectSortingStrategy}>
+                    {items.map((item) => (
+                        <SortableItem key={item._id} id={item._id} url={item.url}/>
+                    ))}
+                </SortableContext>
+
+                <DragOverlay adjustScale={true}>
+                    {activeId ? (
+                        <Photo
+                            src={backendUrl + items.find(item => item._id === activeId).url}
+                            index={items.indexOf(activeId)} />
+                    ) : null}
+                </DragOverlay>
+            </DndContext>
+    );
+}
+// export const Photo = forwardRef(({url, index, faded, ...props}, ref) => {
+//     console.log(url)
+//     return <div ref={ref} {...props}>
+//         <img src={url} className='preview-img'alt='preview-img'/>
+//     </div>;
+// });

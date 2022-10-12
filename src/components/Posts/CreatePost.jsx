@@ -26,7 +26,7 @@ const CreatePost = ({myId, obj = { arr: []}, uploadFile, onUpload, uploadPost, o
     useEffect(() => {
         if (uploadFile?.status === 'RESOLVED') {
             console.log(uploadFile)
-            setPreview([...preview, backendUrl + uploadFile?.payload?.url])
+            // setPreview([...preview, backendUrl + uploadFile?.payload?.url])
             setPhotos({
                 ...photos,
                 arr: [...photos.arr, ...uploadFile?.payload],
@@ -46,19 +46,19 @@ const CreatePost = ({myId, obj = { arr: []}, uploadFile, onUpload, uploadPost, o
         // onDelete('uploadFiles')
     }
 
-function makeArr() {
-        let arr = []
-    for(let value of Object.values(photos.arr)) {
-        arr.push(value.url)
-    }
-    return arr
-}
+// function makeArr() {
+//         let arr = []
+//     for(let value of Object.values(photos.arr)) {
+//         arr.push(value.url)
+//     }
+//     return arr
+// }
 
     console.log(photos.arr)
     return (
         <div style={{width: '90%'}}>
             <div className='preview-box'>
-                <PreviewPics photos={makeArr()}/>
+                <PreviewPics photos={photos.arr}/>
                 {/*<img src={backendUrl + photos.arr[0].url}/>*/}
                 {/*<button*/}
                 {/*    onClick={() => onDelete}*/}

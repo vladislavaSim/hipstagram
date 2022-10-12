@@ -14,7 +14,7 @@ export const SortableItem = (props) => {
         transform,
         transition,
     } = sortable;
-
+    // console.log(props)
     const itemStyle = {
         transform: CSS.Transform.toString(transform),
         cursor: 'grab',
@@ -26,6 +26,7 @@ export const SortableItem = (props) => {
             <Photo
                 ref={setNodeRef}
                 style={itemStyle}
+                src={props.url}
                 {...props}
                 {...attributes}
                 {...listeners}
