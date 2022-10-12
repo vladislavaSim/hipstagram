@@ -20,56 +20,6 @@ import { arrayMoveImmutable } from 'array-move'
 import {SortableItem} from './SortableItem'
 import {backendUrl} from "../../graphql/BackendUrl";
 import {Photo} from "./Photo";
-//
-// const PreviewPics = ({photos}) => {
-//     // const [images, setImages] = useState(photos)
-//
-//     const handleDragEnd = ({active, over}) => {
-//         const activeIndex = active.data.current.sortable.index;
-//         const overIndex = over.data.current?.sortable.index || 0;
-//
-//         // setImages((items) => {
-//         //     return arrayMoveImmutable(items, activeIndex, overIndex)
-//         // });
-//     }
-//     console.log(photos)
-//     return (
-//             <DndContext
-//                 onDragEnd={handleDragEnd}>
-//                 <SortableContext items={photos} strategy={horizontalListSortingStrategy}>
-//                     {photos.map((pic) => {
-//                         return <SortableItem  key={Math.random() * 1000}>
-
-//                         </SortableItem>
-// })
-//                     }
-//                 </SortableContext>
-//             </DndContext>
-//         );
-//     };
-//
-// export default PreviewPics;
-//
-// import React, {useState} from 'react';
-// import {
-//     DndContext,
-//     closestCenter,
-//     MouseSensor,
-//     TouchSensor,
-//     DragOverlay,
-//     useSensor,
-//     useSensors,
-// } from '@dnd-kit/core';
-// import {
-//     arrayMove,
-//     SortableContext,
-//     rectSortingStrategy,
-// } from '@dnd-kit/sortable';
-//
-// import {Grid} from './Grid';
-// import {SortablePhoto} from './SortablePhoto';
-// import {Photo} from './Photo';
-
 
 export const PreviewPics = ({photos}) => {
     const [items, setItems] = useState(photos);
@@ -79,7 +29,11 @@ export const PreviewPics = ({photos}) => {
     useEffect(() => {
         setItems(photos)
     }, [photos])
+    // console.log(photos)
 
+    useEffect(() => {
+        setItems(items)
+    }, [items])
     console.log(items)
     return (
         <DndContext
@@ -89,35 +43,42 @@ export const PreviewPics = ({photos}) => {
             onDragEnd={handleDragEnd}
             onDragCancel={handleDragCancel}
         >
+
             <SortableContext items={items} strategy={rectSortingStrategy}>
 
                     {items.map((pic) => (
-                        <Photo
-                            key={Math.random() * 1000}
-                            url={backendUrl + pic?.url}
+                        <SortableItem
+                            key={pic}
+                            id={pic}
+                            url={backendUrl + pic}
                             style={{width: '200px', height: 'auto'}}
                         />
                     ))}
+
             </SortableContext>
+            <DragOverlay adjustScale={true} dropAnimation={{
+                duration: 500,
+                easing: 'cubic-bezier(0.18, 0.67, 0.6, 1.22)',
+            }}>
+
+            </DragOverlay>
         </DndContext>
     );
 
     function handleDragStart(event) {
-        setActiveId(event.active.id);
+        setActiveId( event.active.url);
     }
 
     function handleDragEnd(event) {
-        const {active, over} = event;
+        const { active, over } = event;
 
         if (active.id !== over.id) {
             setItems((items) => {
                 const oldIndex = items.indexOf(active.id);
                 const newIndex = items.indexOf(over.id);
-
                 return arrayMove(items, oldIndex, newIndex);
             });
         }
-
         setActiveId(null);
     }
 

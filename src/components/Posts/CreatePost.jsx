@@ -21,7 +21,7 @@ const CreatePost = ({myId, obj = { arr: []}, uploadFile, onUpload, uploadPost, o
         onDelete()
         setPreview([])
     }, [])
-    console.log(promise)
+
 
     useEffect(() => {
         if (uploadFile?.status === 'RESOLVED') {
@@ -37,8 +37,7 @@ const CreatePost = ({myId, obj = { arr: []}, uploadFile, onUpload, uploadPost, o
     }, [uploadFile, uploadPost]);
 
     const history = useNavigate()
-    console.log(photos.arr)
-    // console.log(preview)
+    console.log(preview)
     function uploadHandler() {
         onUpload(title, text, photos)
         if(myId && uploadPost?.status === 'RESOLVED') {
@@ -46,36 +45,21 @@ const CreatePost = ({myId, obj = { arr: []}, uploadFile, onUpload, uploadPost, o
         }
         // onDelete('uploadFiles')
     }
-   //  useEffect(() => {
-   //      let r  render()
-   // }, [uploadFile])
 
+function makeArr() {
+        let arr = []
+    for(let value of Object.values(photos.arr)) {
+        arr.push(value.url)
+    }
+    return arr
+}
 
-    // function render() {
-    //
-    //     if(uploadFile?.status === 'RESOLVED') {
-    //         console.log(photos.arr)
-    //        if(photos.arr.length === 1) {
-    //             return <img src={backendUrl + photos.arr[0].url}
-    //                         alt='preview-pic'
-    //                         style={{width: '200px', height: 'auto'}}/>
-    //         } else {
-    //             return photos.arr.map(pic => {
-    //                 console.log(pic)
-    //                 return <img src={backendUrl + pic?.url}
-    //                             key={Math.random() * 1000}
-    //                             alt='preview-pic'
-    //                             style={{width: '200px', height: 'auto'}}/>
-    //             })
-    //         }
-    //     }
-    // }
-    // console.log(uploadFile?.payload?.url)
-
+    console.log(photos.arr)
     return (
         <div style={{width: '90%'}}>
             <div className='preview-box'>
-                <PreviewPics photos={photos.arr}/>
+                <PreviewPics photos={makeArr()}/>
+                {/*<img src={backendUrl + photos.arr[0].url}/>*/}
                 {/*<button*/}
                 {/*    onClick={() => onDelete}*/}
                 {/*    className='ordinaryBtn'*/}

@@ -348,10 +348,12 @@ button[disabled]{
 }
 .preview-box {
   display: flex;
+  width: 100%;
+  flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
 }
 .preview-img {
-  width: 200px;
-  height: auto;
+  width: auto;
+  height: 150px;
 }
