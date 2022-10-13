@@ -156,7 +156,9 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-right: 25px;
 }
+
 .drop-active {
   border: 2px dashed black;
 }
