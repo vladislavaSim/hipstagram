@@ -150,6 +150,7 @@ a {
 
 .drop-area {
   height: 20vh;
+  min-width: 150px;
   border: 2px dashed #7d7d7d;
   font-size: 20px;
   display: flex;
@@ -208,6 +209,10 @@ a {
 .post-title {
   font-size: 16px;
 }
+
+.post-text {
+  text-align: center;
+}
 .card-header{
   display: flex;
   padding: 3px 10px;
@@ -223,6 +228,9 @@ a {
 .MuiCard-root {
   margin-bottom: 15px;
   height: 765px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 .MuiCardContent-root {
   padding: 5px 15px;
@@ -250,6 +258,7 @@ a {
 .MuiCardActions-root {
   padding: 0;
 }
+
 .profile-box {
   display: flex;
   margin-bottom: 60px;
@@ -335,7 +344,7 @@ button[disabled]{
   position: absolute;
   bottom: 15px;
   left: 0;
-  z-index: 50;
+  z-index: 5;
 }
 .item{
   width: auto;

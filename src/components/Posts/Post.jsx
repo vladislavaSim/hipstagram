@@ -51,7 +51,7 @@ const Post = ({post = [], myId, onLike, onDeleteLike, cardClassName}) => {
                                             alt="post-picture"
                                             className='gallery-image'
                                         />) : (
-                                            <ImagesSlider images={post?.images}/>
+                                            <ImagesSlider images={post?.images} key={Math.random() * 1000}/>
                                         )
                                     }
                                     <CardContent>

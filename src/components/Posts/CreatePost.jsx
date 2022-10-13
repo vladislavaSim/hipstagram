@@ -53,34 +53,31 @@ export function SortableItem(props) {
 
      const navigate = useNavigate()
 
-
      useEffect(() => {
-         console.log('updfile')
-         console.log(uploadFile)
          if (uploadFile?.status === 'RESOLVED') {
-             console.log(uploadFile?.payload)
-             setPhotos([...photos, ...uploadFile?.payload]);
+            try{
+               setPhotos([...photos, ...uploadFile?.payload]);
+            } catch (e) {
+                console.log(e)
+            }
          }
          if(uploadFile === null){
-             console.log(uploadFile)
              setPhotos([])
          }
-        // return () => onDelete()
+
      }, [uploadFile]);
-     console.log(photos)
-     const history = useNavigate()
 
-     function uploadHandler() {
-         onUpload(title, text, photos)
-         console.log(uploadPost?.status)
-         console.log(myId)
-         if(myId && uploadPost?.payload) {
-             console.log('uploaded')
-             navigate(`/profile/${myId}`)
-             onDelete('uploadFiles')
-         }
-     }
+    useEffect(() => {
+        if(uploadPost) {
+            if(myId && uploadPost?.status === 'RESOLVED') {
+                navigate(`/profile/${myId}`)
 
+            }
+        }
+    }, [uploadPost])
+
+
+//getting ids for dnd
     const itemIds = useMemo(() => photos.map((item) => item.id), [photos]);
 
     function handleDragStart(event) {
@@ -158,14 +155,14 @@ export function SortableItem(props) {
                        <div className='profile-buttons'>
                            <button
                                onClick={() => {
-                                   uploadHandler()
+                                   onUpload(title, text, photos)
                                }}
                                disabled={photos?.length === 0}
                                className='primeBtn'>
                                Send
                            </button>
                            <Button className='ordinaryBtn'
-                                   onClick={() => history(-1)}>go back</Button>
+                                   onClick={() => navigate(-1)}>go back</Button>
                        </div>
                    </div>
                </div>

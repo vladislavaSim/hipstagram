@@ -8,7 +8,7 @@ const FileUploader = ({onUpload, onUploadMany, isActive, multiply}) => {
 
     function uploadCb(e) {
         if(multiply) {
-            if(e.dataTransfer.files.length < 9) {
+            if(e.dataTransfer.files.length > 0 && e.dataTransfer.files.length < 9) {
                 return onUploadMany(e.dataTransfer.files)
             }
         } else {

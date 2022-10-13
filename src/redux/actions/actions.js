@@ -26,7 +26,6 @@ export const actionFullLogin = (login, password) => (
 export const actionFullRegister = (login, password) => (
     async (dispatch) => {
         let registerId = await dispatch(actionRegister(login, password))
-        console.log(registerId)
         if (registerId) {
             await dispatch(actionFullLogin(login, password))
         }
@@ -49,9 +48,8 @@ export const actionUploadFile = (file) => {
 };
 export const actionUploadFiles = (files) => {
     let promiseResult = [];
-    console.log(promiseResult)
+
     for (let i = 0; i < files.length; i++) {
-        console.log(files[i])
         let formdata = new FormData();
         formdata.append('photo', files[i]);
         let oneRes = fetch(backendUrl +'upload', {
@@ -61,9 +59,8 @@ export const actionUploadFiles = (files) => {
                 : {},
             body: formdata,
         });
-        // console.log(oneRes)
+
         promiseResult.push(oneRes);
-        // console.log(promiseResult)
     }
     return actionPromise(
         'uploadFile',
@@ -258,8 +255,9 @@ export const actionFullUploadPost = (title, text, photos, postId) => async (disp
 
     let photosId = (photos || []).map((photo) => ({ _id: photo._id }));
     await dispatch(actionUploadPost(title, text, photosId, postId));
+    await dispatch({ type: 'PROMISE_CLEAR', name: 'uploadPost'})
+    await dispatch(actionClearPromise())
     await dispatch(actionAboutMe());
-    console.log(title, text, photosId, postId)
 };
 export const actionPostById = (id, name = 'postByIdUser') =>
     actionPromise(
