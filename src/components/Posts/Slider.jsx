@@ -3,7 +3,7 @@ import Carousel from "react-material-ui-carousel";
 import {backendUrl} from "../../graphql/BackendUrl";
 
 export const ImagesSlider = ({ images }) => {
-    let keys = images.map((image) => image?._id);
+    // let keys = images.map((image) => image?._id);
 
     return (
        <>
@@ -12,7 +12,7 @@ export const ImagesSlider = ({ images }) => {
                     return (
                         <div className='carousel-box'>
                             <img className='item'
-                                key={keys[i]}
+                                key={Math.random() * 1000}
                                 src={backendUrl + item.url}/>
                         </div>
                        )})}

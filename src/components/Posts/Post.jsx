@@ -20,7 +20,6 @@ const Post = ({post = [], myId, onLike, onDeleteLike, cardClassName}) => {
         "/"+date.getFullYear()+
         " "+date.getHours()+
         ":"+date.getMinutes()
-    console.log(post?.images)
 
     let isLiked = post.likes.filter((like) => like.owner._id === myId)
     return (

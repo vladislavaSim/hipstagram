@@ -13,11 +13,7 @@ import {CShowPosts} from "./Posts/ShowPosts";
 import {CCreatePost} from "./Posts/CreatePost";
 
 const MainContainer = ({promise}) => {
-    // {(promise.status == "PENDING") &&
-    //          <img style={{ display: 'block', margin: '0 auto', marginBottom:'200px', padding: '10px' }}
-    //         src={loading} width="100" height="100" />
-    //             }
-    console.log(promise)
+
     return (
         <div className='main-content'>
             {

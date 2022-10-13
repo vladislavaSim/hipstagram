@@ -7,8 +7,13 @@ const FileUploader = ({onUpload, onUploadMany, isActive, multiply}) => {
     const [drag, setDrag] = useState(isActive)
 
     function uploadCb(e) {
-        console.log(e.dataTransfer.files)
-        return multiply ? onUploadMany(e.dataTransfer.files) : onUpload(e.dataTransfer.files[0])
+        if(multiply) {
+            if(e.dataTransfer.files.length < 9) {
+                return onUploadMany(e.dataTransfer.files)
+            }
+        } else {
+            return onUpload(e.dataTransfer.files[0])
+        }
     }
 
     return (

@@ -61,9 +61,9 @@ export const actionUploadFiles = (files) => {
                 : {},
             body: formdata,
         });
-        console.log(oneRes)
+        // console.log(oneRes)
         promiseResult.push(oneRes);
-        console.log(promiseResult)
+        // console.log(promiseResult)
     }
     return actionPromise(
         'uploadFile',
@@ -255,10 +255,11 @@ const actionUploadPost = (title, text, photosId, postId) => {
 export const actionClearPromise = () => ({ type: 'PROMISE_CLEAR', name: 'uploadFile'});
 
 export const actionFullUploadPost = (title, text, photos, postId) => async (dispatch) => {
-    console.log(photos)
-    let photosId = (photos.arr || []).map((photo) => ({ _id: photo._id }));
+
+    let photosId = (photos || []).map((photo) => ({ _id: photo._id }));
     await dispatch(actionUploadPost(title, text, photosId, postId));
     await dispatch(actionAboutMe());
+    console.log(title, text, photosId, postId)
 };
 export const actionPostById = (id, name = 'postByIdUser') =>
     actionPromise(
