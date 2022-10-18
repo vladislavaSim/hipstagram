@@ -367,4 +367,5 @@ button[disabled]{
 .preview-img {
   width: auto;
   height: 150px;
+  margin-top: 10px;
 }

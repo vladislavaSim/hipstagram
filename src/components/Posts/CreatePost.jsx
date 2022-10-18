@@ -76,7 +76,13 @@ export function SortableItem(props) {
         }
     }, [uploadPost])
 
-
+     function uploadHandler() {
+         console.log(uploadFile?.payload.length)
+         if(uploadFile?.payload.length > 9) {
+             
+         }
+         onUpload(title, text, photos)
+     }
 //getting ids for dnd
     const itemIds = useMemo(() => photos.map((item) => item.id), [photos]);
 
@@ -155,7 +161,7 @@ export function SortableItem(props) {
                        <div className='profile-buttons'>
                            <button
                                onClick={() => {
-                                   onUpload(title, text, photos)
+                                   uploadHandler()
                                }}
                                disabled={photos?.length === 0}
                                className='primeBtn'>

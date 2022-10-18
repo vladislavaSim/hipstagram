@@ -8,8 +8,10 @@ const FileUploader = ({onUpload, onUploadMany, isActive, multiply}) => {
 
     function uploadCb(e) {
         if(multiply) {
-            if(e.dataTransfer.files.length > 0 && e.dataTransfer.files.length < 9) {
+            if(e.dataTransfer.files.length < 9) {
                 return onUploadMany(e.dataTransfer.files)
+            } else {
+                return onUploadMany(Array.from(e.dataTransfer.files).slice(0, 8))
             }
         } else {
             return onUpload(e.dataTransfer.files[0])

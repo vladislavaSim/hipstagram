@@ -8,11 +8,11 @@ export const ImagesSlider = ({ images }) => {
     return (
        <>
             <Carousel navButtonsAlwaysVisible={true} autoPlay={false} className='carousel'>
-                {images.map((item, i) => {
+                {images.map((item) => {
                     return (
-                        <div className='carousel-box'>
+                        <div className='carousel-box'
+                             key={Math.random() * 1000}>
                             <img className='item'
-                                key={Math.random() * 1000}
                                 src={backendUrl + item.url}/>
                         </div>
                        )})}
