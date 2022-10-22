@@ -12,19 +12,22 @@ const Header = ({onLogout, id, login, promise}) => {
             {
                 login ?
                    ( <div className='header'>
-                        <img src={logo} style={{width: '100px'}}/>
-                        <h3>{'@' + login}</h3>
-                        <Link to="/feed">Feed</Link>
-                        <Link to={`/profile/${id}`}>Profile</Link>
-                        <Link to="/search">Search</Link>
-                        <Link to="/settings">Settings</Link>
-                        <Button className='unstyledBtn'
-                                onClick={() => onLogout()}>
-                            <Link to={'/login'}>Log out</Link>
-                        </Button>
+                      <div className='link-box'>
+                          <img src={logo} style={{width: '100px'}}/>
+                          <Link to={`/profile/${id}`} style={{fontWeight: 'bold'}}>{'@' + login}</Link>
+                      </div>
+                        <div className='link-box'>
+                            <Link to="/feed">Feed</Link>
+                            <Link to="/search">Search</Link>
+                            <Link to="/settings">Settings</Link>
+                            <Button className='unstyledBtn'
+                                    onClick={() => onLogout()}>
+                                <Link to={'/login'}>Log out</Link>
+                            </Button>
+                        </div>
                     </div>)
                     : (<div className='header'>
-                        <img src={logo} style={{width: '100px'}}/>
+                        <img src={logo} style={{width: '100px'}} alt='logo'/>
                     </div>)
             }
         </>

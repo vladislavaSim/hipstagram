@@ -119,6 +119,11 @@ a {
 .primeBtn a::before {
   background: transparent;
 }
+.link-box {
+  display: flex;
+  width: 30%;
+  justify-content: space-around;
+}
 
 .main-content {
   width: 85%;
