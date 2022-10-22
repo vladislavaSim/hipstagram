@@ -8,7 +8,7 @@ import {
     actionSetAvatar
 } from "../redux/actions/actions";
 import {actionUserById} from "../graphql/userById";
-
+import ScrollUpButton from "react-scroll-up-button";
 import Avatar from "./Avatar";
 import DefaultAvatar from "./DefaultAvatar";
 import Button from "./Button";
@@ -44,6 +44,7 @@ const UserProfile = ({userId,
     return (
         <CPreloaded promiseName='postByIdUser'>
             <div className='profile-box'>
+                <ScrollUpButton/>
                 <div className="avatar">
                     {userAvatar ?
                         <Avatar url={userAvatar} className='avatarPic'/>

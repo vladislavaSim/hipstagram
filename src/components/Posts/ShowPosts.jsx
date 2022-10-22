@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {actionFullGetAllPosts} from "../../redux/actions/actions";
 import {CPost} from "./Post";
 import {CPreloaded} from "../Preloader";
+import ScrollUpButton from "react-scroll-up-button";
 
 const ShowPosts = ({ posts = [], getPosts, feed, state}) => {
 
@@ -14,6 +15,7 @@ const ShowPosts = ({ posts = [], getPosts, feed, state}) => {
     return (
        <CPreloaded promiseName='allPosts'>
            <div style={{width: '50%'}}>
+               <ScrollUpButton/>
                {posts.length ?
                    (posts || []).map((post) => {
 

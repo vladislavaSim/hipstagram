@@ -15,6 +15,7 @@ import {CDropzoneAvatar} from "./AvatarDrop";
 import Avatar from "./Avatar";
 import DefaultAvatar from "./DefaultAvatar";
 import {CPreloaded} from "./Preloader";
+import ScrollUpButton from "react-scroll-up-button";
 
 const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollowers, myId, getPostById}) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -44,6 +45,7 @@ const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollower
     return (
         <CPreloaded promiseName='postByIdUser'>
             <div className='profile-box'>
+                <ScrollUpButton />
                 <div className="avatar">
                     {setOrShowAvatar()}
                 </div>

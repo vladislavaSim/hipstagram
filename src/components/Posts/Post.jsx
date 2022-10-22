@@ -63,8 +63,7 @@ const Post = ({post = [], myId, onLike, onDeleteLike, cardClassName}) => {
                                         </Typography>
                                     </CardContent>
                                     <CardActions disableSpacing className='card-bottom'
-                                        style={{padding: '0 8px 17px'}}
-                                    >
+                                        style={{padding: '0 8px 17px'}}>
                                         <IconButton onClick={() => {
                                             isLiked.length !== 0 ? onDeleteLike(isLiked[0]._id) : onLike(post._id);
                                         }}
@@ -85,6 +84,7 @@ const Post = ({post = [], myId, onLike, onDeleteLike, cardClassName}) => {
                                                 )}
                                             </div>
                                         </IconButton>
+
                                     </CardActions>
                                 </Card>
                     ) : null
