@@ -7,7 +7,16 @@ export const ImagesSlider = ({ images }) => {
 
     return (
        <>
-            <Carousel navButtonsAlwaysVisible={true} autoPlay={false} className='carousel'>
+            <Carousel
+                navButtonsAlwaysVisible={true}
+                autoPlay={false}
+                navButtonsProps={{          // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
+                    style: {
+                        color: 'grey',
+                        backgroundColor: 'white'
+                    }
+                }}
+                className='carousel'>
                 {images.map((item) => {
                     return (
                         <div className='carousel-box'

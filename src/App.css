@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  font-family: system-ui;
+  font-family: 'Montserrat', sans-serif !important;
 }
 body {
   height: 100vh;
@@ -11,11 +11,12 @@ body {
 }
 
 .App{
-  background: linear-gradient(238deg, rgba(253, 136, 0, 0.6), rgba(253, 0, 143, 0.57), rgba(151, 0, 253, 0.63), rgba(0, 61, 253, 0.64), #05c7e6, #4bd58d);
-  background-size: 350% 500%;
-  -webkit-animation: rainbow 7s ease infinite;
-  animation: rainbow 7s ease infinite;
+  -webkit-animation: rainbow 10s ease infinite;
+  animation: rainbow 10s ease infinite;
   min-height: 100vh;
+  background: linear-gradient(238deg, rgba(253, 136, 0, 0.4), rgba(253, 0, 143, 0.4), rgba(151, 0, 253, 0.4), rgba(0, 61, 253, 0.4), #05c7e6, #4bd58d);
+  background-size: 350% 500%;
+  background-attachment: fixed;
 }
 @-webkit-keyframes rainbow {
   0% { background-position: 0% 50% }
@@ -92,8 +93,8 @@ a {
   height: 3px;
   border-radius: 4px;
   background: linear-gradient(to right, #ff67d4 0%, #a6c1ee 51%, #c455ff 100%);
-  bottom: 0;
-  left: 0;
+  bottom: 1px;
+  left: -1px;
   transform-origin: right;
   transform: scaleX(0);
   transition: transform .3s ease-in-out;
@@ -196,6 +197,7 @@ a {
 .small-ava {
   width: 50px;
   height: 50px;
+  margin-right: 10px;
 }
 .search-item {
   padding: 7px 0 7px 15px;
@@ -378,3 +380,4 @@ button[disabled]{
   background: none !important;
   border: 1px solid white;
 }
+
