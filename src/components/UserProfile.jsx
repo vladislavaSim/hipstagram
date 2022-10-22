@@ -44,7 +44,7 @@ const UserProfile = ({userId,
     return (
         <CPreloaded promiseName='postByIdUser'>
             <div className='profile-box'>
-                <ScrollUpButton/>
+                <ScrollUpButton ContainerClassName="up-btn"/>
                 <div className="avatar">
                     {userAvatar ?
                         <Avatar url={userAvatar} className='avatarPic'/>
