@@ -124,6 +124,7 @@ a {
   display: flex;
   width: 30%;
   justify-content: space-around;
+  align-items: center;
 }
 
 .main-content {
@@ -274,16 +275,19 @@ a {
 }
 .profile-info-box {
   margin-left: 15px;
-  width: 350px;
+  width: 400px;
 }
 .profile-buttons, .profile-nums {
   display: flex;
-  width: 100%;
-  justify-content: space-around;
+  width: 110%;
+  justify-content: space-evenly;
   margin-bottom: 10px;
 }
+/*.profile-nums {*/
+/*  width: 120%;*/
+/*}*/
 .profile-buttons {
-  margin-top: 20px;
+  margin: 20px auto 0;
 }
 /*input text and title*/
 .MuiFormControl-root {

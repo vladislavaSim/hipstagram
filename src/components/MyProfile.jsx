@@ -52,16 +52,7 @@ const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollower
                 <div className='profile-info-box'>
                     <h3> <span>{`${myLogin ? myLogin : 'no name'}`}</span></h3>
                     <div>
-                        <div className='profile-buttons'>
-                            <div>
-                                <Button className='primeBtn'>
-                                    <Link to='/create'>Add post</Link>
-                                </Button>
-                            </div>
-                            <Button children={isEditing ? 'Cancel' : 'Edit profile'}
-                                    className='primeBtn'
-                                    onClick={() => setIsEditing(!isEditing)}/>
-                        </div>
+
                         <div className='profile-nums'>
                             <Button className='ordinaryBtn'>
                                 <Link to={`/followers/${myId}`}>
@@ -76,6 +67,16 @@ const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollower
                             <Button className='ordinaryBtn'>
                                 <div>{getLengthNum(myPosts,'posts')}</div>
                             </Button>
+                        </div>
+                        <div className='profile-buttons'>
+                            <div>
+                                <Button className='primeBtn'>
+                                    <Link to='/create'>Add post</Link>
+                                </Button>
+                            </div>
+                            <Button children={isEditing ? 'Cancel' : 'Edit profile'}
+                                    className='primeBtn'
+                                    onClick={() => setIsEditing(!isEditing)}/>
                         </div>
                     </div>
                 </div>

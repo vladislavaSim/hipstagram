@@ -55,13 +55,6 @@ const UserProfile = ({userId,
                 <div className='profile-info-box'>
                     <h3> <span>{`${userLogin ? userLogin : 'no name'}`}</span></h3>
                     <div>
-                        <div className='profile-buttons'>
-                            {(!doIFollow ? (
-                                <Button onClick={() => onFollow(myId, userId)} className='primeBtn' children='Follow'/>
-                            ) : (
-                                <Button onClick={() => onUnfollow(myId, userId)} className='primeBtn' children='Unfollow'/>
-                            ))}
-                        </div>
                         <div className='profile-nums'>
                             <Button className='ordinaryBtn'>
                                 <Link to={`/followers/${userId}`}>
@@ -76,6 +69,13 @@ const UserProfile = ({userId,
                             <Button className='ordinaryBtn'>
                                 <div>{getLengthNum(userPosts,'posts')}</div>
                             </Button>
+                        </div>
+                        <div className='profile-buttons'>
+                            {(!doIFollow ? (
+                                <Button onClick={() => onFollow(myId, userId)} className='primeBtn' children='Follow'/>
+                            ) : (
+                                <Button onClick={() => onUnfollow(myId, userId)} className='primeBtn' children='Unfollow'/>
+                            ))}
                         </div>
                     </div>
                 </div>
