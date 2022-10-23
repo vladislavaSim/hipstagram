@@ -5,7 +5,7 @@ import {CPost} from "./Post";
 import {CPreloaded} from "../Preloader";
 import ScrollUpButton from "react-scroll-up-button";
 
-const ShowPosts = ({ posts = [], getPosts, feed, state}) => {
+const ShowPosts = ({ posts = [], getPosts, feed}) => {
 
     useEffect(() => {
             getPosts()
