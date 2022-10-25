@@ -27,7 +27,7 @@ const Post = ({post = [], myId, onLike, onDeleteLike, cardClassName}) => {
             {post?.images?.[0]?.url ?
                          (
                                 <Card sx={{maxWidth: 345}}
-                                      style={{boxShadow: '1px 2px 4px #0000008c'}}
+                                      style={{boxShadow: '1px 2px 4px #0000008c', position: 'relative'}}
                                 >
                                     <header className='card-header'>
                                         <div className='card-author-box'>
@@ -63,15 +63,13 @@ const Post = ({post = [], myId, onLike, onDeleteLike, cardClassName}) => {
                                         </Typography>
                                     </CardContent>
                                     <CardActions disableSpacing className='card-bottom'
-                                        style={{padding: '0 8px 17px'}}>
+                                        style={{position: 'absolute', bottom: '0'}}>
                                         <IconButton onClick={() => {
                                             isLiked.length !== 0 ? onDeleteLike(isLiked[0]._id) : onLike(post._id);
                                         }}
                                             aria-label="add to favorites">
                                             <div
-                                                className="like-button"
-
-                                            >
+                                                className="like-button">
                                                 {isLiked.length !== 0 ? (
                                                     <FavoriteTwoToneIcon className='red'/>
                                                 ) : (

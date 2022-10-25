@@ -23,7 +23,8 @@ const SearchByLogin = ({ user, onGetUser, foundUsers, state }) => {
             <h3>Enter login to search users</h3>
             <div className='search-box'>
                 <TextField
-                    className='small-input'
+                    style={{width: '300px', marginBottom: '25px'}}
+                    // className='small-input'
                     placeholder="search user by login"
                     value={login}
                     onChange={(e) => setLogin(e.target.value)}
