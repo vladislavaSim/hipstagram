@@ -1,16 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import {TextField} from "@mui/material";
+import {IconButton, TextField} from "@mui/material";
 import Button from "./Button";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {actionFullRegister} from "../redux/actions/actions";
 import {useNavigate} from "react-router";
+import {Visibility, VisibilityOff} from "@material-ui/icons";
 
-const RegistrationForm = ({onRegister, isLogged, myId, promise, status}) => {
+const RegistrationForm = ({onRegister, myId, status}) => {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
-    console.log(status)
+    const [showPass, setShowPass] = useState(false)
+
     function regHandler() {
         if(login && password) {
             onRegister(login, password)
@@ -38,9 +40,15 @@ const RegistrationForm = ({onRegister, isLogged, myId, promise, status}) => {
             <TextField
                 variant="filled"
                 label="Password"
-                type="password"
+                type={showPass ? 'text' : 'password'}
                 onChange={(e) => setPassword(e.target.value)}/>
             <div>
+                <IconButton
+                    style={{position: 'absolute', right: '120px', top: '44%'}}
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPass(!showPass)}>
+                    {showPass ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
                 {<p style={{color: 'red', fontSize: '16px'}}>{error}</p>}
                 <Button
                         onClick={() => regHandler()}
@@ -61,7 +69,6 @@ const RegistrationForm = ({onRegister, isLogged, myId, promise, status}) => {
 export const CRegistrationForm = connect( (state) => ({
     promise: state?.promise,
     auth: state?.auth,
-    isLogged: state?.auth?.token,
     myId: state?.promise?.me?.payload?._id,
     status: state?.promise?.login?.status
     }),
