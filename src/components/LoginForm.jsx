@@ -39,13 +39,14 @@ const LoginForm = ({onLogin, isLogged, promise, myId}) => {
                 value={login}
                 onChange={(e) => setLogin(e.target.value)}/>
             <TextField
+                style={{position: 'relative'}}
                 variant="filled"
                 label="Password"
                 type={showPass ? 'text' : 'password'}
                 onChange={(e) => setPassword(e.target.value)}>
             </TextField>
             <IconButton
-                style={{position: 'absolute', right: '120px', top: '44%'}}
+                style={{position: 'absolute', right: '120px', top: '233px'}}
                 aria-label="toggle password visibility"
                 onClick={() => setShowPass(!showPass)}>
                 {showPass ? <VisibilityOff /> : <Visibility />}

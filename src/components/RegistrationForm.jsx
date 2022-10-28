@@ -44,7 +44,7 @@ const RegistrationForm = ({onRegister, myId, status}) => {
                 onChange={(e) => setPassword(e.target.value)}/>
             <div>
                 <IconButton
-                    style={{position: 'absolute', right: '120px', top: '44%'}}
+                    style={{position: 'absolute', right: '120px', top: '233px'}}
                     aria-label="toggle password visibility"
                     onClick={() => setShowPass(!showPass)}>
                     {showPass ? <VisibilityOff /> : <Visibility />}
