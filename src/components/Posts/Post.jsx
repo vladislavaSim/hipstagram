@@ -5,7 +5,7 @@ import {CardActions, CardContent, CardMedia, IconButton, Typography} from "@mate
 import {backendUrl} from "../../graphql/BackendUrl";
 import FavoriteBorderTwoToneIcon from '@mui/icons-material/FavoriteBorderTwoTone';
 import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
-import {actionFullAddLike, actionFullRemoveLike, logoutUser} from "../../redux/actions/actions";
+import {actionFullAddLike, actionFullRemoveLike} from "../../redux/actions/actionsLike";
 import Avatar from "../Avatar";
 import DefaultAvatar from "../DefaultAvatar";
 import {Link} from "react-router-dom";

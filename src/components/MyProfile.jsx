@@ -1,13 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
-import {
-    actionAboutMe,
-    actionFullSubscribe,
-    actionFullUnSubscribe,
-    actionPostById,
-    actionSetAvatar
-} from "../redux/actions/actions";
-import {actionUserById} from "../graphql/userById";
+import {actionFullSubscribe, actionFullUnSubscribe} from "../redux/actions/actionSubscribe";
+import {actionSetAvatar, actionAboutMe} from '../redux/actions/actionsMe'
+import {queryUserById} from "../graphql/queryUserById";
 import Button from "./Button";
 import {Link} from "react-router-dom";
 import {CPost} from "./Posts/Post";
@@ -16,6 +11,7 @@ import Avatar from "./Avatar";
 import DefaultAvatar from "./DefaultAvatar";
 import {CPreloaded} from "./Preloader";
 import ScrollUpButton from "react-scroll-up-button";
+import {queryPostById} from "../graphql/queryPost";
 
 const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollowers, myId, getPostById}) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -104,8 +100,8 @@ export const CMyProfile = connect((state) => ({
 }), {
     getAboutMe: actionAboutMe,
     setAvatar: actionSetAvatar,
-    onUserById: actionUserById,
+    onUserById: queryUserById,
     onFollow: actionFullSubscribe,
     onUnfollow: actionFullUnSubscribe,
-    getPostById: actionPostById
+    getPostById: queryPostById
 })(MyProfile);

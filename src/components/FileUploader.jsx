@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {connect} from "react-redux";
-import {actionUploadFile, actionUploadFiles} from "../redux/actions/actions";
-import DragNDrop from "./DragNDrop";
+import {actionUploadFile, actionUploadFiles} from "../redux/actions/actionUploadFiles";
+import Dropzone from "./Dropzone";
 
 const FileUploader = ({onUpload, onUploadMany, isActive, multiply}) => {
     const [drag, setDrag] = useState(isActive)
@@ -20,10 +20,10 @@ const FileUploader = ({onUpload, onUploadMany, isActive, multiply}) => {
 
     return (
         <>
-           <DragNDrop drag={drag}
-                      setDrag={setDrag}
-                      actionOnUpload={(e) => uploadCb(e)}
-                      multiply={multiply}
+           <Dropzone drag={drag}
+                     setDrag={setDrag}
+                     actionOnUpload={(e) => uploadCb(e)}
+                     multiply={multiply}
            />
         </>
     );

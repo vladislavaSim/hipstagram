@@ -3,7 +3,7 @@ import {IconButton, TextField} from "@mui/material";
 import Button from "./Button";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {actionFullRegister} from "../redux/actions/actions";
+import {actionFullRegister} from '../redux/actions/actionsAuth';
 import {useNavigate} from "react-router";
 import {Visibility, VisibilityOff} from "@material-ui/icons";
 

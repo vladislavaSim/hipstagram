@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DragNDrop = ({drag = false, setDrag, actionOnUpload, multiply}) => {
+const Dropzone = ({drag = false, setDrag, actionOnUpload, multiply}) => {
 
     function dragStartHandler(e) {
         e.preventDefault()
@@ -33,4 +33,4 @@ const DragNDrop = ({drag = false, setDrag, actionOnUpload, multiply}) => {
     );
 }
 
-export default DragNDrop;
+export default Dropzone;

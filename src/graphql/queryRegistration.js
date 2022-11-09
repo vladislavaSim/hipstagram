@@ -1,8 +1,7 @@
-
 import {gql} from "./getgql";
-import {actionPromise} from "../redux/reducers/promiseReducer";
+import {actionPromise} from "../redux/actions/actionPromise";
 
-export const actionRegister = (login, password) => (
+export const queryRegistration = (login, password) => (
     actionPromise(  'register',
         gql(
             `mutation reg($login: String!, $password: String!) {

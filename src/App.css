@@ -3,10 +3,10 @@
   font-family: 'Montserrat', sans-serif !important;
 }
 body {
+  margin: 0;
   height: 100vh;
 }
 #root, main, .App {
-  /*height: auto;*/
   overflow: hidden;
 }
 
@@ -398,5 +398,6 @@ button[disabled]{
   background: none !important;
   border: 1px solid white;
 }
+
 
 

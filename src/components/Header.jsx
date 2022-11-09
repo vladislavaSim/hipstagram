@@ -2,7 +2,7 @@ import React from 'react';
 import logo from '../img/Instagram-logo-with-brush-PNG.png'
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {actionAuthLogout} from "../redux/reducers/authReducer";
+import {actionAuthLogout} from "../redux/actions/actionsAuth";
 import Button from "./Button";
 
 const Header = ({onLogout, id, login, promise}) => {

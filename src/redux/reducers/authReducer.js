@@ -1,22 +1,17 @@
-function jwtDecode(token){
-    try {
-        return JSON.parse(atob(token.split('.')[1]))
-    }
-    catch(e){
-    }
-}
+import {AUTH_LOGIN, AUTH_LOGOUT} from "../actionTypes";
 
 export function authReducer(state, {type, token}) {
     if (!state) {
         if (localStorage.authToken) {
             token = localStorage.authToken
-            type = 'AUTH_LOGIN'
+            type = AUTH_LOGIN
         } else {
             return {}
         }
     }
-    if (type === 'AUTH_LOGIN') {
+    if (type === AUTH_LOGIN) {
         let payload = jwtDecode(token)
+
         if (typeof payload === 'object') {
             localStorage.authToken = token
             return {
@@ -28,13 +23,21 @@ export function authReducer(state, {type, token}) {
             return state
         }
     }
-    if (type === 'AUTH_LOGOUT') {
+    if (type === AUTH_LOGOUT) {
         localStorage.removeItem('authToken')
         window.location.reload()
         return {}
     }
+
     return state
 }
 
-export const actionAuthLogin = (token) => ({type: 'AUTH_LOGIN', token})
-export const actionAuthLogout = () => ({type: 'AUTH_LOGOUT'})
+function jwtDecode(token){
+    try {
+        return JSON.parse(atob(token.split('.')[1]))
+    }
+    catch(e){
+        console.log('error found: ' + e)
+    }
+}
+

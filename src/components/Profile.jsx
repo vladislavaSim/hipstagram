@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {connect} from "react-redux";
-import {actionUserById} from "../graphql/userById";
+import {queryUserById} from "../graphql/queryUserById";
 import {useParams} from 'react-router-dom'
 import {CMyProfile} from "./MyProfile";
 import {CUserProfile} from "./UserProfile";
@@ -36,5 +36,5 @@ export const CProfile = connect((state) => ({
     myId: state?.promise?.me?.payload?._id,
     myFollowing: state?.promise?.me?.payload?.following,
 }), {
-    onUserById: actionUserById,
+    onUserById: queryUserById,
 })(Profile);

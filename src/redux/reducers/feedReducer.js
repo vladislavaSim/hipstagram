@@ -1,17 +1,19 @@
+import {ADD_POSTS, ADD_USERS, CHANGE_NEW_POST} from "../actionTypes";
+
 export function feedReducer(state = {}, { type, newPosts, newUsers, updateNewPost }) {
-    if (type === 'ADD-POSTS') {
+    if (type === ADD_POSTS) {
         return {
             ...state,
             feedPosts: state?.feedPosts ? [...state.feedPosts, ...newPosts] : [...newPosts],
         };
     }
-    if (type === 'ADD-USERS') {
+    if (type === ADD_USERS) {
         return {
             ...state,
             feedUsers: state?.feedUsers ? [...state.feedUsers, ...newUsers] : [...newUsers],
         };
     }
-    if (type === 'CHANGE-NEW-POST') {
+    if (type === CHANGE_NEW_POST) {
         return {
             ...state,
             feedPosts: [...updateNewPost],
@@ -19,11 +21,3 @@ export function feedReducer(state = {}, { type, newPosts, newUsers, updateNewPos
     }
     return state;
 }
-
-export const actionAddPosts = (newPosts) => ({ type: 'ADD-POSTS', newPosts });
-export const actionAddUsers = (newUsers) => ({ type: 'ADD-USERS', newUsers });
-//action for update posts info after like or unlike
-export const actionUpdatePosts = (updateNewPost) => ({
-    type: 'CHANGE-NEW-POST',
-    updateNewPost,
-});

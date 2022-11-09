@@ -1,9 +1,8 @@
-
 import {gql} from "./getgql";
-import {actionPromise} from "../redux/reducers/promiseReducer";
+import {actionPromise} from "../redux/actions/actionPromise";
 
 
-export const actionUserById = (id, name = 'userById') =>
+export const queryUserById = (id, name = 'userById') =>
     actionPromise(
         name,
         gql(

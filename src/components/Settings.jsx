@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import TextField from '@mui/material/TextField';
-import {actionFullChangeLogin} from "../redux/actions/actions";
+import {actionFullChangeLogin} from "../redux/actions/actionsMe";
 import {useNavigate} from "react-router";
-import Button from "./Button";
+import {actionClearPromiseByName} from "../redux/actions/actionPromise";
+import {store} from '../store'
 
 
-const Settings = ({ onChange, changeData, myId }) => {
+const Settings = ({ onChange, changeData, myId, clearPromise }) => {
     const navigate = useNavigate()
     const [newLogin, setNewLogin] = useState('');
 
     useEffect(() => {
+        store.dispatch(clearPromise('changeLogin'))
         if (changeData?.status === 'RESOLVED') {
+            console.log(changeData)
            navigate(`/profile/${myId}`);
         }
     }, [changeData?.status]);
@@ -41,6 +44,7 @@ export const CSettings = connect(
         myId: state?.auth?.payload?.sub?.id,
     }),
     {
-        onChange: actionFullChangeLogin
+        onChange: actionFullChangeLogin,
+        clearPromise: actionClearPromiseByName
     }
 )(Settings);

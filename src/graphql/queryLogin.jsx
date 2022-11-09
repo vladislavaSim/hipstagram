@@ -1,7 +1,7 @@
 import {gql} from "./getgql";
-import {actionPromise} from "../redux/reducers/promiseReducer";
+import {actionPromise} from "../redux/actions/actionPromise";
 
-export const actionLogin = (login, password) => {
+export const queryLogin = (login, password) => {
     return actionPromise(
         'login',
         gql(

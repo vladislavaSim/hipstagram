@@ -1,10 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {connect, useDispatch} from 'react-redux';
-import {actionFullGetUser, actionUserByLogin} from "../redux/actions/actions";
 import {OneUserInList} from "./OneUserInList";
 import {TextField} from "@mui/material";
 import Button from "./Button";
 import {Link} from "react-router-dom";
+import {queryUserByLogin} from "../graphql/queryUserByLogin";
 
 const useDebounce = (cb, depArray, delay) => {
     let timeoutRef = useRef()
@@ -47,6 +47,6 @@ export const CSearchByLogin = connect(
         state: state
     }),
     {
-        onGetUser: actionUserByLogin,
+        onGetUser: queryUserByLogin,
     }
 )(SearchByLogin);

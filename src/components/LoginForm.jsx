@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {IconButton, InputAdornment, TextField} from "@mui/material";
 import Button from "./Button";
 import {Link} from "react-router-dom";
-import {actionFullLogin} from "../redux/actions/actions";
+import {actionFullLogin} from "../redux/actions/actionsAuth";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router";
 import {Visibility, VisibilityOff} from "@material-ui/icons";

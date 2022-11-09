@@ -1,13 +1,7 @@
 import React, {useEffect} from 'react';
 import {connect} from "react-redux";
-import {
-    actionAboutMe,
-    actionFullSubscribe,
-    actionFullUnSubscribe,
-    actionPostById,
-    actionSetAvatar
-} from "../redux/actions/actions";
-import {actionUserById} from "../graphql/userById";
+import {actionFullSubscribe, actionFullUnSubscribe,} from '../redux/actions/actionSubscribe'
+import {queryUserById} from "../graphql/queryUserById";
 import ScrollUpButton from "react-scroll-up-button";
 import Avatar from "./Avatar";
 import DefaultAvatar from "./DefaultAvatar";
@@ -15,6 +9,7 @@ import Button from "./Button";
 import {Link} from "react-router-dom";
 import {CPost} from "./Posts/Post";
 import {CPreloaded} from "./Preloader";
+import {queryPostById} from "../graphql/queryPost";
 
 const UserProfile = ({userId,
                          promise,
@@ -100,8 +95,8 @@ export const CUserProfile = connect((state) => ({
     userLogin: state?.promise?.userById?.payload?.login,
     userPosts: state?.promise?.postByIdUser?.payload,
 }), {
-    onUserById: actionUserById,
+    onUserById: queryUserById,
     onFollow: actionFullSubscribe,
     onUnfollow: actionFullUnSubscribe,
-    getPostById: actionPostById
+    getPostById: queryPostById
 })(UserProfile);

@@ -1,10 +1,7 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback} from 'react';
 import {useDropzone} from 'react-dropzone'
 import { connect } from 'react-redux';
-import {actionSetAvatar, logoutUser} from "../redux/actions/actions";
-import defaultAva from '../img/default-avatar.png'
-import Avatar from "./Avatar";
-import DefaultAvatar from "./DefaultAvatar";
+import {actionSetAvatar} from "../redux/actions/actionsMe";
 import {CFileUploader} from "./FileUploader";
 
 function DropzoneAvatar({ onLoadAvatar }) {

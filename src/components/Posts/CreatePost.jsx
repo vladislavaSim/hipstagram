@@ -1,7 +1,8 @@
 import {useNavigate} from "react-router";
 import Button from "../Button";
 import {connect} from "react-redux";
-import {actionClearPromise, actionFullUploadPost} from "../../redux/actions/actions";
+import {actionFullUploadPost} from "../../redux/actions/actionsPost";
+import {actionClearPromise} from '../../redux/actions/actionPromise'
 import {CFileUploader} from "../FileUploader";
 import {TextField} from "@material-ui/core";
 // import PreviewPics from "./PreviewPics";
