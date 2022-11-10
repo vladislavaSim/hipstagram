@@ -10,7 +10,7 @@ export const OneUserInList = ({ user }) => {
             <div className="search-item">
                 <Link to={`/profile/${user?._id}`}>
                     {user?.avatar === null ? (
-                        <DefaultAvatar className='small-ava'/>
+                        <DefaultAvatar className='small-ava avatarPic'/>
                     ) : (
                         <Avatar
                             url={user?.avatar?.url}

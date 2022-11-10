@@ -1,5 +1,4 @@
 import {AUTH_LOGIN, AUTH_LOGOUT} from "../actionTypes";
-import * as actions from "../actionTypes";
 import {queryLogin} from "../../graphql/queryLogin";
 import {queryRegistration} from "../../graphql/queryRegistration";
 import {actionAboutMe} from "./actionsMe";
