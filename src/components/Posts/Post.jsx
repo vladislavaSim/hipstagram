@@ -21,6 +21,7 @@ const Post = ({post = [], myId, onLike, onDeleteLike, cardClassName}) => {
         " "+date.getHours()+
         ":"+date.getMinutes()
 
+
     let isLiked = post.likes.filter((like) => like.owner._id === myId)
     return (
         <div className={cardClassName}>

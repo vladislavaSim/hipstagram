@@ -9,7 +9,7 @@ const Avatar = ({url, className = 'avatarPic'}) => {
         e.target.src = def
     }
 
-    console.log(url)
+    // console.log(url)
     return (
         <div>
             <img src={`${backendUrl + url}`}

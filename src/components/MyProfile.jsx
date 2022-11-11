@@ -12,6 +12,7 @@ import DefaultAvatar from "./DefaultAvatar";
 import {CPreloaded} from "./Preloader";
 import ScrollUpButton from "react-scroll-up-button";
 import {queryPostById} from "../graphql/queryPost";
+import PostPreview from "./Posts/PostPreview";
 
 const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollowers, myId, getPostById}) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -79,7 +80,7 @@ const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollower
             </div>
             <div className='gallery'>
                 {(myPosts || []).map((post) => {
-                    return <CPost key={post._id} post={post} className='gallery-item'/>;
+                    return <PostPreview post={post} key={post._id} className='gallery-item'/>
                 })}
             </div>
         </CPreloaded>

@@ -10,6 +10,7 @@ import {Link} from "react-router-dom";
 import {CPost} from "./Posts/Post";
 import {CPreloaded} from "./Preloader";
 import {queryPostById} from "../graphql/queryPost";
+import PostPreview from "./Posts/PostPreview";
 
 const UserProfile = ({userId,
                          promise,
@@ -77,7 +78,7 @@ const UserProfile = ({userId,
             </div>
             <div className='gallery'>
                 {(userPosts || []).map((post) => {
-                    return <CPost key={post._id} post={post} className='gallery-item'/>;
+                    return <PostPreview post={post} key={post._id} className='gallery-item'/>
                 })}
             </div>
         </CPreloaded>
