@@ -127,9 +127,8 @@ a {
   justify-content: space-around;
   align-items: center;
 }
-
 .main-content {
-  width: 85%;
+  width: 67%;
   min-height: 100vh;
   margin: 0 auto;
   display: flex;
@@ -148,7 +147,6 @@ a {
 
 .logo {
   width: 100px;
-
 }
 .link-holder {
   width: 350px;
@@ -257,18 +255,12 @@ a {
   display: flex;
   align-items: center;
   font-size: 2rem;
-  /*position: absolute;*/
-  /*bottom: 0;*/
-  /*left: 5px;*/
 }
 
 /* heart icon */
 .css-i4bv87-MuiSvgIcon-root {
   font-size: 2rem;
 }
-/*.css-i4bv87-MuiSvgIcon-root:hover {*/
-/*  color: #ff00007a;*/
-/*}*/
 .css-i4bv87-MuiSvgIcon-root:active {
   transform: scale(1.2);
   color: red;
@@ -294,9 +286,7 @@ a {
   justify-content: space-evenly;
   margin-bottom: 10px;
 }
-/*.profile-nums {*/
-/*  width: 120%;*/
-/*}*/
+
 .profile-buttons {
   margin: 20px auto 0;
 }
@@ -320,8 +310,8 @@ a {
   position: relative;
   color: #fff;
   cursor: pointer;
-  width: 300px;
-  height: 300px;
+  width: 350px;
+  height: 350px;
 }
 .gallery-item:hover .gallery-item-info,
 .gallery-item:focus .gallery-item-info {
@@ -434,6 +424,24 @@ button[disabled]{
   background: none !important;
   border: 1px solid white;
 }
+.close-modal-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: white;
+}
+/*.close-modal-icon {*/
+/*  font-size: 35px;*/
+/*}*/
+#close-modal-icon {
+  font-size: 40px;
+}
+#close-modal-icon:active {
+  color: white !important;
+}
+
 
 
 

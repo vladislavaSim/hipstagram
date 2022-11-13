@@ -11,8 +11,19 @@ import DefaultAvatar from "../DefaultAvatar";
 import {Link} from "react-router-dom";
 import {ImagesSlider} from "./Slider";
 
-const Post = ({post = [], myId, onLike, onDeleteLike, cardClassName}) => {
+const Post = ({post = [], myId, onLike, onDeleteLike}) => {
 
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '70%',
+        bgcolor: 'background.paper',
+        boxShadow: '1px 2px 24px #0000008c',
+        // position: 'relative',
+        p: 4,
+    };
     const timestamp = post?.createdAt;
     let date = new Date(+timestamp)
         date = date.getDate()+
@@ -24,12 +35,11 @@ const Post = ({post = [], myId, onLike, onDeleteLike, cardClassName}) => {
 
     let isLiked = post.likes.filter((like) => like.owner._id === myId)
     return (
-        <div className={cardClassName}>
+        <>
             {post?.images?.[0]?.url ?
                          (
                                 <Card sx={{maxWidth: 345}}
-                                      style={{boxShadow: '1px 2px 4px #0000008c', position: 'relative'}}
-                                >
+                                      style={style}>
                                     <header className='card-header'>
                                         <div className='card-author-box'>
                                             <Link to={`/profile/${post?.owner?._id}`}>
@@ -83,12 +93,11 @@ const Post = ({post = [], myId, onLike, onDeleteLike, cardClassName}) => {
                                                 )}
                                             </div>
                                         </IconButton>
-
                                     </CardActions>
                                 </Card>
                     ) : null
             }
-        </div>
+        </>
     );
 };
 
