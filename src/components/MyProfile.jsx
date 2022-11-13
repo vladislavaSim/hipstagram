@@ -80,7 +80,10 @@ const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollower
             </div>
             <div className='gallery'>
                 {(myPosts || []).map((post) => {
-                    return <PostPreview post={post} key={post._id} className='gallery-item'/>
+                    return <PostPreview post={post}
+                                        key={post._id}
+                                        className='gallery-item'
+                                        myId={myId}/>
                 })}
             </div>
         </CPreloaded>

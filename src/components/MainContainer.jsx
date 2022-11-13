@@ -11,6 +11,7 @@ import {CFollowings} from "./Followings";
 import {NotFound} from "./NotFound";
 import {CShowPosts} from "./Posts/ShowPosts";
 import {CCreatePost} from "./Posts/CreatePost";
+import {CPost} from "./Posts/Post";
 
 const MainContainer = ({promise}) => {
 
@@ -29,6 +30,7 @@ const MainContainer = ({promise}) => {
                         <Route path="/followers/:_id" element={<CFollowers/>} />
                         <Route path="/following/:_id" element={<CFollowings/>} />
                         <Route path='/create' element={<CCreatePost />} />
+                        {/*<Route path='/post/:_id' element={<CPost />}/>*/}
                         <Route path="*" element={<NotFound/>} />
                     </Routes>
                     :
@@ -46,6 +48,6 @@ const MainContainer = ({promise}) => {
 
 export const CMainContainer = connect((state) => (
     { isLogged: state?.promise?.me,
-    promise: state?.promise
+        promise: state?.promise
     }))
 (MainContainer);
