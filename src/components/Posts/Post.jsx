@@ -15,15 +15,20 @@ const Post = ({post = [], myId, onLike, onDeleteLike}) => {
 
     const style = {
         position: 'absolute',
+        display: 'flex',
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
         width: '70%',
         bgcolor: 'background.paper',
         boxShadow: '1px 2px 24px #0000008c',
-        // position: 'relative',
-        p: 4,
+        flexDirection: 'unset',
     };
+
+    const scale = {
+        transform: 'scale(1.4)'
+    }
+
     const timestamp = post?.createdAt;
     let date = new Date(+timestamp)
         date = date.getDate()+
@@ -39,61 +44,68 @@ const Post = ({post = [], myId, onLike, onDeleteLike}) => {
             {post?.images?.[0]?.url ?
                          (
                                 <Card sx={{maxWidth: 345}}
-                                      style={style}>
-                                    <header className='card-header'>
-                                        <div className='card-author-box'>
-                                            <Link to={`/profile/${post?.owner?._id}`}>
-                                                {post?.owner?.avatar === null ? (
-                                                    <DefaultAvatar className='small-ava avatarPic'/>
-                                                ) : (
-                                                    <Avatar url={post?.owner?.avatar?.url} className='small-ava avatarPic'/>
-                                                )}
-                                                <h4>{'@' + post?.owner.login}</h4>
-                                            </Link>
-
-                                        </div>
-                                        <div style={{color: '#959292'}}>{date}</div>
-                                    </header>
-                                    {post?.images.length === 1 ? (
-                                        <CardMedia
-                                            component="img"
-                                            height="580"
-                                            image={`${backendUrl + post?.images[0]?.url}`}
-                                            alt="post-picture"
-                                            className='gallery-image'
-                                        />) : (
-                                            <ImagesSlider images={post?.images} key={Math.random() * 1000}/>
+                                      style={style}
+                                      id='card'
+                                >
+                                    <div className='modal-image-box'>
+                                        {post?.images.length === 1 ? (
+                                            <CardMedia
+                                                component="img"
+                                                // height="580"
+                                                image={`${backendUrl + post?.images[0]?.url}`}
+                                                alt="post-picture"
+                                                className='gallery-image'
+                                            />) : (
+                                            <ImagesSlider images={post?.images} key={post?._id}/>
                                         )
-                                    }
-                                    <CardContent>
-                                        <Typography className='post-title'>
-                                            {post?.title}
-                                        </Typography>
-                                        <Typography variant="body2" className='post-text'>
-                                            {post?.text}
-                                        </Typography>
-                                    </CardContent>
-                                    <CardActions disableSpacing className='card-bottom'
-                                        style={{position: 'absolute', bottom: '0'}}>
-                                        <IconButton onClick={() => {
-                                            isLiked.length !== 0 ? onDeleteLike(isLiked[0]._id) : onLike(post._id);
-                                        }}
-                                            aria-label="add to favorites">
-                                            <div
-                                                className="like-button">
-                                                {isLiked.length !== 0 ? (
-                                                    <FavoriteTwoToneIcon className='red'/>
-                                                ) : (
-                                                    <FavoriteBorderTwoToneIcon />
-                                                )}
-                                                {post?.likes && (
-                                                    <p className="like-count">
-                                                        {post.likes.length === 0 ? 0 : post.likes.length}
-                                                    </p>
-                                                )}
-                                            </div>
-                                        </IconButton>
-                                    </CardActions>
+                                        }
+                                    </div>
+                                    <div className='modal-info-box'>
+                                       <header className='card-header'>
+                                           <div className='card-author-box'>
+                                               <Link to={`/profile/${post?.owner?._id}`}>
+                                                   {post?.owner?.avatar === null ? (
+                                                       <DefaultAvatar className='small-ava avatarPic'/>
+                                                   ) : (
+                                                       <Avatar url={post?.owner?.avatar?.url} className='small-ava avatarPic'/>
+                                                   )}
+                                                   <h3>{'@' + post?.owner.login}</h3>
+                                               </Link>
+                                           </div>
+                                           <div style={{color: '#959292', fontSize: '18px'}}>{date}</div>
+                                       </header>
+
+                                       <CardContent>
+                                           <Typography className='post-title'>
+                                               {post?.title}
+                                           </Typography>
+                                           <Typography variant="body2" className='post-text'>
+                                               {post?.text}
+                                           </Typography>
+                                       </CardContent>
+                                       <CardActions disableSpacing
+                                                    className='card-bottom'
+                                                    style={{position: 'absolute', bottom: '0'}}>
+                                           <IconButton onClick={() => {
+                                               isLiked.length !== 0 ? onDeleteLike(isLiked[0]._id) : onLike(post._id);
+                                           }}
+                                                       aria-label="add to favorites">
+                                               <div
+                                                   className="like-button">
+                                                   {isLiked.length !== 0 ? (
+                                                       <FavoriteTwoToneIcon className='red' style={scale}/>
+                                                   ) : (
+                                                       <FavoriteBorderTwoToneIcon style={scale}/>
+                                                   )}
+                                                   {post?.likes && (
+                                                       <p className="like-count">
+                                                           {post.likes.length === 0 ? 0 : post.likes.length}
+                                                       </p>
+                                                   )}
+                                               </div>
+                                           </IconButton>
+                                       </CardActions>
+                                    </div>
                                 </Card>
                     ) : null
             }

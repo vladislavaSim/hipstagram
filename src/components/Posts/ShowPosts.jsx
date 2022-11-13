@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import {actionFullGetAllPosts} from "../../redux/actions/actionsPost";
-import {CPost} from "./Post";
 import {CPreloaded} from "../Preloader";
 import ScrollUpButton from "react-scroll-up-button";
+import {CFeedPost} from "./FeedPost";
 
-const ShowPosts = ({ posts = [], getPosts, feed, state}) => {
+const ShowPosts = ({ posts = [], getPosts}) => {
 
     useEffect(() => {
             getPosts()
@@ -19,7 +19,7 @@ const ShowPosts = ({ posts = [], getPosts, feed, state}) => {
                {posts.length ?
                    (posts || []).map((post) => {
 
-                       return <CPost key={post._id} post={post} className={'card'}/>;
+                       return <CFeedPost key={post._id} post={post} className={'card'}/>;
                    }) :
                    null
                }

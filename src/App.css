@@ -216,11 +216,13 @@ a {
   font-size: 17px;
 }
 .post-title {
-  font-size: 16px;
+  text-align: center;
+  font-size: 35px !important;
 }
 
 .post-text {
   text-align: center;
+  font-size: 25px !important;
 }
 .card-header{
   display: flex;
@@ -261,13 +263,13 @@ a {
 .css-i4bv87-MuiSvgIcon-root {
   font-size: 2rem;
 }
-.css-i4bv87-MuiSvgIcon-root:active {
-  transform: scale(1.2);
-  color: red;
-}
-.like-count {
-  font-size: 25px;
-}
+/*.css-i4bv87-MuiSvgIcon-root:active {*/
+/*  transform: scale(1.2);*/
+/*  color: red;*/
+/*}*/
+/*.like-count {*/
+/*  font-size: 30px;*/
+/*}*/
 .MuiIconButton-root:hover {
   background-color: transparent !important;
 }
@@ -343,17 +345,20 @@ a {
   height: 100%;
   object-fit: cover;
 }
+.modal-image-box{
+  width: 65%;
+  background: black;
+  display: flex;
+}
+.modal-info-box {
+  position: relative;
+  width: 35%;
+}
 .card-item {
   justify-content: center;
   display: flex;
   align-items: center;
   height: auto;
-}
-.card-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  vertical-align: top;
 }
 /*card bottom*/
 .card-bottom {
@@ -363,6 +368,7 @@ a {
   align-items: center;
   position: absolute;
   bottom: -30px;
+  right: 20px;
 }
 .unstyledBtn {
   background-color: transparent;
@@ -375,13 +381,11 @@ button[disabled]{
   color: #666666;
   background-image: none;
 }
-
-/*.MuiCardMedia-img {*/
-/*  object-fit: contain;*/
-/*}*/
 .carousel{
   width: 50%;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
 }
 .carousel-box {
   display: flex;
@@ -420,10 +424,12 @@ button[disabled]{
   height: 150px;
   margin-top: 10px;
 }
+/*scroll up the screen button*/
 .up-btn {
   background: none !important;
   border: 1px solid white;
 }
+
 .close-modal-btn {
   position: absolute;
   top: 15px;
@@ -432,15 +438,15 @@ button[disabled]{
   border: none;
   color: white;
 }
-/*.close-modal-icon {*/
-/*  font-size: 35px;*/
-/*}*/
-#close-modal-icon {
-  font-size: 40px;
+.modal-image-box img {
+  object-fit: contain;
+  width: 100%;
 }
+
 #close-modal-icon:active {
   color: white !important;
 }
+
 
 
 

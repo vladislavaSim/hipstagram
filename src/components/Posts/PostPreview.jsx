@@ -7,17 +7,19 @@ import Fade from "@mui/material/Fade";
 import Box from "@mui/material/Box";
 import {CPost} from "./Post";
 import CloseIcon from '@mui/icons-material/Close';
-// const style = {
-//     position: 'absolute',
-//     top: '50%',
-//     left: '50%',
-//     transform: 'translate(-50%, -50%)',
-//     width: '70%',
-//     bgcolor: 'background.paper',
-//     border: '2px solid #000',
-//     boxShadow: 24,
-//     p: 4,
-// };
+import BurstModeIcon from '@mui/icons-material/BurstMode';
+
+const multiIcon = {
+    position: 'absolute',
+    top: '5%',
+    right: '5%',
+    transform: 'scale(1.4)'
+};
+
+const scale = {
+    transform: 'scale(1.4)',
+    marginRight: '15px'
+}
 
 const PostPreview = ({post, myId}) => {
     const [open, setOpen] = useState(false);
@@ -29,19 +31,25 @@ const PostPreview = ({post, myId}) => {
         setOpen(false)
     };
 
-
     return (
        <>
            <div onClick={handleOpen}>
                {
                    post?.images?.[0]?.url
                 && <div className='gallery-item'>
-                   <img src={backendUrl + post.images?.[0]?.url}
-                        alt={'post-pic'}
-                        className='gallery-img' />
+                   <>
+                       <img src={backendUrl + post.images?.[0]?.url}
+                            alt={'post-pic'}
+                            className='gallery-img' />
+                       {
+                           post?.images.length > 1
+                       && <BurstModeIcon style={multiIcon}/>
+                       }
+
+                   </>
                    <div className="gallery-item-info">
                        <div className="gallery-item-likes">
-                           <FavoriteIcon style={{marginRight: '7px'}}/>
+                           <FavoriteIcon style={scale}/>
                            {post?.likes?.length}
                        </div>
                    </div>
@@ -60,7 +68,7 @@ const PostPreview = ({post, myId}) => {
                       <Fade in={open}>
                           <Box>
                               <button onClick={handleClose} className='close-modal-btn'>
-                                  <CloseIcon id='close-modal-icon'/>
+                                  <CloseIcon style={scale}/>
                               </button>
                               <CPost post={post}/>
                           </Box>
