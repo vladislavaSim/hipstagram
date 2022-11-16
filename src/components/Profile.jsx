@@ -6,10 +6,10 @@ import {CMyProfile} from "./MyProfile";
 import {CUserProfile} from "./UserProfile";
 
 
-const Profile = ({onUserById, myId, myFollowing}) => {
+const Profile = ({onUserById, myId, myFollowing, promise}) => {
 
     const {_id} = useParams()
-
+    console.log(promise)
     useEffect(() => {
         if(_id) {
             onUserById(_id)
@@ -30,11 +30,13 @@ const Profile = ({onUserById, myId, myFollowing}) => {
             }
         </>
     );
-};
+}
 
 export const CProfile = connect((state) => ({
+    promise: state?.promise,
     myId: state?.promise?.me?.payload?._id,
     myFollowing: state?.promise?.me?.payload?.following,
 }), {
     onUserById: queryUserById,
 })(Profile);
+

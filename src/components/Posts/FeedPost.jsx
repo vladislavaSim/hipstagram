@@ -3,15 +3,13 @@ import {connect} from "react-redux";
 import Card from "@material-ui/core/Card"
 import {CardActions, CardContent, CardMedia, IconButton, Typography} from "@material-ui/core";
 import {backendUrl} from "../../graphql/BackendUrl";
-import FavoriteBorderTwoToneIcon from '@mui/icons-material/FavoriteBorderTwoTone';
-import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
-import {actionFullAddLike, actionFullRemoveLike} from "../../redux/actions/actionsLike";
 import Avatar from "../Avatar";
 import DefaultAvatar from "../DefaultAvatar";
 import {Link} from "react-router-dom";
 import {ImagesSlider} from "./Slider";
+import {CLike} from "./Like";
 
-const FeedPost = ({post = [], myId, onLike, onDeleteLike, cardClassName}) => {
+const FeedPost = ({post = [], myId, cardClassName}) => {
 
     const timestamp = post?.createdAt;
     let date = new Date(+timestamp)
@@ -21,7 +19,7 @@ const FeedPost = ({post = [], myId, onLike, onDeleteLike, cardClassName}) => {
         " "+date.getHours()+
         ":"+date.getMinutes()
 
-    let isLiked = post.likes.filter((like) => like.owner._id === myId)
+
     return (
         <div className={cardClassName}>
             {post?.images?.[0]?.url ?
@@ -64,25 +62,7 @@ const FeedPost = ({post = [], myId, onLike, onDeleteLike, cardClassName}) => {
                         </CardContent>
                         <CardActions disableSpacing className='card-bottom'
                                      style={{position: 'absolute', bottom: '0'}}>
-                            <IconButton onClick={() => {
-                                isLiked.length !== 0 ? onDeleteLike(isLiked[0]._id) : onLike(post._id);
-                            }}
-                                        aria-label="add to favorites">
-                                <div
-                                    className="like-button">
-                                    {isLiked.length !== 0 ? (
-                                        <FavoriteTwoToneIcon className='red'/>
-                                    ) : (
-                                        <FavoriteBorderTwoToneIcon />
-                                    )}
-                                    {post?.likes && (
-                                        <p className="like-count">
-                                            {post.likes.length === 0 ? 0 : post.likes.length}
-                                        </p>
-                                    )}
-                                </div>
-                            </IconButton>
-
+                            <CLike postId={post?._id} isLiked={post?.likes}/>
                         </CardActions>
                     </Card>
                 ) : null
@@ -95,7 +75,4 @@ export const CFeedPost = connect((state) => ({
     myId: state?.promise?.me?.payload?._id,
     feedPosts: state?.feed?.feedPosts,
     feed: state?.feed
-}), {
-    onLike: actionFullAddLike,
-    onDeleteLike: actionFullRemoveLike
-})(FeedPost);
+}), null)(FeedPost);

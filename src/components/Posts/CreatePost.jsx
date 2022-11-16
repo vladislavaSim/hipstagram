@@ -46,7 +46,7 @@ export function SortableItem(props) {
     );
 }
 
- function PreviewPics({myId, uploadFile, onUpload, uploadPost, onDelete, promise}) {
+ function PreviewPics({myId, uploadFile, onUpload, uploadPost, onDelete}) {
      const [activeId, setActiveId] = useState(null);
      const [photos, setPhotos] = useState([]);
      const [title, setTitle] = useState('');
@@ -181,7 +181,6 @@ export function SortableItem(props) {
 
 export const CCreatePost = connect(
     (state) => ({
-        promise: state?.promise,
         uploadFile: state?.promise?.uploadFile,
         uploadPost: state?.promise?.uploadPost,
         myId: state?.promise?.me?.payload?._id,

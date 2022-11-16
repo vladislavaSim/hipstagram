@@ -1,11 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Route, Routes} from "react-router-dom";
 import {CLoginForm} from "./LoginForm";
 import {CProfile} from "./Profile";
 import {CSearch} from "./Search";
 import {CSettings} from "./Settings";
 import {CRegistrationForm} from "./RegistrationForm";
-import {connect} from "react-redux";
 import {CFollowers} from "./Followers";
 import {CFollowings} from "./Followings";
 import {NotFound} from "./NotFound";
@@ -13,7 +12,7 @@ import {CShowPosts} from "./Posts/ShowPosts";
 import {CCreatePost} from "./Posts/CreatePost";
 import {CPost} from "./Posts/Post";
 
-const MainContainer = ({promise}) => {
+const MainContainer = () => {
 
     return (
         <div className='main-content'>
@@ -30,7 +29,7 @@ const MainContainer = ({promise}) => {
                         <Route path="/followers/:_id" element={<CFollowers/>} />
                         <Route path="/following/:_id" element={<CFollowings/>} />
                         <Route path='/create' element={<CCreatePost />} />
-                        {/*<Route path='/post/:_id' element={<CPost />}/>*/}
+                        <Route path='/post/:_id' element={<CPost />} />
                         <Route path="*" element={<NotFound/>} />
                     </Routes>
                     :
@@ -46,8 +45,4 @@ const MainContainer = ({promise}) => {
     );
 };
 
-export const CMainContainer = connect((state) => (
-    { isLogged: state?.promise?.me,
-        promise: state?.promise
-    }))
-(MainContainer);
+export default MainContainer;

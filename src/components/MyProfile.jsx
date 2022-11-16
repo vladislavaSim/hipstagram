@@ -12,9 +12,10 @@ import DefaultAvatar from "./DefaultAvatar";
 import {CPreloaded} from "./Preloader";
 import ScrollUpButton from "react-scroll-up-button";
 import {queryPostById} from "../graphql/queryPost";
-import PostPreview from "./Posts/PostPreview";
+import {CPostPreview} from "./Posts/PostPreview";
+import {CPostsList} from "./Posts/PostsList";
 
-const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollowers, myId, getPostById}) => {
+const MyProfile = ({myLogin, myPosts, myAvatar, myFollowing, myFollowers, myId, getPostById}) => {
     const [isEditing, setIsEditing] = useState(false);
 
     useEffect(() => {
@@ -40,7 +41,7 @@ const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollower
     }
 
     return (
-        <CPreloaded promiseName='postByIdUser'>
+        <>
             <div className='profile-box'>
                 <ScrollUpButton ContainerClassName="up-btn"/>
                 <div className="avatar">
@@ -80,18 +81,19 @@ const MyProfile = ({promise, myLogin, myPosts, myAvatar, myFollowing, myFollower
             </div>
             <div className='gallery'>
                 {(myPosts || []).map((post) => {
-                    return <PostPreview post={post}
-                                        key={post._id}
+                    return <CPostPreview post={post}
+                                        key={post._id + Math.random() * 100}
                                         className='gallery-item'
-                                        myId={myId}/>
-                })}
+                    />
+                })
+                }
             </div>
-        </CPreloaded>
+        </>
     );
 };
 
 export const CMyProfile = connect((state) => ({
-    promise: state.promise,
+    myPosts: state?.promise?.postByIdUser?.payload,
     auth: state.auth,
     me: state.promise?.me,
     myId: state?.promise?.me?.payload?._id,
@@ -99,7 +101,7 @@ export const CMyProfile = connect((state) => ({
     myFollowers: state?.promise?.me?.payload?.followers,
     myAvatar: state?.promise?.me?.payload?.avatar?.url,
     myLogin: state?.promise?.me?.payload?.login,
-    myPosts: state?.promise?.postByIdUser?.payload
+
 
 }), {
     getAboutMe: actionAboutMe,

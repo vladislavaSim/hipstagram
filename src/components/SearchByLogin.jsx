@@ -8,7 +8,7 @@ import {queryUserByLogin} from "../graphql/queryUserByLogin";
 
 const useDebounce = (cb, depArray, delay) => {
     let timeoutRef = useRef()
-    // timeoutRef.current = setTimeout
+
     useEffect(() => {
         clearInterval(timeoutRef.current)
         timeoutRef.current === undefined ? timeoutRef.current = -1 : timeoutRef.current = setTimeout(cb, delay)
@@ -17,7 +17,9 @@ const useDebounce = (cb, depArray, delay) => {
 
 const SearchByLogin = ({ user, onGetUser, foundUsers, state }) => {
     const [login, setLogin] = useState('')
+
     useDebounce( () => onGetUser(login), [login], 2000);
+
     return (
         <form>
             <h3>Enter login to search users</h3>

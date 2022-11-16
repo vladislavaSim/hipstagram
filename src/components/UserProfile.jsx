@@ -7,13 +7,11 @@ import Avatar from "./Avatar";
 import DefaultAvatar from "./DefaultAvatar";
 import Button from "./Button";
 import {Link} from "react-router-dom";
-import {CPost} from "./Posts/Post";
 import {CPreloaded} from "./Preloader";
 import {queryPostById} from "../graphql/queryPost";
-import PostPreview from "./Posts/PostPreview";
+import {CPostPreview} from "./Posts/PostPreview";
 
 const UserProfile = ({userId,
-                         promise,
                          userFollowing,
                          userFollowers,
                          userAvatar,
@@ -78,15 +76,18 @@ const UserProfile = ({userId,
             </div>
             <div className='gallery'>
                 {(userPosts || []).map((post) => {
-                    return <PostPreview post={post} key={post._id} className='gallery-item'/>
-                })}
+                    return <CPostPreview post={post}
+                                        key={post._id + Math.random() * 100}
+                                        className='gallery-item'
+                    />
+                })
+                }
             </div>
         </CPreloaded>
     );
 };
 
 export const CUserProfile = connect((state) => ({
-    promise: state.promise,
     // auth: state.auth,
     // me: state.promise?.me,
     userId: state?.promise?.userById?.payload?._id,

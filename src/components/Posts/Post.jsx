@@ -1,17 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from "react-redux";
 import Card from "@material-ui/core/Card"
 import {CardActions, CardContent, CardMedia, IconButton, Typography} from "@material-ui/core";
 import {backendUrl} from "../../graphql/BackendUrl";
-import FavoriteBorderTwoToneIcon from '@mui/icons-material/FavoriteBorderTwoTone';
-import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
 import {actionFullAddLike, actionFullRemoveLike} from "../../redux/actions/actionsLike";
 import Avatar from "../Avatar";
 import DefaultAvatar from "../DefaultAvatar";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {ImagesSlider} from "./Slider";
+import {CLike} from "./Like";
+import {actionGetPostById} from "../../graphql/queryPost";
 
-const Post = ({post = [], myId, onLike, onDeleteLike}) => {
+const Post = ({post = [], onGetPostById, myId, promise}) => {
 
     const style = {
         position: 'absolute',
@@ -25,20 +25,34 @@ const Post = ({post = [], myId, onLike, onDeleteLike}) => {
         flexDirection: 'unset',
     };
 
-    const scale = {
-        transform: 'scale(1.4)'
+    function getTime(time) {
+        let timestamp
+        let date = new Date(+timestamp);
+        timestamp = time;
+
+        return date = date.getDate()+
+            "/"+(date.getMonth()+1)+
+            "/"+date.getFullYear()+
+            " "+date.getHours()+
+            ":"+date.getMinutes()
     }
 
-    const timestamp = post?.createdAt;
-    let date = new Date(+timestamp)
-        date = date.getDate()+
-        "/"+(date.getMonth()+1)+
-        "/"+date.getFullYear()+
-        " "+date.getHours()+
-        ":"+date.getMinutes()
+    console.log(promise)
 
 
-    let isLiked = post.likes.filter((like) => like.owner._id === myId)
+    const {_id} = useParams()
+
+    useEffect(() => {
+        onGetPostById(_id)
+        console.log(post)
+        if(post?._id) {
+
+
+            getTime(post?.createdAt)
+        }
+    }, [_id])
+
+
     return (
         <>
             {post?.images?.[0]?.url ?
@@ -51,7 +65,6 @@ const Post = ({post = [], myId, onLike, onDeleteLike}) => {
                                         {post?.images.length === 1 ? (
                                             <CardMedia
                                                 component="img"
-                                                // height="580"
                                                 image={`${backendUrl + post?.images[0]?.url}`}
                                                 alt="post-picture"
                                                 className='gallery-image'
@@ -72,7 +85,7 @@ const Post = ({post = [], myId, onLike, onDeleteLike}) => {
                                                    <h3>{'@' + post?.owner.login}</h3>
                                                </Link>
                                            </div>
-                                           <div style={{color: '#959292', fontSize: '18px'}}>{date}</div>
+                                           <div style={{color: '#959292', fontSize: '18px'}}>{() => getTime(post?.createdAt)}</div>
                                        </header>
 
                                        <CardContent>
@@ -85,25 +98,9 @@ const Post = ({post = [], myId, onLike, onDeleteLike}) => {
                                        </CardContent>
                                        <CardActions disableSpacing
                                                     className='card-bottom'
-                                                    style={{position: 'absolute', bottom: '0'}}>
-                                           <IconButton onClick={() => {
-                                               isLiked.length !== 0 ? onDeleteLike(isLiked[0]._id) : onLike(post._id);
-                                           }}
-                                                       aria-label="add to favorites">
-                                               <div
-                                                   className="like-button">
-                                                   {isLiked.length !== 0 ? (
-                                                       <FavoriteTwoToneIcon className='red' style={scale}/>
-                                                   ) : (
-                                                       <FavoriteBorderTwoToneIcon style={scale}/>
-                                                   )}
-                                                   {post?.likes && (
-                                                       <p className="like-count">
-                                                           {post.likes.length === 0 ? 0 : post.likes.length}
-                                                       </p>
-                                                   )}
-                                               </div>
-                                           </IconButton>
+                                                    style={{bottom: '0'}}>
+
+                                           <CLike postId={post?._id} />
                                        </CardActions>
                                     </div>
                                 </Card>
@@ -111,13 +108,14 @@ const Post = ({post = [], myId, onLike, onDeleteLike}) => {
             }
         </>
     );
-};
+}
 
 export const CPost = connect((state) => ({
     myId: state?.promise?.me?.payload?._id,
+    promise: state?.promise,
     feedPosts: state?.feed?.feedPosts,
-    feed: state?.feed
+    feed: state?.feed,
+    post: state?.promise?.postById?.payload
 }), {
-    onLike: actionFullAddLike,
-    onDeleteLike: actionFullRemoveLike
+    onGetPostById: actionGetPostById
 })(Post);

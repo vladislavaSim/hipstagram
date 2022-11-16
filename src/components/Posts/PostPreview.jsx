@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
 import {backendUrl} from "../../graphql/BackendUrl";
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import Modal from "@mui/material/Modal";
-import Backdrop from "@mui/material/Backdrop";
-import Fade from "@mui/material/Fade";
-import Box from "@mui/material/Box";
-import {CPost} from "./Post";
-import CloseIcon from '@mui/icons-material/Close';
 import BurstModeIcon from '@mui/icons-material/BurstMode';
+import ModalWindow from "./ModalWindow";
+import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {actionGetPostById} from "../../graphql/queryPost";
 
 const multiIcon = {
     position: 'absolute',
@@ -21,19 +19,12 @@ const scale = {
     marginRight: '15px'
 }
 
-const PostPreview = ({post, myId}) => {
-    const [open, setOpen] = useState(false);
-
-    const handleOpen = () => {
-        setOpen(true)
-    };
-    const handleClose = () => {
-        setOpen(false)
-    };
-
+const PreviewPost = ({post, getPostById, promise}) => {
+    const [open, setOpen] = useState(false)
+    // console.log(promise)
     return (
-       <>
-           <div onClick={handleOpen}>
+       <Link key={post?._id} to={`/post/${post?._id}`}>>
+           <div onClick={() => getPostById(post?._id)}>
                {
                    post?.images?.[0]?.url
                 && <div className='gallery-item'>
@@ -56,27 +47,14 @@ const PostPreview = ({post, myId}) => {
                </div>
                }
            </div>
-               <Modal
-                   open={open}
-                   onClose={handleClose}
-                   closeAfterTransition
-                   BackdropComponent={Backdrop}
-                   BackdropProps={{
-                       timeout: 500,
-                   }}>
-                  <>
-                      <Fade in={open}>
-                          <Box>
-                              <button onClick={handleClose} className='close-modal-btn'>
-                                  <CloseIcon style={scale}/>
-                              </button>
-                              <CPost post={post}/>
-                          </Box>
-                      </Fade>
-                  </>
-               </Modal>
-       </>
+           {/*<ModalWindow setOpen={() => setOpen(true)} open={open} scale={scale} post={post}/>*/}
+       </Link>
     );
-};
+}
 
-export default PostPreview;
+export const CPostPreview = connect((state) => ({
+    promise: state?.promise
+}), {
+    getPostById: actionGetPostById
+})(PreviewPost)
+

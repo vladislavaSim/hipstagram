@@ -1,7 +1,7 @@
 import './App.css';
 import {BrowserRouter} from 'react-router-dom';
 import {CHeader} from "./components/Header";
-import {CMainContainer} from "./components/MainContainer";
+import MainContainer from "./components/MainContainer";
 
 function App() {
 
@@ -10,7 +10,7 @@ function App() {
           <div className="App">
               <BrowserRouter>
                   <CHeader/>
-                  <CMainContainer/>
+                  <MainContainer/>
               </BrowserRouter>
           </div>
       </main>

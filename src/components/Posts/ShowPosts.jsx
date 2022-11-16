@@ -18,7 +18,6 @@ const ShowPosts = ({ posts = [], getPosts}) => {
                <ScrollUpButton ContainerClassName="up-btn"/>
                {posts.length ?
                    (posts || []).map((post) => {
-
                        return <CFeedPost key={post._id} post={post} className={'card'}/>;
                    }) :
                    null

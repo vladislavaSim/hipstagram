@@ -1,7 +1,8 @@
 import {ADD_POSTS, ADD_USERS, CHANGE_NEW_POST, PROMISE_CLEAR} from "../actionTypes";
-import {queryGetAllPosts, queryUploadPost} from "../../graphql/queryPost";
+import {actionGetPostById, queryGetAllPosts, queryUploadPost} from "../../graphql/queryPost";
 import {actionClearPromise} from "./actionPromise";
 import {actionAboutMe} from "./actionsMe";
+import {queryGetUsers} from "../../graphql/queryGetUsers";
 
 export const actionAddPosts = (newPosts) => ({ type: ADD_POSTS, newPosts });
 export const actionAddUsers = (newUsers) => ({ type: ADD_USERS, newUsers });
@@ -33,3 +34,7 @@ export const actionFullGetAllPosts = () => async (dispatch, getState) => {
         dispatch(actionAddPosts(usersPosts));
     }
 }
+
+// export const actionGetPostById = (id) => async (dispatch, getState) => {
+//     return await dispatch(actionGetPostById(id));
+// };
