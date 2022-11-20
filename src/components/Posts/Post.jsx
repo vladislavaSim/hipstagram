@@ -14,17 +14,10 @@ import {actionGetPostById} from "../../graphql/queryPost";
 const Post = ({post = [], onGetPostById, myId, promise}) => {
 
     const style = {
-        position: 'absolute',
-        display: 'flex',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '70%',
-        bgcolor: 'background.paper',
-        boxShadow: '1px 2px 24px #0000008c',
         flexDirection: 'unset',
+        width: '100%'
     };
-
+    console.log(promise)
     function getTime(time) {
         let timestamp
         let date = new Date(+timestamp);
@@ -36,8 +29,6 @@ const Post = ({post = [], onGetPostById, myId, promise}) => {
             " "+date.getHours()+
             ":"+date.getMinutes()
     }
-
-    console.log(promise)
 
 
     const {_id} = useParams()
@@ -69,7 +60,7 @@ const Post = ({post = [], onGetPostById, myId, promise}) => {
                                                 alt="post-picture"
                                                 className='gallery-image'
                                             />) : (
-                                            <ImagesSlider images={post?.images} key={post?._id}/>
+                                            <ImagesSlider images={post?.images} key={post?._id} className='gallery-image'/>
                                         )
                                         }
                                     </div>
@@ -85,7 +76,9 @@ const Post = ({post = [], onGetPostById, myId, promise}) => {
                                                    <h3>{'@' + post?.owner.login}</h3>
                                                </Link>
                                            </div>
-                                           <div style={{color: '#959292', fontSize: '18px'}}>{() => getTime(post?.createdAt)}</div>
+                                           <div style={{color: '#959292', fontSize: '18px'}}>
+                                               {() => getTime(post?.createdAt)}
+                                           </div>
                                        </header>
 
                                        <CardContent>
@@ -96,12 +89,9 @@ const Post = ({post = [], onGetPostById, myId, promise}) => {
                                                {post?.text}
                                            </Typography>
                                        </CardContent>
-                                       <CardActions disableSpacing
-                                                    className='card-bottom'
-                                                    style={{bottom: '0'}}>
-
-                                           <CLike postId={post?._id} />
-                                       </CardActions>
+                                        <div className="card-bottom">
+                                            <CLike likes={post?.likes} postId={post?._id} />
+                                        </div>
                                     </div>
                                 </Card>
                     ) : null
@@ -118,4 +108,4 @@ export const CPost = connect((state) => ({
     post: state?.promise?.postById?.payload
 }), {
     onGetPostById: actionGetPostById
-})(Post);
+})(React.memo(Post));

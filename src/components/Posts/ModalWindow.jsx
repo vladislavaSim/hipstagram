@@ -20,7 +20,7 @@ const ModalWindow = ({post, open, setOpen, scale}) => {
                 <Fade in={open}>
                     <Box>
                         <button onClick={() => setOpen(false)} className='close-modal-btn'>
-                            <CloseIcon style={scale}/>
+                            <CloseIcon style={{scale: '1.2'}}/>
                         </button>
                         {/*<CPost post={post}/>*/}
                     </Box>

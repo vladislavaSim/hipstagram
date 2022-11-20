@@ -130,12 +130,12 @@ a {
 .main-content {
   width: 67%;
   min-height: 100vh;
-  margin: 0 auto;
+  margin: 100px auto 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align-last: center;
-  padding: 120px 10px;
+  padding-top: 15px;
   background-color: white;
 }
 .button-holder {
@@ -237,8 +237,7 @@ a {
 }
 /*card*/
 .MuiCard-root {
-  margin-bottom: 15px;
-  height: 765px;
+  height: 85vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -352,7 +351,9 @@ a {
   display: flex;
 }
 .modal-info-box {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 35%;
 }
 .card-item {
@@ -363,13 +364,10 @@ a {
 }
 /*card bottom*/
 .card-bottom {
-  display: flex;
   padding: 0 8px 17px;
-  height: 35px;
-  align-items: center;
-  position: absolute;
-  bottom: -30px;
-  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
 }
 .unstyledBtn {
   background-color: transparent;
@@ -437,6 +435,7 @@ button[disabled]{
   right: 15px;
   background: transparent;
   border: none;
+  z-index: 100;
   color: white;
 }
 .modal-image-box img {
@@ -447,6 +446,13 @@ button[disabled]{
 #close-modal-icon:active {
   color: white !important;
 }
+.like-brief-info {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: self-start;
+}
+
 
 
 
