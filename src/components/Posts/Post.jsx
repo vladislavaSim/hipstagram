@@ -37,8 +37,6 @@ const Post = ({post = [], onGetPostById, myId, promise}) => {
         onGetPostById(_id)
         console.log(post)
         if(post?._id) {
-
-
             getTime(post?.createdAt)
         }
     }, [_id])
@@ -54,9 +52,9 @@ const Post = ({post = [], onGetPostById, myId, promise}) => {
                                 >
                                     <div className='modal-image-box'>
                                         {post?.images.length === 1 ? (
-                                            <CardMedia
-                                                component="img"
-                                                image={`${backendUrl + post?.images[0]?.url}`}
+                                            <img
+                                                // component="img"
+                                                src={`${backendUrl + post?.images[0]?.url}`}
                                                 alt="post-picture"
                                                 className='gallery-image'
                                             />) : (
@@ -90,7 +88,7 @@ const Post = ({post = [], onGetPostById, myId, promise}) => {
                                            </Typography>
                                        </CardContent>
                                         <div className="card-bottom">
-                                            <CLike likes={post?.likes} postId={post?._id} />
+                                            <CLike post={post} postId={post?._id} />
                                         </div>
                                     </div>
                                 </Card>

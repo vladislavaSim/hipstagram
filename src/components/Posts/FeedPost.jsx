@@ -1,27 +1,37 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from "react-redux";
 import Card from "@material-ui/core/Card"
 import {CardActions, CardContent, CardMedia, IconButton, Typography} from "@material-ui/core";
 import {backendUrl} from "../../graphql/BackendUrl";
+import {actionFullAddLike, actionFullRemoveLike} from "../../redux/actions/actionsLike";
 import Avatar from "../Avatar";
 import DefaultAvatar from "../DefaultAvatar";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {ImagesSlider} from "./Slider";
 import {CLike} from "./Like";
+import {actionGetPostById} from "../../graphql/queryPost";
 
-const FeedPost = ({post = [], myId, cardClassName}) => {
+const style = {
+    flexDirection: 'unset',
+    width: '100%'
+};
+const FeedPost = ({post = [], onGetPostById, myId, promise}) => {
 
-    const timestamp = post?.createdAt;
-    let date = new Date(+timestamp)
-    date = date.getDate()+
-        "/"+(date.getMonth()+1)+
-        "/"+date.getFullYear()+
-        " "+date.getHours()+
-        ":"+date.getMinutes()
+    function getTime(time) {
+        let timestamp
+        let date = new Date(+timestamp);
+        timestamp = time;
+
+        return date = date.getDate()+
+            "/"+(date.getMonth()+1)+
+            "/"+date.getFullYear()+
+            " "+date.getHours()+
+            ":"+date.getMinutes()
+    }
 
 
     return (
-        <div className={cardClassName}>
+        <>
             {post?.images?.[0]?.url ?
                 (
                     <Card sx={{maxWidth: 345}}
@@ -39,7 +49,7 @@ const FeedPost = ({post = [], myId, cardClassName}) => {
                                 </Link>
 
                             </div>
-                            <div style={{color: '#959292'}}>{date}</div>
+                            <div style={{color: '#959292'}}>{() => getTime(post?.createdAt)}</div>
                         </header>
                         {post?.images.length === 1 ? (
                             <CardMedia
@@ -62,17 +72,22 @@ const FeedPost = ({post = [], myId, cardClassName}) => {
                         </CardContent>
                         <CardActions disableSpacing className='card-bottom'
                                      style={{position: 'absolute', bottom: '0'}}>
-                            <CLike postId={post?._id} isLiked={post?.likes}/>
+                            <CLike post={post} postId={post?._id} />
+
                         </CardActions>
                     </Card>
                 ) : null
             }
-        </div>
+        </>
     );
-};
+}
 
 export const CFeedPost = connect((state) => ({
     myId: state?.promise?.me?.payload?._id,
+    promise: state?.promise,
     feedPosts: state?.feed?.feedPosts,
-    feed: state?.feed
-}), null)(FeedPost);
+    feed: state?.feed,
+    // post: state?.promise?.postById?.payload
+}), {
+    onGetPostById: actionGetPostById
+})(FeedPost);

@@ -5,7 +5,7 @@ import {backendUrl} from "../../graphql/BackendUrl";
 export const ImagesSlider = ({ images }) => {
 
     return (
-       <>
+       <div style={{width: '100%'}}>
             <Carousel
                 navButtonsAlwaysVisible={true}
                 autoPlay={false}
@@ -25,6 +25,6 @@ export const ImagesSlider = ({ images }) => {
                         </div>
                        )})}
             </Carousel>
-        </>
+        </div>
     );
 }

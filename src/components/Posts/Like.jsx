@@ -7,40 +7,16 @@ import {actionFullAddLike, actionFullRemoveLike} from "../../redux/actions/actio
 import ModalLikes from "./ModalLikes";
 import {Link} from "react-router-dom";
 
-const Like = ({postId, post, onLike, onDeleteLike, myId, likes = []}) => {
+const Like = ({post = [], onLike, onDeleteLike, myId}) => {
     const [liked, setLiked] = useState(post?.likes.filter((like) => like.owner._id === myId))
     const scale = {
         transform: 'scale(1.4)'
     }
+    // console.log(liked)
+const {likes = []} = post
 
+        let isLiked = post.likes.filter((like) => like.owner._id === myId)
 
-    function likeToggle() {
-        setLiked(liked.length !== 0 ? onDeleteLike(liked[0]._id) : onLike(post._id))
-    }
-
-    function getLikesInfo() {
-        if(likes.length) {
-            if(likes.length > 1) {
-                return <div className='like-brief-info'>
-                    <span style={{fontSize: '18px'}}>LIKED BY</span>
-                    <Link to={`/profile/${likes[0].owner._id}`}
-                          className='ordinaryBtn'>
-                        <b>{likes[0].owner.login}</b>
-                    </Link>
-                    <span className='ordinaryBtn'>{`and ${likes.length - 1} others`}</span>
-                </div>
-            } else {
-                return <div className='like-brief-info'>
-                    <span style={{fontSize: '18px'}}>LIKED BY</span>
-                    <Link to={`/profile/${likes[0].owner._id}`}
-                          className='ordinaryBtn'>
-                        <b>{likes[0].owner.login}</b>
-                    </Link>
-                    <span className='ordinaryBtn'>{`and ${likes.length - 1} others`}</span>
-                </div>
-            }
-        }
-    }
         return (
             <>
                 <ModalLikes likes={likes} myId={myId}
@@ -56,11 +32,12 @@ const Like = ({postId, post, onLike, onDeleteLike, myId, likes = []}) => {
                                 }
                             </div>
                             } />
-                <IconButton onClick={likeToggle}
+                <IconButton onClick={() => {
+                    isLiked.length !== 0 ? onDeleteLike(isLiked[0]._id) : onLike(post._id)}}
                             aria-label="add to favorites">
                     <div
                         className="like-button">
-                        {liked.length !== 0 ? (
+                        {likes.length !== 0 ? (
                             <FavoriteTwoToneIcon className='red' style={scale}/>
                         ) : (
                             <FavoriteBorderTwoToneIcon style={scale}/>
@@ -80,7 +57,7 @@ const Like = ({postId, post, onLike, onDeleteLike, myId, likes = []}) => {
         myId: state?.promise?.me?.payload?._id,
         feedPosts: state?.feed?.feedPosts,
         feed: state?.feed,
-        post: state?.promise?.postById?.payload
+        // post: state?.promise?.postById?.payload
     }), {
         onLike: actionFullAddLike,
         onDeleteLike: actionFullRemoveLike

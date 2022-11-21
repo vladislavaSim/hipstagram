@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {backendUrl} from "../../graphql/BackendUrl";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import BurstModeIcon from '@mui/icons-material/BurstMode';
-import ModalWindow from "./ModalWindow";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {actionGetPostById} from "../../graphql/queryPost";
@@ -47,7 +46,6 @@ const PreviewPost = ({post, getPostById, promise}) => {
                </div>
                }
            </div>
-           {/*<ModalWindow setOpen={() => setOpen(true)} open={open} scale={scale} post={post}/>*/}
        </Link>
     );
 }
