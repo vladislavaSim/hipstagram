@@ -21,31 +21,29 @@ const style = {
 
 const Post = ({post, onGetPostById, myId, promise, postsArr}) => {
     const {_id} = useParams()
-    let [currentIndex, setCurrentIndex] = useState(postsArr.findIndex((item) => item._id === _id))
+    let [currentIndex, setCurrentIndex] = useState(postsArr.findIndex((item) => item._id === _id)) //from opened post using url id
 
-    function getCurrentIndex() {
-        setCurrentIndex(postsArr.findIndex((item) => item._id === _id))
-    }
     const navigate = useNavigate()
 
     const toPrev = () => {
+        setCurrentIndex(--currentIndex)
         navigate(`/post/` + postsArr[--currentIndex]._id);
     }
     const toNext = () => {
-        navigate(`/post/` + postsArr[++currentIndex]._id);
+        setCurrentIndex(++currentIndex)
+        navigate(`/post/` + postsArr[++currentIndex]._id);  //making link path to the next post
     }
 
     useEffect(() => {
         onGetPostById(_id)
-        // setPost(openedPost)
-        setCurrentIndex(currentIndex)
         onGetPostById(postsArr[currentIndex]._id)
+        // setCurrentIndex(currentIndex)
         console.log(post)
-    }, [_id, currentIndex])
+    }, [_id])
 
-    useEffect(() => {
-        setCurrentIndex(currentIndex)
-    }, [])
+    console.log(currentIndex)
+
+
 
     // console.log(nextImg())
     // function getTime(time) {
@@ -59,12 +57,8 @@ const Post = ({post, onGetPostById, myId, promise, postsArr}) => {
     //         ":"+date.getMinutes()
     // }
 
-    console.log(postsArr[--currentIndex]._id)
-
     return (
         <CPreloaded promiseName='postById'>
-
-
             {postsArr && post?.images?.[0]?.url ?
                 (
                     <div>
@@ -115,11 +109,13 @@ const Post = ({post, onGetPostById, myId, promise, postsArr}) => {
                                 </div>
                             </div>
                         </Card>
-                        <button onClick={toNext}>next</button>
+                        {/*<button onClick={toNext}>next</button>*/}
                     </div>
                 ) : null
             }
-            <Link to={`/post/` + postsArr[++currentIndex]._id}>next</Link>
+            <button onClick={toNext}>
+                next
+            </button>
         </CPreloaded>
     );
 }
