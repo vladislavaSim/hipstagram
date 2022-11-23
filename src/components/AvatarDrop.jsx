@@ -3,21 +3,23 @@ import {useDropzone} from 'react-dropzone'
 import { connect } from 'react-redux';
 import {actionSetAvatar} from "../redux/actions/actionsMe";
 import {CFileUploader} from "./FileUploader";
+import {CPreloaded} from "./Preloader";
 
 function DropzoneAvatar({ onLoadAvatar }) {
 
     const onDrop = useCallback((acceptedFiles) => {
         onLoadAvatar(acceptedFiles[0]);
     }, []);
+
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
     return (
-        <div {...getRootProps()}>
-            <input {...getInputProps()} />
-            {
-                <CFileUploader multiply={false}/>
-            }
-        </div>
+            <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                {
+                   <CFileUploader multiply={false}/>
+                }
+            </div>
     );
 }
 

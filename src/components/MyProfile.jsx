@@ -41,7 +41,7 @@ const MyProfile = ({myLogin, myPosts, myAvatar, myFollowing, myFollowers, myId, 
     }
 
     return (
-        <>
+        <CPreloaded promiseName='postByIdUser'>
             <div className='profile-box'>
                 <ScrollUpButton ContainerClassName="up-btn"/>
                 <div className="avatar">
@@ -79,16 +79,18 @@ const MyProfile = ({myLogin, myPosts, myAvatar, myFollowing, myFollowers, myId, 
                     </div>
                 </div>
             </div>
-            <div className='gallery'>
-                {(myPosts || []).map((post) => {
-                    return <CPostPreview post={post}
-                                        key={post._id + Math.random() * 100}
-                                        className='gallery-item'
-                    />
-                })
-                }
-            </div>
-        </>
+            <CPreloaded promiseName='postByIdUser'>
+                <div className='gallery'>
+                    {(myPosts || []).map((post) => {
+                        return <CPostPreview post={post}
+                                             key={post._id + Math.random() * 100}
+                                             className='gallery-item'
+                        />
+                    })
+                    }
+                </div>
+            </CPreloaded>
+        </CPreloaded>
     );
 };
 

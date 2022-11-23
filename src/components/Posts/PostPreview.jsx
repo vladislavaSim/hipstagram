@@ -22,7 +22,7 @@ const PreviewPost = ({post, getPostById, promise}) => {
     const [open, setOpen] = useState(false)
     // console.log(promise)
     return (
-       <Link key={post?._id} to={`/post/${post?._id}`}>>
+       <Link key={post?._id} to={`/post/${post?._id}`}>
            <div onClick={() => getPostById(post?._id)}>
                {
                    post?.images?.[0]?.url

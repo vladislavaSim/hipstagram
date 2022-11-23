@@ -1,6 +1,7 @@
 import React from 'react';
 import {backendUrl} from "../graphql/BackendUrl";
 import def from "../img/default-avatar.png";
+import {CPreloaded} from "./Preloader";
 
 const Avatar = ({url, className = 'avatarPic'}) => {
 
@@ -11,12 +12,12 @@ const Avatar = ({url, className = 'avatarPic'}) => {
 
     // console.log(url)
     return (
-        <div>
+        <CPreloaded promiseName='me'>
             <img src={`${backendUrl + url}`}
                  alt="ava"
                  onError={handleImageError}
                  className={className} />
-        </div>
+        </CPreloaded>
     );
 };
 
