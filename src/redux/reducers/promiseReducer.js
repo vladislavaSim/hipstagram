@@ -5,10 +5,23 @@ export function promiseReducer(state={}, {type, status, payload, error, name}) {
         return {}
     }
     if (type === PROMISE) {
-    return {
-        ...state,
-        [name]: {status, payload: (status === 'PENDING' && state[name] && state[name].payload) || payload, error}
-    }
+        if(name === 'me') {
+            return {
+                ...state,
+                [name]: {
+                    status: status,
+                    payload : payload,
+                    error: error,
+                }
+            }
+        }  else {
+            return {
+                ...state,
+                [name]: {
+                    status,
+                    payload: (status === 'PENDING' && state[name] && state[name].payload) || payload, error}
+            }
+        }
     }
     if (type === PROMISE_CLEAR) {
         return {
