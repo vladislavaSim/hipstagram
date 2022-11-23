@@ -24,6 +24,7 @@ const RegistrationForm = ({onRegister, myId, status}) => {
 
     const navigate = useNavigate()
     useEffect(() => {
+        console.log(login, password, status, myId)
             if(login && password && status === 'RESOLVED' && myId) {
                 navigate('/profile/' + myId);
          }

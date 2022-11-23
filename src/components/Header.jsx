@@ -8,12 +8,12 @@ import {store} from "../store";
 import {actionAboutMe} from "../redux/actions/actionsMe";
 import {actionFullGetAllPosts} from "../redux/actions/actionsPost";
 
-const Header = ({onLogout, id, login}) => {
+const Header = ({onLogout, id, login, isLogged}) => {
 
     return (
         <>
             {
-                login ?
+                isLogged ?
                    ( <div className='header'>
                       <div className='link-box'>
                           <img src={logo} style={{width: '100px'}}/>
@@ -39,6 +39,7 @@ const Header = ({onLogout, id, login}) => {
 //
 export  const CHeader = connect((state) => ({
     myId: state?.promise?.me?.payload?._id,
+    isLogged: state?.auth?.token,
     id: state.auth?.payload?.sub?.id,
     login: state?.promise?.me?.payload?.login,
     userLogin: state?.promise?.userById?.payload?.login,

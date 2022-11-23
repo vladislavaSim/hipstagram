@@ -32,7 +32,7 @@ export function authReducer(state, {type, token}) {
     }
     if (type === AUTH_LOGOUT) {
         localStorage.removeItem('authToken')
-        // window.location.reload()
+        window.location.reload()
         return {}
     }
     return state
