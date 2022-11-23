@@ -11,6 +11,7 @@ export const actionFullLogin = (login, password) => (
         let token = await dispatch(queryLogin(login, password));
         if (token) {
             await dispatch(actionAuthLogin(token))
+            // console.log(token)
             await dispatch(actionAboutMe());
         }
     }

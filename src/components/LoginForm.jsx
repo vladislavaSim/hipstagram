@@ -2,10 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {IconButton, InputAdornment, TextField} from "@mui/material";
 import Button from "./Button";
 import {Link} from "react-router-dom";
-import {actionFullLogin} from "../redux/actions/actionsAuth";
+import {actionAuthLogin, actionFullLogin} from "../redux/actions/actionsAuth";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router";
 import {Visibility, VisibilityOff} from "@material-ui/icons";
+import {actionAboutMe} from "../redux/actions/actionsMe";
+import {actionFullGetAllPosts} from "../redux/actions/actionsPost";
+import {store} from "../store";
 
 const LoginForm = ({onLogin, isLogged, promise, myId}) => {
     const [login, setLogin] = useState('')
@@ -14,9 +17,17 @@ const LoginForm = ({onLogin, isLogged, promise, myId}) => {
     const [showPass, setShowPass] = useState(false)
 
     const navigate = useNavigate()
+    console.log()
     useEffect(() => {
         if(promise && isLogged){
             if(login && password) {
+                isLogged = localStorage.authToken
+                if(localStorage.authToken) {
+                    console.log(222)
+                    store.dispatch(actionAboutMe())
+                    store.dispatch(actionAuthLogin(localStorage.authToken))
+                    store.dispatch(actionFullGetAllPosts())
+                }
                 navigate('/profile/' + myId);
                 setErrorMessage('')
             } else {
@@ -68,11 +79,11 @@ const LoginForm = ({onLogin, isLogged, promise, myId}) => {
     );
 };
 
-            export const CLoginForm = connect(
-            (state) => ({
-            isLogged: state?.auth?.token,
-            promise: state?.promise?.login,
-            myId: state?.auth?.payload?.sub?.id
-        }),
-            { onLogin: actionFullLogin}
-            )(LoginForm);
+export const CLoginForm = connect(
+(state) => ({
+isLogged: state?.auth?.token,
+promise: state?.promise?.login,
+myId: state?.auth?.payload?.sub?.id
+}),
+{ onLogin: actionFullLogin}
+)(LoginForm);

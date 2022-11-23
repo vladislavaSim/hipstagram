@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import logo from '../img/Instagram-logo-with-brush-PNG.png'
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {actionAuthLogout} from "../redux/actions/actionsAuth";
+import {actionAuthLogin, actionAuthLogout} from "../redux/actions/actionsAuth";
 import Button from "./Button";
+import {store} from "../store";
+import {actionAboutMe} from "../redux/actions/actionsMe";
+import {actionFullGetAllPosts} from "../redux/actions/actionsPost";
 
 const Header = ({onLogout, id, login}) => {
 

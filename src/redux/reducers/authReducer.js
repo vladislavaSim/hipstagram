@@ -1,5 +1,13 @@
 import {AUTH_LOGIN, AUTH_LOGOUT} from "../actionTypes";
 
+function jwtDecode(token){
+    try {
+        return JSON.parse(atob(token.split('.')[1]))
+    }
+    catch(e){
+    }
+}
+
 export function authReducer(state, {type, token}) {
     if (!state) {
         if (localStorage.authToken) {
@@ -11,9 +19,9 @@ export function authReducer(state, {type, token}) {
     }
     if (type === AUTH_LOGIN) {
         let payload = jwtDecode(token)
-
         if (typeof payload === 'object') {
             localStorage.authToken = token
+            console.log(token)
             return {
                 ...state,
                 token,
@@ -25,19 +33,8 @@ export function authReducer(state, {type, token}) {
     }
     if (type === AUTH_LOGOUT) {
         localStorage.removeItem('authToken')
-        window.location.reload()
+        // window.location.reload()
         return {}
     }
-
     return state
 }
-
-function jwtDecode(token){
-    try {
-        return JSON.parse(atob(token.split('.')[1]))
-    }
-    catch(e){
-        console.log('error found: ' + e)
-    }
-}
-

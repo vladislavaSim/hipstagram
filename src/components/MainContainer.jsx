@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Route, Routes} from "react-router-dom";
 import {CLoginForm} from "./LoginForm";
 import {CProfile} from "./Profile";
@@ -11,13 +11,14 @@ import {NotFound} from "./NotFound";
 import {CShowPosts} from "./Posts/ShowPosts";
 import {CCreatePost} from "./Posts/CreatePost";
 import {CPost} from "./Posts/Post";
+import {connect} from "react-redux";
 
-const MainContainer = () => {
-
+const MainContainer = ({isLogged}) => {
+    console.log(localStorage.authToken)
     return (
         <div className='main-content'>
             {
-                localStorage.authToken ?
+                isLogged ?
                     <Routes>
                         <Route path='/' element={<CShowPosts/>} exact/>
                         <Route path='/feed' element={<CShowPosts/>}/>
@@ -45,4 +46,6 @@ const MainContainer = () => {
     );
 };
 
-export default MainContainer;
+export const CMainContainer = connect((state) => ({
+    isLogged: state?.auth?.token
+}), null)(MainContainer);
