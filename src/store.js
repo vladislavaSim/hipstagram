@@ -15,9 +15,3 @@ export const store = createStore(
     }),
     applyMiddleware(thunk)
 )
-//initial dispatches
-if(localStorage.authToken) {
-    store.dispatch(actionAboutMe())
-    store.dispatch(actionAuthLogin(localStorage.authToken))
-    store.dispatch(actionFullGetAllPosts())
-}
