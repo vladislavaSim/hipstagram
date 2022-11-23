@@ -37,7 +37,7 @@ const {likes = []} = post
                             aria-label="add to favorites">
                     <div
                         className="like-button">
-                        {likes.length !== 0 ? (
+                        {isLiked.length !== 0 ? (
                             <FavoriteTwoToneIcon className='red' style={scale}/>
                         ) : (
                             <FavoriteBorderTwoToneIcon style={scale}/>

@@ -10,7 +10,6 @@ const Avatar = ({url, className = 'avatarPic'}) => {
         e.target.src = def
     }
 
-    // console.log(url)
     return (
         <CPreloaded promiseName='me'>
             <img src={`${backendUrl + url}`}

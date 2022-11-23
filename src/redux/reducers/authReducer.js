@@ -21,7 +21,6 @@ export function authReducer(state, {type, token}) {
         let payload = jwtDecode(token)
         if (typeof payload === 'object') {
             localStorage.authToken = token
-            console.log(token)
             return {
                 ...state,
                 token,

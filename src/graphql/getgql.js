@@ -2,7 +2,6 @@ import {backendUrl} from "./BackendUrl";
 
 const getGQL = url => (
     async (query, variables={}) => {
-        console.log(localStorage.authToken)
         let obj = await fetch(url, {
             method: 'POST',
             headers: {

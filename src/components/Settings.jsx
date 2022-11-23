@@ -14,7 +14,6 @@ const Settings = ({ onChange, changeData, myId, clearPromise }) => {
     useEffect(() => {
         store.dispatch(clearPromise('changeLogin'))
         if (changeData?.status === 'RESOLVED') {
-            console.log(changeData)
            navigate(`/profile/${myId}`);
         }
     }, [changeData?.status]);

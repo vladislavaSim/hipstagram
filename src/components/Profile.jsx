@@ -9,7 +9,7 @@ import {CUserProfile} from "./UserProfile";
 const Profile = ({onUserById, myId, myFollowing, promise}) => {
 
     const {_id} = useParams()
-    console.log(promise)
+
     useEffect(() => {
         if(_id) {
             onUserById(_id)

@@ -17,13 +17,12 @@ const LoginForm = ({onLogin, isLogged, promise, myId}) => {
     const [showPass, setShowPass] = useState(false)
 
     const navigate = useNavigate()
-    console.log()
+
     useEffect(() => {
         if(promise && isLogged){
             if(login && password) {
                 isLogged = localStorage.authToken
                 if(localStorage.authToken) {
-                    console.log(222)
                     store.dispatch(actionAboutMe())
                     store.dispatch(actionAuthLogin(localStorage.authToken))
                     store.dispatch(actionFullGetAllPosts())

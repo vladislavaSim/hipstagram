@@ -14,7 +14,7 @@ import {CPost} from "./Posts/Post";
 import {connect} from "react-redux";
 
 const MainContainer = ({isLogged}) => {
-    console.log(localStorage.authToken)
+
     return (
         <div className='main-content'>
             {
