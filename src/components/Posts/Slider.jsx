@@ -11,8 +11,7 @@ export const ImagesSlider = ({ images }) => {
                 autoPlay={false}
                 navButtonsProps={{
                     style: {
-                        color: 'grey',
-                        backgroundColor: 'white'
+                        color: 'grey'
                     }
                 }}
                 className='carousel'>

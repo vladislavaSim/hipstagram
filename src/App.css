@@ -215,6 +215,7 @@ a {
 .post-holder {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 .post-holder > button {
   border-radius: 50%;
@@ -375,6 +376,7 @@ box-shadow: none;
   width: 65%;
   background: black;
   display: flex;
+  align-items: center;
 }
 .modal-info-box {
   display: flex;

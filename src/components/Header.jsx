@@ -42,4 +42,4 @@ export  const CHeader = connect((state) => ({
     userLogin: state?.promise?.userById?.payload?.login,
 }), {
     onLogout: actionAuthLogout
-})(Header);
+})(React.memo(Header));

@@ -13,7 +13,9 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: '50%',
     backgroundColor: 'white',
-    // boxShadow: '1px 2px 24px #0000008c',
+    overflowY: 'scroll',
+    maxHeight: '60vh',
+    minHeight: '25vh',
     flexDirection: 'unset',
 };
 
