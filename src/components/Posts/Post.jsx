@@ -11,11 +11,10 @@ import {CLike} from "./Like";
 import {actionGetPostById, queryPostById} from "../../graphql/queryPost";
 import {CPreloaded} from "../Preloader";
 import {useNavigate} from "react-router";
-import BackButton from "../BackButton";
 import {queryUserById} from "../../graphql/queryUserById";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import {getTime} from "../../helpers";
+
 const style = {
     flexDirection: 'unset',
     width: '100%'
@@ -24,49 +23,40 @@ const style = {
 const Post = ({post, onGetPostById, onUserById, promise, postsArr = [], getPostsByUserId}) => {
     const {_id} = useParams()
     let [currentIndex, setCurrentIndex] = useState(postsArr.findIndex((item) => item._id === _id)) //from opened post using url id
-    console.log(`current index is ${currentIndex}`)
+
     const navigate = useNavigate()
-    // console.log(post?.owner?._id + ' post owner`s id')
+
     useEffect(() => {
         if(postsArr.length) {
             onGetPostById(_id)
             onGetPostById(postsArr[currentIndex]._id)
-        }
-    }, [_id])
-
-    useEffect(() => {
-        if(_id) {
-            console.log('post by id from params')
-            onGetPostById(_id)
             getPostsByUserId(post?.owner?._id)
         }
     }, [_id])
 
+    const timestamp = post?.createdAt;
+
+    let date = new Date(+timestamp)
+    date = date.getDate()+
+        "/"+(date.getMonth()+1)+
+        "/"+date.getFullYear()+
+        " "+date.getHours()+
+        ":"+date.getMinutes()
+
      useEffect(() => {
-        // onUserById(post?.owner?._id)
+         onGetPostById(_id)
         getPostsByUserId(post?.owner?._id)
         setCurrentIndex(postsArr.findIndex((item) => item._id === _id))
 }, [])
 
-    console.log(postsArr)
     const toPrev = () => {
         setCurrentIndex((currentIndex) => --currentIndex)
-        console.log(currentIndex)
         postsArr.length && navigate(`/post/` + postsArr[--currentIndex]._id);
     }
     const toNext = () => {
         setCurrentIndex((currentIndex) => ++currentIndex)
-        console.log(currentIndex)
         postsArr.length && navigate(`/post/` + postsArr[++currentIndex]._id);  //making link path to the next post
     }
-    // console.log(_id + 'post id')
-    // console.log(postsArr)
-    //  console.log('rerender')
-    useEffect(() => {
-        console.log(currentIndex)
-        getPostsByUserId(post?.owner?._id)
-        console.log(post)
-    }, [])
 
     return (
         <CPreloaded promiseName='postById'>
@@ -108,7 +98,7 @@ const Post = ({post, onGetPostById, onUserById, promise, postsArr = [], getPosts
                                         </Link>
                                     </div>
                                     <div style={{color: '#959292', fontSize: '18px'}}>
-                                        {() => getTime(post?.createdAt)}
+                                        {date}
                                     </div>
                                 </header>
 
@@ -144,8 +134,6 @@ export const CPost = connect((state) => ({
     post: state?.promise?.postById?.payload,
     promise: state?.promise,
     postsArr: state?.promise?.postByIdUser?.payload
-    // feedPosts: state?.feed?.feedPosts,
-    // feed: state?.feed
 }), {
     onUserById: queryUserById, // get user by user id (userById)
     onGetPostById: actionGetPostById, // get post by its id (from useParams)
