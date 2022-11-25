@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
 import Card from "@material-ui/core/Card"
-import {CardActions, CardContent, CardMedia, IconButton, Typography} from "@material-ui/core";
+import {CardContent, CardMedia, Typography} from "@material-ui/core";
 import {backendUrl} from "../../graphql/BackendUrl";
-import {actionFullAddLike, actionFullRemoveLike} from "../../redux/actions/actionsLike";
 import Avatar from "../Avatar";
 import DefaultAvatar from "../DefaultAvatar";
 import {Link, useParams} from "react-router-dom";
@@ -14,63 +13,72 @@ import {CPreloaded} from "../Preloader";
 import {useNavigate} from "react-router";
 import BackButton from "../BackButton";
 import {queryUserById} from "../../graphql/queryUserById";
-
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import {getTime} from "../../helpers";
 const style = {
     flexDirection: 'unset',
     width: '100%'
 };
 
-
-const Post = ({post, onGetPostById, onUserById, promise, postsArr, getPostsByUserId}) => {
+const Post = ({post, onGetPostById, onUserById, promise, postsArr = [], getPostsByUserId}) => {
     const {_id} = useParams()
     let [currentIndex, setCurrentIndex] = useState(postsArr.findIndex((item) => item._id === _id)) //from opened post using url id
-
+    console.log(`current index is ${currentIndex}`)
     const navigate = useNavigate()
+    // console.log(post?.owner?._id + ' post owner`s id')
+    useEffect(() => {
+        if(postsArr.length) {
+            onGetPostById(_id)
+            onGetPostById(postsArr[currentIndex]._id)
+        }
+    }, [_id])
+
+    useEffect(() => {
+        if(_id) {
+            console.log('post by id from params')
+            onGetPostById(_id)
+            getPostsByUserId(post?.owner?._id)
+        }
+    }, [_id])
+
+     useEffect(() => {
+        // onUserById(post?.owner?._id)
+        getPostsByUserId(post?.owner?._id)
+        setCurrentIndex(postsArr.findIndex((item) => item._id === _id))
+}, [])
 
     console.log(postsArr)
     const toPrev = () => {
-        setCurrentIndex(--currentIndex)
-        navigate(`/post/` + postsArr[--currentIndex]._id);
+        setCurrentIndex((currentIndex) => --currentIndex)
+        console.log(currentIndex)
+        postsArr.length && navigate(`/post/` + postsArr[--currentIndex]._id);
     }
     const toNext = () => {
-        setCurrentIndex(++currentIndex)
-        navigate(`/post/` + postsArr[++currentIndex]._id);  //making link path to the next post
+        setCurrentIndex((currentIndex) => ++currentIndex)
+        console.log(currentIndex)
+        postsArr.length && navigate(`/post/` + postsArr[++currentIndex]._id);  //making link path to the next post
     }
-    console.log(_id + 'post id')
-    console.log(post?.owner?._id + 'user id')
+    // console.log(_id + 'post id')
+    // console.log(postsArr)
+    //  console.log('rerender')
     useEffect(() => {
-
-        onGetPostById(_id)
-        onGetPostById(postsArr[currentIndex]._id)
-        onUserById(post?.owner?._id)
+        console.log(currentIndex)
         getPostsByUserId(post?.owner?._id)
-    }, [_id])
-
-    console.log(currentIndex)
-
-useEffect(() => {
-    getPostsByUserId(post?.owner?._id)
-}, [])
-
-    // console.log(nextImg())
-    function getTime(time) {
-        let timestamp
-        let date = new Date(+timestamp);
-        timestamp = time;
-        return date = date.getDate()+
-            "/"+(date.getMonth()+1)+
-            "/"+date.getFullYear()+
-            " "+date.getHours()+
-            ":"+date.getMinutes()
-    }
+        console.log(post)
+    }, [])
 
     return (
         <CPreloaded promiseName='postById'>
-            <BackButton/>
-            {postsArr && post?.images?.[0]?.url ?
+            {postsArr.length && post?.images?.[0]?.url ?
                 (
-                    <>
-                        <button onClick={toPrev}>prev</button>
+                    <div className='post-holder'>
+                        <button
+                            disabled={currentIndex < 1}
+                            className='unstyledBtn'
+                            onClick={toPrev}>
+                                <ChevronLeftIcon/>
+                        </button>
                         <Card
                             style={style}
                             id='card'
@@ -117,13 +125,16 @@ useEffect(() => {
                                 </div>
                             </div>
                         </Card>
-                        {/*<button onClick={toNext}>next</button>*/}
-                    </>
+                        <button
+                            disabled={currentIndex > postsArr.length - 2}
+                            className='unstyledBtn'
+                            onClick={toNext}>
+                                <ChevronRightIcon />
+                        </button>
+                    </div>
                 ) : null
             }
-            <button onClick={toNext}>
-                next
-            </button>
+
         </CPreloaded>
     );
 }
@@ -136,7 +147,7 @@ export const CPost = connect((state) => ({
     // feedPosts: state?.feed?.feedPosts,
     // feed: state?.feed
 }), {
-    onUserById: queryUserById,
-    onGetPostById: actionGetPostById,
-    getPostsByUserId: queryPostById
+    onUserById: queryUserById, // get user by user id (userById)
+    onGetPostById: actionGetPostById, // get post by its id (from useParams)
+    getPostsByUserId: queryPostById // get postsArr from one user by id
 })(Post);

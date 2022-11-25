@@ -14,7 +14,7 @@ import {CPost} from "./Posts/Post";
 import {connect} from "react-redux";
 
 const MainContainer = ({isLogged, promise}) => {
-    console.log(promise)
+    // console.log(promise)
     return (
         <div className='main-content'>
             {

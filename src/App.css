@@ -212,6 +212,32 @@ a {
 .search-item a {
   margin-right: 30px;
 }
+.post-holder {
+  display: flex;
+  align-items: center;
+}
+.post-holder > button {
+  border-radius: 50%;
+  border: 1px solid grey;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin: 7px;
+}
+.post-holder > button:hover {
+  color: #c455ff;
+  border-color: #c455ff;
+  box-shadow: 0 1px 7px rgb(0, 0, 0.2);
+}
+.post-holder > button:active {
+box-shadow: none;
+  transform: translateY(3px);
+}
+.post-holder > button:disabled {
+  box-shadow: none;
+  background-color: rgba(125, 125, 125, 0.56);
+}
 .post-owner {
   font-size: 17px;
 }
