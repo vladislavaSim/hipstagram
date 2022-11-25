@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {OneUserInList} from "./OneUserInList";
-import Button from "./Button";
 import {useNavigate} from "react-router";
+import BackButton from "./BackButton";
 
 const Followers = ({ userFollowers, myId, myFollowers }) => {
-    const history = useNavigate()
+
     let id = window.location.pathname.replace('/followers/', '')
 
     function getFollowersArray() {
@@ -15,8 +15,7 @@ const Followers = ({ userFollowers, myId, myFollowers }) => {
     return (
         <>
             <h2>Followers</h2>
-            <Button className='ordinaryBtn'
-                    onClick={() => history(-1)}>go back</Button>
+            <BackButton/>
             {getFollowersArray() ? (
                 <>
                     {(getFollowersArray() || []).map((user) => {
