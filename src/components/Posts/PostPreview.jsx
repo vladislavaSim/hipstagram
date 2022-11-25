@@ -19,7 +19,7 @@ const scale = {
 }
 
 const PreviewPost = ({post, getPostById, promise}) => {
-    const [open, setOpen] = useState(false)
+
     // console.log(promise)
     return (
        <Link key={post?._id} to={`/post/${post?._id}`}>

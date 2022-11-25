@@ -10,19 +10,24 @@ import {Link} from "react-router-dom";
 import {CPreloaded} from "./Preloader";
 import {queryPostById} from "../graphql/queryPost";
 import {CPostPreview} from "./Posts/PostPreview";
+import {actionClearPromiseByName} from "../redux/actions/actionPromise";
+import {useParams} from "react-router";
 
-const UserProfile = ({userId,
+const UserProfile = ({   userId,
                          userFollowing,
                          userFollowers,
                          userAvatar,
                          userLogin,
-                         userPosts,
+                         userPosts = [],
                          doIFollow,
                          onFollow,
                          onUnfollow,
                          getPostById,
+                         clearPromise,
+                         onUserById,
                          myId}) => {
 
+    const {_id} = useParams()
 
     function getLengthNum (array, text) {
         let num = !array ? '0' : array.length
@@ -30,13 +35,25 @@ const UserProfile = ({userId,
     }
 
     useEffect(() => {
+        clearPromise('postByIdUser')
         if(userId) {
             getPostById(userId)
             getPostById(userId, 'usersPost')
         }
+        return () => {
+            console.log('cleanup')
+        }
     }, [userId])
+
+    // useEffect(() => {
+    //     clearPromise('postByIdUser')
+    //     clearPromise('userById')
+    //     onUserById(_id)
+    // }, [])
+
+    console.log(userPosts)
     return (
-        <CPreloaded promiseName='postByIdUser'>
+        <CPreloaded promiseName='userById'>
             <div className='profile-box'>
                 <ScrollUpButton ContainerClassName="up-btn"/>
                 <div className="avatar">
@@ -74,15 +91,17 @@ const UserProfile = ({userId,
                     </div>
                 </div>
             </div>
-            <div className='gallery'>
-                {(userPosts || []).map((post) => {
-                    return <CPostPreview post={post}
-                                        key={post._id + Math.random() * 100}
-                                        className='gallery-item'
-                    />
-                })
-                }
-            </div>
+           <CPreloaded promiseName='postByIdUser'>
+               <div className='gallery'>
+                   {(userPosts || []).map((post) => {
+                       return <CPostPreview post={post}
+                                            key={post._id + Math.random() * 100}
+                                            className='gallery-item'
+                       />
+                   })
+                   }
+               </div>
+           </CPreloaded>
         </CPreloaded>
     );
 };
@@ -100,5 +119,6 @@ export const CUserProfile = connect((state) => ({
     onUserById: queryUserById,
     onFollow: actionFullSubscribe,
     onUnfollow: actionFullUnSubscribe,
-    getPostById: queryPostById
+    getPostById: queryPostById,
+    clearPromise: actionClearPromiseByName
 })(UserProfile);
