@@ -5,7 +5,6 @@ import {actionSetAvatar, actionAboutMe} from '../redux/actions/actionsMe'
 import {queryUserById} from "../graphql/queryUserById";
 import Button from "./Button";
 import {Link} from "react-router-dom";
-import {CPost} from "./Posts/Post";
 import {CDropzoneAvatar} from "./AvatarDrop";
 import Avatar from "./Avatar";
 import DefaultAvatar from "./DefaultAvatar";
@@ -13,7 +12,6 @@ import {CPreloaded} from "./Preloader";
 import ScrollUpButton from "react-scroll-up-button";
 import {queryPostById} from "../graphql/queryPost";
 import {CPostPreview} from "./Posts/PostPreview";
-import {CPostsList} from "./Posts/PostsList";
 
 const MyProfile = ({myLogin, myPosts, myAvatar, myFollowing, myFollowers, myId, getPostById}) => {
     const [isEditing, setIsEditing] = useState(false);

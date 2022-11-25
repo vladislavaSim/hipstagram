@@ -32,7 +32,7 @@ const UserProfile = ({userId,
     useEffect(() => {
         if(userId) {
             getPostById(userId)
-            getPostById(userId, 'usersPost')
+            // getPostById(userId, 'usersPost')
         }
     }, [userId])
     return (

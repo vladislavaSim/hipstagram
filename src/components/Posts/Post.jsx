@@ -9,9 +9,11 @@ import DefaultAvatar from "../DefaultAvatar";
 import {Link, useParams} from "react-router-dom";
 import {ImagesSlider} from "./Slider";
 import {CLike} from "./Like";
-import {actionGetPostById} from "../../graphql/queryPost";
+import {actionGetPostById, queryPostById} from "../../graphql/queryPost";
 import {CPreloaded} from "../Preloader";
 import {useNavigate} from "react-router";
+import BackButton from "../BackButton";
+import {queryUserById} from "../../graphql/queryUserById";
 
 const style = {
     flexDirection: 'unset',
@@ -19,12 +21,13 @@ const style = {
 };
 
 
-const Post = ({post, onGetPostById, myId, promise, postsArr}) => {
+const Post = ({post, onGetPostById, onUserById, promise, postsArr, getPostsByUserId}) => {
     const {_id} = useParams()
     let [currentIndex, setCurrentIndex] = useState(postsArr.findIndex((item) => item._id === _id)) //from opened post using url id
 
     const navigate = useNavigate()
 
+    console.log(postsArr)
     const toPrev = () => {
         setCurrentIndex(--currentIndex)
         navigate(`/post/` + postsArr[--currentIndex]._id);
@@ -33,35 +36,40 @@ const Post = ({post, onGetPostById, myId, promise, postsArr}) => {
         setCurrentIndex(++currentIndex)
         navigate(`/post/` + postsArr[++currentIndex]._id);  //making link path to the next post
     }
-
+    console.log(_id + 'post id')
+    console.log(post?.owner?._id + 'user id')
     useEffect(() => {
+
         onGetPostById(_id)
         onGetPostById(postsArr[currentIndex]._id)
-        // setCurrentIndex(currentIndex)
-        console.log(post)
+        onUserById(post?.owner?._id)
+        getPostsByUserId(post?.owner?._id)
     }, [_id])
 
     console.log(currentIndex)
 
-
+useEffect(() => {
+    getPostsByUserId(post?.owner?._id)
+}, [])
 
     // console.log(nextImg())
-    // function getTime(time) {
-    //     let timestamp
-    //     let date = new Date(+timestamp);
-    //     timestamp = time;
-    //     return date = date.getDate()+
-    //         "/"+(date.getMonth()+1)+
-    //         "/"+date.getFullYear()+
-    //         " "+date.getHours()+
-    //         ":"+date.getMinutes()
-    // }
+    function getTime(time) {
+        let timestamp
+        let date = new Date(+timestamp);
+        timestamp = time;
+        return date = date.getDate()+
+            "/"+(date.getMonth()+1)+
+            "/"+date.getFullYear()+
+            " "+date.getHours()+
+            ":"+date.getMinutes()
+    }
 
     return (
         <CPreloaded promiseName='postById'>
+            <BackButton/>
             {postsArr && post?.images?.[0]?.url ?
                 (
-                    <div>
+                    <>
                         <button onClick={toPrev}>prev</button>
                         <Card
                             style={style}
@@ -92,7 +100,7 @@ const Post = ({post, onGetPostById, myId, promise, postsArr}) => {
                                         </Link>
                                     </div>
                                     <div style={{color: '#959292', fontSize: '18px'}}>
-                                        1111111
+                                        {() => getTime(post?.createdAt)}
                                     </div>
                                 </header>
 
@@ -110,7 +118,7 @@ const Post = ({post, onGetPostById, myId, promise, postsArr}) => {
                             </div>
                         </Card>
                         {/*<button onClick={toNext}>next</button>*/}
-                    </div>
+                    </>
                 ) : null
             }
             <button onClick={toNext}>
@@ -128,5 +136,7 @@ export const CPost = connect((state) => ({
     // feedPosts: state?.feed?.feedPosts,
     // feed: state?.feed
 }), {
-    onGetPostById: actionGetPostById
+    onUserById: queryUserById,
+    onGetPostById: actionGetPostById,
+    getPostsByUserId: queryPostById
 })(Post);

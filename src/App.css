@@ -130,12 +130,12 @@ a {
 .main-content {
   width: 67%;
   min-height: 100vh;
-  margin: 100px auto 0;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align-last: center;
-  padding-top: 15px;
+  padding-top: 115px;
   background-color: white;
 }
 .button-holder {

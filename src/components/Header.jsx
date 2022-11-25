@@ -1,12 +1,9 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import logo from '../img/Instagram-logo-with-brush-PNG.png'
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {actionAuthLogin, actionAuthLogout} from "../redux/actions/actionsAuth";
+import {actionAuthLogout} from "../redux/actions/actionsAuth";
 import Button from "./Button";
-import {store} from "../store";
-import {actionAboutMe} from "../redux/actions/actionsMe";
-import {actionFullGetAllPosts} from "../redux/actions/actionsPost";
 
 const Header = ({onLogout, id, login, isLogged}) => {
 
@@ -16,7 +13,7 @@ const Header = ({onLogout, id, login, isLogged}) => {
                 isLogged ?
                    ( <div className='header'>
                       <div className='link-box'>
-                          <img src={logo} style={{width: '100px'}}/>
+                          <img src={logo} style={{width: '100px'}} alt='logo'/>
                           <Link to={`/profile/${id}`} style={{fontWeight: 'bold'}}>{'@' + login}</Link>
                       </div>
                         <div className='link-box'>

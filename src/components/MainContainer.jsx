@@ -13,8 +13,8 @@ import {CCreatePost} from "./Posts/CreatePost";
 import {CPost} from "./Posts/Post";
 import {connect} from "react-redux";
 
-const MainContainer = ({isLogged}) => {
-
+const MainContainer = ({isLogged, promise}) => {
+    console.log(promise)
     return (
         <div className='main-content'>
             {
@@ -47,5 +47,6 @@ const MainContainer = ({isLogged}) => {
 };
 
 export const CMainContainer = connect((state) => ({
+    promise: state?.promise,
     isLogged: state?.auth?.token
 }), null)(MainContainer);

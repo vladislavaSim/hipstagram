@@ -10,6 +10,7 @@ import {Link, useParams} from "react-router-dom";
 import {ImagesSlider} from "./Slider";
 import {CLike} from "./Like";
 import {actionGetPostById} from "../../graphql/queryPost";
+import {CPreloaded} from "../Preloader";
 
 const style = {
     flexDirection: 'unset',
@@ -31,7 +32,7 @@ const FeedPost = ({post = [], onGetPostById, myId, promise}) => {
 
 
     return (
-        <>
+        <CPreloaded promiseName='postById'>
             {post?.images?.[0]?.url ?
                 (
                     <Card sx={{maxWidth: 345}}
@@ -78,7 +79,7 @@ const FeedPost = ({post = [], onGetPostById, myId, promise}) => {
                     </Card>
                 ) : null
             }
-        </>
+        </CPreloaded>
     );
 }
 
