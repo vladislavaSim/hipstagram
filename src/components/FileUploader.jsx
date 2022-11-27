@@ -14,6 +14,7 @@ const FileUploader = ({onUpload, onUploadMany, isActive, multiply}) => {
                 return onUploadMany(Array.from(e.dataTransfer.files).slice(0, 8))
             }
         } else {
+            console.log(e.dataTransfer.files[0])
             return onUpload(e.dataTransfer.files[0])
         }
     }

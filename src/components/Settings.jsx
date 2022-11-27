@@ -5,42 +5,83 @@ import {actionFullChangeLogin} from "../redux/actions/actionsMe";
 import {useNavigate} from "react-router";
 import {actionClearPromiseByName} from "../redux/actions/actionPromise";
 import {store} from '../store'
+import {CDropzoneAvatar} from "./AvatarDrop";
+import Avatar from "./Avatar";
+import DefaultAvatar from "./DefaultAvatar";
+import Button from "./Button";
 
 
-const Settings = ({ onChange, changeData, myId, clearPromise }) => {
+const Settings = ({ onChange, avatar, myId, clearPromise, myAvatar, login, setAvatar,  changeLogin}) => {
     const navigate = useNavigate()
-    const [newLogin, setNewLogin] = useState('');
-
+    const [newLogin, setNewLogin] = useState(login);
+    const [isEditing, setIsEditing] = useState(false);
+    console.log(store.getState().promise)
+    // console.log(login)
     useEffect(() => {
         store.dispatch(clearPromise('changeLogin'))
-        if (changeData?.status === 'RESOLVED') {
+        store.dispatch(clearPromise('setAvatar'))
+        if (setAvatar?.status === 'RESOLVED' || changeLogin?.status === 'RESOLVED') {
            navigate(`/profile/${myId}`);
         }
-    }, [changeData?.status]);
+        console.log(avatar)
+    }, [setAvatar?.status, changeLogin?.status]);
+
+    function setOrShowAvatar(){
+        if(isEditing) {
+            return <CDropzoneAvatar/>
+        } else {
+            if(myAvatar) {
+                return <Avatar url={myAvatar} className='avatarPic'/>
+            } else {
+                return <DefaultAvatar/>
+            }
+        }
+    }
+
 
     return (
-        <>
-                    <TextField
-                        type="text"
-                        placeholder="New Login"
-                        value={newLogin}
-                        onChange={(e) => setNewLogin(e.target.value)}
-                    />
-                    <button
-                        style={{marginTop: '15px'}}
-                        className='primeBtn'
-                        disabled={!newLogin}
-                        onClick={() => onChange(newLogin)}>
-                        Submit
-                    </button>
-        </>
+            <>
+                    <div>
+                        <h3 className='post-text'>Change avatar</h3>
+                        <div className='edit-box box-flexible'>
+                            {setOrShowAvatar()}
+                            <Button children={isEditing ? 'Cancel' : 'Edit profile'}
+                                    className='primeBtn'
+                                    onClick={() => setIsEditing(!isEditing)}/>
+                        </div>
+                    </div>
+                    <div >
+                        <h3 className='post-text'>Change login</h3>
+                        <div className='edit-box'>
+                            <TextField
+                                type="text"
+                                placeholder="New Login"
+                                value={newLogin}
+                                onChange={(e) => setNewLogin(e.target.value)}
+                            />
+                            <button
+                                className='primeBtn'
+                                disabled={!newLogin || login === newLogin}
+                                onClick={() => onChange(newLogin)}>
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+
+            </>
     );
 };
 
 export const CSettings = connect(
     (state) => ({
         changeData: state?.promise?.changeLogin,
+        me: state.promise?.me,
         myId: state?.auth?.payload?.sub?.id,
+        myAvatar: state?.promise?.me?.payload?.avatar?.url,
+        login: state?.promise?.me?.payload?.login,
+        avatar: state?.promise?.me?.payload?.avatar?.url,
+        changeLogin: state?.promise?.changeLogin,
+        setAvatar: state?.promise?.setAvatar
     }),
     {
         onChange: actionFullChangeLogin,

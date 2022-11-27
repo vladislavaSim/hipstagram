@@ -46,17 +46,6 @@ const Post = ({post, onGetPostById, userId, promise, clearPromise, postsArr = []
         " "+date.getHours()+
         ":"+date.getMinutes()
 
-//      useEffect(() => {
-//          console.log('post mounted')
-//          onGetPostById(postsArr[currentIndex]._id)
-//          console.log(post?.owner?.login + ' owner')
-//          getPostsByUserId(userId)
-//          return () => {
-//              clearPromise('postByIdUser')
-//              console.log(promise)
-//              console.log('cleared')
-//          }
-// }, [])
 
     const toPrev = () => {
         setCurrentIndex((currentIndex) => --currentIndex)

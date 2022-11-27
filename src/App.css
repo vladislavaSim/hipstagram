@@ -9,6 +9,9 @@ body {
 #root, main, .App {
   overflow: hidden;
 }
+p {
+  margin: 0;
+}
 
 .App{
   -webkit-animation: rainbow 10s ease infinite;
@@ -244,7 +247,7 @@ box-shadow: none;
 }
 .post-title {
   text-align: center;
-  font-size: 35px !important;
+  font-size: 30px !important;
 }
 
 .post-text {
@@ -303,7 +306,7 @@ box-shadow: none;
 
 .profile-box {
   display: flex;
-  margin-bottom: 60px;
+  margin-bottom: 45px;
 }
 .profile-info-box {
   margin-left: 15px;
@@ -480,6 +483,21 @@ button[disabled]{
   flex-direction: column;
   align-items: self-start;
 }
+.edit-box {
+  display: flex;
+  justify-content: space-between;
+  min-height: 100px;
+  width: 350px;
+  align-items: center;
+  margin: 20px 0 35px;
+}
+.box-flexible, .box-flexible .preview-img {
+  height: 200px;
+}
+.box-flexible  button{
+  margin-left: 25px;
+}
+
 
 
 

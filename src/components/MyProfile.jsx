@@ -14,7 +14,6 @@ import {queryPostById} from "../graphql/queryPost";
 import {CPostPreview} from "./Posts/PostPreview";
 
 const MyProfile = ({myLogin, myPosts, myAvatar, myFollowing, myFollowers, myId, getPostById}) => {
-    const [isEditing, setIsEditing] = useState(false);
 
     useEffect(() => {
         if(myId) {
@@ -26,24 +25,14 @@ const MyProfile = ({myLogin, myPosts, myAvatar, myFollowing, myFollowers, myId, 
         let num = !array ? '0' : array.length
         return num + ' ' + text
     }
-    function setOrShowAvatar(){
-        if(isEditing) {
-            return <CDropzoneAvatar/>
-        } else {
-            if(myAvatar) {
-                return <Avatar url={myAvatar} className='avatarPic'/>
-            } else {
-                return <DefaultAvatar/>
-            }
-        }
-    }
+
 
     return (
         <CPreloaded promiseName='postByIdUser'>
             <div className='profile-box'>
                 <ScrollUpButton ContainerClassName="up-btn"/>
                 <div className="avatar">
-                    {setOrShowAvatar()}
+                    {myAvatar ? <Avatar url={myAvatar} className='avatarPic'/> : <DefaultAvatar/>}
                 </div>
                 <div className='profile-info-box'>
                     <h3> <span>{`${myLogin ? myLogin : 'no name'}`}</span></h3>
@@ -70,9 +59,6 @@ const MyProfile = ({myLogin, myPosts, myAvatar, myFollowing, myFollowers, myId, 
                                     <Link to='/create'>Add post</Link>
                                 </Button>
                             </div>
-                            <Button children={isEditing ? 'Cancel' : 'Edit profile'}
-                                    className='primeBtn'
-                                    onClick={() => setIsEditing(!isEditing)}/>
                         </div>
                     </div>
                 </div>
