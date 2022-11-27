@@ -54,5 +54,5 @@ export const CPostPreview = connect((state) => ({
     promise: state?.promise
 }), {
     getPostById: actionGetPostById
-})(React.memo(PreviewPost))
+})(PreviewPost)
 

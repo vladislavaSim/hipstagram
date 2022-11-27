@@ -25,6 +25,7 @@ const UserProfile = ({   userId,
                          getPostById,
                          clearPromise,
                          onUserById,
+                        promise,
                          myId}) => {
 
     const {_id} = useParams()
@@ -34,24 +35,36 @@ const UserProfile = ({   userId,
         return num + ' ' + text
     }
 
+    console.log('rerender')
     useEffect(() => {
-        clearPromise('postByIdUser')
+
+        console.log(1)
+        console.log(userId)
         if(userId) {
+            console.log(2)
+            console.log(userId)
             getPostById(userId)
-            getPostById(userId, 'usersPost')
+            // getPostById(userId, 'usersPost')
         }
         return () => {
-            console.log('cleanup')
+            // clearPromise('userById')
+            clearPromise('postByIdUser')
+            console.log(userPosts)
+            console.log('user unmount')
         }
     }, [userId])
-
+    // useEffect(() => {
+    //     clearPromise
+    //     clearPromise('postByIdUser')
+    // }, [])
+    // console.log(promise)
     // useEffect(() => {
     //     clearPromise('postByIdUser')
     //     clearPromise('userById')
     //     onUserById(_id)
     // }, [])
-
-    console.log(userPosts)
+    // console.log(promise)
+    // console.log(userPosts)
     return (
         <CPreloaded promiseName='userById'>
             <div className='profile-box'>
@@ -109,6 +122,7 @@ const UserProfile = ({   userId,
 export const CUserProfile = connect((state) => ({
     // auth: state.auth,
     // me: state.promise?.me,
+    promise: state?.promise,
     userId: state?.promise?.userById?.payload?._id,
     userFollowing: state?.promise?.userById?.payload?.following,
     userFollowers: state?.promise?.userById?.payload?.followers,

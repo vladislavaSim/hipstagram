@@ -14,24 +14,27 @@ import {useNavigate} from "react-router";
 import {queryUserById} from "../../graphql/queryUserById";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import {actionClearPromiseByName} from "../../redux/actions/actionPromise";
 
 const style = {
     flexDirection: 'unset',
     width: '100%'
 };
 
-const Post = ({post, onGetPostById, onUserById, promise, postsArr = [], getPostsByUserId}) => {
+const Post = ({post, onGetPostById, userId, promise, clearPromise, postsArr = [], getPostsByUserId}) => {
     const {_id} = useParams()
     let [currentIndex, setCurrentIndex] = useState(postsArr.findIndex((item) => item._id === _id)) //from opened post using url id
 
     const navigate = useNavigate()
 
     useEffect(() => {
+        getPostsByUserId(userId)
         if(postsArr.length) {
-            onGetPostById(_id)
             onGetPostById(postsArr[currentIndex]._id)
+        } else {
             getPostsByUserId(post?.owner?._id)
         }
+        setCurrentIndex(postsArr.findIndex((item) => item._id === _id))
     }, [_id])
 
     const timestamp = post?.createdAt;
@@ -43,11 +46,17 @@ const Post = ({post, onGetPostById, onUserById, promise, postsArr = [], getPosts
         " "+date.getHours()+
         ":"+date.getMinutes()
 
-     useEffect(() => {
-         onGetPostById(_id)
-        getPostsByUserId(post?.owner?._id)
-        setCurrentIndex(postsArr.findIndex((item) => item._id === _id))
-}, [])
+//      useEffect(() => {
+//          console.log('post mounted')
+//          onGetPostById(postsArr[currentIndex]._id)
+//          console.log(post?.owner?.login + ' owner')
+//          getPostsByUserId(userId)
+//          return () => {
+//              clearPromise('postByIdUser')
+//              console.log(promise)
+//              console.log('cleared')
+//          }
+// }, [])
 
     const toPrev = () => {
         setCurrentIndex((currentIndex) => --currentIndex)
@@ -57,7 +66,7 @@ const Post = ({post, onGetPostById, onUserById, promise, postsArr = [], getPosts
         setCurrentIndex((currentIndex) => ++currentIndex)
         postsArr.length && navigate(`/post/` + postsArr[++currentIndex]._id);  //making link path to the next post
     }
-
+    // console.log(postsArr)
     return (
         <CPreloaded promiseName='postById'>
             {postsArr.length && post?.images?.[0]?.url ?
@@ -133,9 +142,11 @@ export const CPost = connect((state) => ({
     myId: state?.promise?.me?.payload?._id,
     post: state?.promise?.postById?.payload,
     promise: state?.promise,
-    postsArr: state?.promise?.postByIdUser?.payload
+    postsArr: state?.promise?.postByIdUser?.payload,
+    userId: state?.promise?.userById?.payload?._id,
 }), {
     onUserById: queryUserById, // get user by user id (userById)
     onGetPostById: actionGetPostById, // get post by its id (from useParams)
-    getPostsByUserId: queryPostById // get postsArr from one user by id
+    getPostsByUserId: queryPostById, // get postsArr from one user by id
+    clearPromise: actionClearPromiseByName
 })(Post);

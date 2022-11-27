@@ -4,12 +4,14 @@ import {queryUserById} from "../graphql/queryUserById";
 import {useParams} from 'react-router-dom'
 import {CMyProfile} from "./MyProfile";
 import {CUserProfile} from "./UserProfile";
+import {actionClearPromiseByName} from "../redux/actions/actionPromise";
+import {CPreloaded} from "./Preloader";
 
 
 const Profile = ({onUserById, myId, myFollowing, promise}) => {
 
     const {_id} = useParams()
-
+    console.log(promise)
     useEffect(() => {
         if(_id) {
             onUserById(_id)
@@ -19,7 +21,7 @@ const Profile = ({onUserById, myId, myFollowing, promise}) => {
     const doIFollow = (myFollowing || []).find((item) => item._id === _id);
 
     return (
-        <>
+        <CPreloaded promiseName='userById'>
             {
                 _id === myId
                     ? <CMyProfile />
@@ -28,7 +30,7 @@ const Profile = ({onUserById, myId, myFollowing, promise}) => {
                         myId={myId}
                         />
             }
-        </>
+        </CPreloaded>
     );
 }
 
@@ -38,5 +40,6 @@ export const CProfile = connect((state) => ({
     myFollowing: state?.promise?.me?.payload?.following,
 }), {
     onUserById: queryUserById,
+    clearPromise: actionClearPromiseByName
 })(Profile);
 
