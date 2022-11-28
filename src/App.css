@@ -405,6 +405,7 @@ box-shadow: none;
   border: none;
 }
 button:disabled,
+.disabled-btn,
 button[disabled]{
   border: 1px solid #999999;
   background-color: #ffffff;

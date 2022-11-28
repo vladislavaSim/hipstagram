@@ -61,7 +61,7 @@ const LoginForm = ({onLogin, isLogged, promise, myId}) => {
                 onClick={() => setShowPass(!showPass)}>
                 {showPass ? <VisibilityOff /> : <Visibility />}
             </IconButton>
-            <div>
+            <div style={{marginTop: '15px'}}>
                 {<p style={{color: 'red', fontSize: '16px'}}>{errorMessage}</p>}
                 <Button
                         className='primeBtn'

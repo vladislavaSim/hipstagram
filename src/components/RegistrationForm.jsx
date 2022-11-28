@@ -12,23 +12,38 @@ const RegistrationForm = ({onRegister, myId, status}) => {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const [showPass, setShowPass] = useState(false)
+    const [passAgain, setPassAgain] = useState('')
+    const [valid, setValid] = useState(false)
+
+    const navigate = useNavigate()
+    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/
 
     function regHandler() {
-        if(login && password) {
-            onRegister(login, password)
-            setError('')
+        if(login && password && passAgain) {
+            if(password !== passAgain) {
+                setError('Please, repeat the password correctly')
+                setValid(false)
+            } else {
+                if(password.match(regex)) {
+                    setError('')
+                    setValid(true)
+                    onRegister(login, password)
+                } else {
+                    setError('The password must contain at least 8 chars lower and uppercase and one number')
+                    setValid(false)
+                }
+            }
         } else {
-            setError('Login and password cannot be empty')
+            setError('All the fields cannot be empty')
+            setValid(false)
         }
     }
 
-    const navigate = useNavigate()
     useEffect(() => {
-        console.log(login, password, status, myId)
-            if(login && password && status === 'RESOLVED' && myId) {
+            if(valid && status === 'RESOLVED' && myId) {
                 navigate('/profile/' + myId);
          }
-    },[status, login, password, myId])
+    },[status, myId])
 
     return (
         <div className='loginBox'>
@@ -39,33 +54,42 @@ const RegistrationForm = ({onRegister, myId, status}) => {
                 value={login}
                 onChange={(e) => setLogin(e.target.value)}/>
             <TextField
-                variant="filled"
+                variant="standard"
                 label="Password"
                 type={showPass ? 'text' : 'password'}
                 onChange={(e) => setPassword(e.target.value)}/>
+            <TextField
+                variant="standard"
+                label="Password again"
+                type={showPass ? 'text' : 'password'}
+                onChange={(e) => setPassAgain(e.target.value)}/>
             <div>
-                <IconButton
-                    style={{position: 'absolute', right: '120px', top: '233px'}}
-                    aria-label="toggle password visibility"
-                    onClick={() => setShowPass(!showPass)}>
-                    {showPass ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-                {<p style={{color: 'red', fontSize: '16px'}}>{error}</p>}
-                <Button
-                        onClick={() => regHandler()}
-                        className='primeBtn'>
-                        Create account
-                </Button>
-                <p>Already have an account? <br/>
-                    <Button className='ordinaryBtn'>
-                        <Link to='/login'>Log in</Link>
-                    </Button>
-                </p>
 
+                <div style={{marginTop: '15px'}}>
+                    <IconButton
+                        style={{position: 'absolute', right: '120px', top: '233px'}}
+                        aria-label="toggle password visibility"
+                        onClick={() => setShowPass(!showPass)}>
+                        {showPass ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                        <p style={{color: 'red', fontSize: '16px'}}>{error}</p>
+                    <button
+                            onClick={() => regHandler()}
+                            className={'primeBtn'}>
+                            Create account
+                    </button>
+                    <p>Already have an account? <br/>
+                        <Button
+                            className='ordinaryBtn'>
+                            <Link to='/login'>Log in</Link>
+                        </Button>
+                    </p>
             </div>
+        </div>
         </div>
     )
 };
+
 
 export const CRegistrationForm = connect( (state) => ({
     promise: state?.promise,
