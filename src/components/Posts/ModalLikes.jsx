@@ -24,13 +24,14 @@ const ModalLikes = ({likes, myId, children}) => {
 
     return (
         <>
-            <button onClick={() => setOpen(true)}
+            <button
+                style={{width: '100%'}}
+                onClick={() => setOpen(true)}
                 className='unstyledBtn'>
                 {children}
             </button>
 
             <Modal
-                // style={style}
                 open={open}
                 onClose={() => setOpen(false)}
                 aria-labelledby="modal-modal-title"

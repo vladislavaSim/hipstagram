@@ -285,7 +285,6 @@ box-shadow: none;
 .like-button {
   display: flex;
   align-items: center;
-  margin-bottom: 30px;
 }
 
 /* heart icon */
@@ -331,6 +330,29 @@ box-shadow: none;
   flex-direction: column;
   margin-bottom: 15px;
 }
+.feed-post-like-box {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: baseline;
+  height: 25px;
+  padding: 5px 0;
+}
+.feed-post-like-info {
+  display: flex;
+}
+.feed-post-like-info span {
+  font-size: 16px;
+}
+.feed-post-like-info > * {
+  text-transform: uppercase;
+}
+.feed-post-img {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+}
+
 .gallery {
   display: grid;
   width: 98%;
@@ -483,6 +505,8 @@ button[disabled]{
   display: flex;
   flex-direction: column;
   align-items: self-start;
+  text-transform: uppercase;
+  font-size: 18px;
 }
 .edit-box {
   display: flex;
@@ -497,6 +521,9 @@ button[disabled]{
 }
 .box-flexible  button{
   margin-left: 25px;
+}
+.MuiCardContent-root {
+  padding: 0 !important;
 }
 
 

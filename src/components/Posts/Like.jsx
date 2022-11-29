@@ -7,7 +7,7 @@ import {actionFullAddLike, actionFullRemoveLike} from "../../redux/actions/actio
 import ModalLikes from "./ModalLikes";
 import {Link} from "react-router-dom";
 
-const Like = ({post = [], onLike, onDeleteLike, myId}) => {
+const Like = ({post = [], onLike, onDeleteLike, myId, likeClass, likeInfoClass}) => {
     const [liked, setLiked] = useState(post?.likes.filter((like) => like.owner._id === myId))
     const scale = {
         transform: 'scale(1.4)'
@@ -18,22 +18,10 @@ const {likes = []} = post
         let isLiked = post.likes.filter((like) => like.owner._id === myId)
 
         return (
-            <>
-                <ModalLikes likes={likes} myId={myId}
-                            children={likes.length > 0 &&
-                            <div className='like-brief-info'>
-                                <span style={{fontSize: '18px'}}>LIKED BY</span>
-                                <Link to={`/profile/${likes[0].owner._id}`}
-                                      className='ordinaryBtn'>
-                                    <b>{likes[0].owner.login}</b>
-                                </Link>
-                                {likes.length > 1 &&
-                                <span className='ordinaryBtn'>{`and ${likes.length - 1} others`}</span>
-                                }
-                            </div>
-                            } />
+            <div style={{width: '100%'}}>
                 <IconButton onClick={() => {
-                    isLiked.length !== 0 ? onDeleteLike(isLiked[0]._id) : onLike(post._id)}}
+                    isLiked.length !== 0 ? onDeleteLike(isLiked[0]._id) : onLike(post._id)
+                }}
                             aria-label="add to favorites">
                     <div
                         className="like-button">
@@ -49,7 +37,25 @@ const {likes = []} = post
                         )}
                     </div>
                 </IconButton>
-            </>
+                <ModalLikes likes={likes} myId={myId}>
+                                <div>
+                                    {likes.length > 0 &&
+                                        <div className={likeClass}>
+                                            <div className={likeInfoClass}>
+                                                <span>LIKED BY</span>
+                                                <Link to={`/profile/${likes[0].owner._id}`}
+                                                     >
+                                                    <b style={{padding: '0 5px', fontSize: '16px'}}>{likes[0].owner.login}</b>
+                                                </Link>
+                                                {likes.length > 1 &&
+                                                <span>{`and ${likes.length - 1} others`}</span>}
+                                            </div>
+                                        </div>
+                                       }
+
+                                </div>
+                </ModalLikes>
+            </div>
         );
     };
 

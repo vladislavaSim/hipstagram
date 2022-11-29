@@ -14,7 +14,8 @@ const ShowPosts = ({ posts = [], getPosts}) => {
 
     return (
        <CPreloaded promiseName='allPosts'>
-           <div style={{width: '50%'}}>
+           <div
+               style={{width: '50%'}}>
                <ScrollUpButton ContainerClassName="up-btn"/>
                {posts.length ?
                    (posts || []).map((post) => {

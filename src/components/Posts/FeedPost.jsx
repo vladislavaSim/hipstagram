@@ -31,7 +31,7 @@ const FeedPost = ({post = [], onGetPostById, myId, promise}) => {
             {post?.images?.[0]?.url ?
                 (
                     <Card sx={{maxWidth: 345}}
-                          style={{boxShadow: '1px 2px 4px #0000008c', position: 'relative'}}
+                          style={{boxShadow: '1px 2px 4px #0000008c', marginBottom: '10px', paddingBottom: '10px'}}
                     >
                         <header className='card-header'>
                             <div className='card-author-box'>
@@ -48,29 +48,25 @@ const FeedPost = ({post = [], onGetPostById, myId, promise}) => {
                             <div style={{color: '#959292'}}>{date}</div>
                         </header>
                         {post?.images.length === 1 ? (
-                            <CardMedia
-                                component="img"
+                            <img
                                 height="580"
-                                image={`${backendUrl + post?.images[0]?.url}`}
+                                src={`${backendUrl + post?.images[0]?.url}`}
                                 alt="post-picture"
-                                className='gallery-image'
+                                className='feed-post-img'
                             />) : (
-                            <ImagesSlider images={post?.images} key={Math.random() * 1000}/>
+                            <ImagesSlider images={post?.images} key={Math.random() * 1000} className='feed-post-img'/>
                         )
                         }
                         <CardContent>
-                            <Typography className='post-title'>
-                                {post?.title}
-                            </Typography>
-                            <Typography variant="body2" className='post-text'>
-                                {post?.text}
+                            <div>
+                                <CLike post={post} postId={post?._id} likeClass='feed-post-like-box' likeInfoClass='feed-post-like-info'/>
+                            </div>
+                            <Typography
+                                style={{fontSize: '18px', textAlignLast: 'start'}}>
+                                <span style={{fontWeight: '600'}}>{'@' + post?.owner.login + ':  '}</span>
+                                {post?.title.length > 50 ? post?.title.slice(0, 50) + '...' : post?.title}
                             </Typography>
                         </CardContent>
-                        <CardActions disableSpacing className='card-bottom'
-                                     style={{position: 'absolute', bottom: '0'}}>
-                            <CLike post={post} postId={post?._id} />
-
-                        </CardActions>
                     </Card>
                 ) : null
             }

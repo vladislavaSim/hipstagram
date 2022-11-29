@@ -107,7 +107,7 @@ const Post = ({post, onGetPostById, userId, promise, clearPromise, postsArr = []
                                     </Typography>
                                 </CardContent>
                                 <div className="card-bottom">
-                                    <CLike post={post} postId={post?._id} />
+                                    <CLike post={post} postId={post?._id} likeClass='like-brief-info'/>
                                 </div>
                             </div>
                         </Card>

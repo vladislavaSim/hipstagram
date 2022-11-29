@@ -2,12 +2,13 @@ import React from 'react';
 import Carousel from "react-material-ui-carousel";
 import {backendUrl} from "../../graphql/BackendUrl";
 
-export const ImagesSlider = ({ images }) => {
+export const ImagesSlider = ({ images, className }) => {
 
     return (
        <div style={{width: '100%'}}>
             <Carousel
                 navButtonsAlwaysVisible={true}
+                swipe={false}
                 autoPlay={false}
                 navButtonsProps={{
                     style: {
@@ -19,7 +20,7 @@ export const ImagesSlider = ({ images }) => {
                     return (
                         <div className='carousel-box'
                              key={Math.random() * 1000}>
-                            <img className='item'
+                            <img className={className}
                                 src={backendUrl + item.url}/>
                         </div>
                        )})}
