@@ -6,7 +6,7 @@ import {actionAuthLogout} from "../redux/actions/actionsAuth";
 import Button from "./Button";
 
 const Header = ({onLogout, id, login, isLogged, promise}) => {
-    console.log(promise)
+    // console.log(promise)
     return (
         <>
             {

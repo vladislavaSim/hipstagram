@@ -18,21 +18,16 @@ const style = {
 };
 const FeedPost = ({post = [], onGetPostById, myId, promise}) => {
 
-    function getTime(time) {
-        let timestamp
-        let date = new Date(+timestamp);
-        timestamp = time;
-
-        return date = date.getDate()+
-            "/"+(date.getMonth()+1)+
-            "/"+date.getFullYear()+
-            " "+date.getHours()+
-            ":"+date.getMinutes()
-    }
-
+    const timestamp = post?.createdAt;
+    let date = new Date(+timestamp)
+    date = date.getDate()+
+        "/"+(date.getMonth()+1)+
+        "/"+date.getFullYear()+
+        " "+date.getHours()+
+        ":"+date.getMinutes()
 
     return (
-        <CPreloaded promiseName='postById'>
+        <>
             {post?.images?.[0]?.url ?
                 (
                     <Card sx={{maxWidth: 345}}
@@ -50,7 +45,7 @@ const FeedPost = ({post = [], onGetPostById, myId, promise}) => {
                                 </Link>
 
                             </div>
-                            <div style={{color: '#959292'}}>{() => getTime(post?.createdAt)}</div>
+                            <div style={{color: '#959292'}}>{date}</div>
                         </header>
                         {post?.images.length === 1 ? (
                             <CardMedia
@@ -79,7 +74,7 @@ const FeedPost = ({post = [], onGetPostById, myId, promise}) => {
                     </Card>
                 ) : null
             }
-        </CPreloaded>
+        </>
     );
 }
 

@@ -12,9 +12,11 @@ import {CShowPosts} from "./Posts/ShowPosts";
 import {CCreatePost} from "./Posts/CreatePost";
 import {CPost} from "./Posts/Post";
 import {connect} from "react-redux";
+import {store} from "../store";
 
 const MainContainer = ({isLogged, promise}) => {
     // console.log(promise)
+    console.log(store.getState())
     return (
         <div className='main-content'>
             {

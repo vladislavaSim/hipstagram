@@ -38,14 +38,12 @@ const Post = ({post, onGetPostById, userId, promise, clearPromise, postsArr = []
     }, [_id])
 
     const timestamp = post?.createdAt;
-
     let date = new Date(+timestamp)
     date = date.getDate()+
         "/"+(date.getMonth()+1)+
         "/"+date.getFullYear()+
         " "+date.getHours()+
         ":"+date.getMinutes()
-
 
     const toPrev = () => {
         setCurrentIndex((currentIndex) => --currentIndex)
