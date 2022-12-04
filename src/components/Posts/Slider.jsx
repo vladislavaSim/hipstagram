@@ -12,6 +12,14 @@ export const ImagesSlider = ({ images, className }) => {
                 autoPlay={false}
                 navButtonsProps={{
                     style: {
+                        '&:hover': {
+                            '&:button': {
+                                backdropFilter: 'brightness(0.5)'
+                            }
+                                // filter: "brightness(120%)",
+                                // opacity: "0.4"
+                        },
+                        backgroundColor: '#ffffff80',
                         color: 'grey'
                     }
                 }}
@@ -21,9 +29,12 @@ export const ImagesSlider = ({ images, className }) => {
                         <div className='carousel-box'
                              key={Math.random() * 1000}>
                             <img className={className}
-                                src={backendUrl + item.url}/>
+                                src={backendUrl + item.url}
+                                alt={'carousel-item'}/>
                         </div>
-                       )})}
+                       )
+                }
+               )}
             </Carousel>
         </div>
     );

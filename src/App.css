@@ -325,6 +325,12 @@ box-shadow: none;
 .MuiFormControl-root {
   display: inline-table;
 }
+/*reset carousel styles for arrows*/
+.css-1abc02a:hover button,
+.css-hn784z:hover button {
+  background: transparent !important;
+  filter: none !important;
+}
 .input-box {
   display: flex;
   flex-direction: column;
@@ -397,7 +403,7 @@ box-shadow: none;
   height: 100%;
   object-fit: cover;
 }
-.modal-image-box{
+.modal-image-box {
   width: 65%;
   background: black;
   display: flex;
@@ -443,6 +449,9 @@ button[disabled]{
 .carousel-box {
   display: flex;
   place-content: center;
+}
+.carousel-box button{
+  background: red;
 }
 /*carousel width*/
 .css-ohwg9z {

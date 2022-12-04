@@ -37,7 +37,7 @@ const Header = ({onLogout, id, login, isLogged, promise}) => {
 export  const CHeader = connect((state) => ({
     myId: state?.promise?.me?.payload?._id,
     isLogged: state?.auth?.token,
-    promise: state?.promise,
+    // promise: state?.promise,
     id: state.auth?.payload?.sub?.id,
     login: state?.promise?.me?.payload?.login,
     userLogin: state?.promise?.userById?.payload?.login,

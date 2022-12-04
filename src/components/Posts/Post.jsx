@@ -25,6 +25,7 @@ const Post = ({post, onGetPostById, userId, promise, clearPromise, postsArr = []
     const {_id} = useParams()
     let [currentIndex, setCurrentIndex] = useState(postsArr.findIndex((item) => item._id === _id)) //from opened post using url id
 
+
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -55,7 +56,7 @@ const Post = ({post, onGetPostById, userId, promise, clearPromise, postsArr = []
     }
     // console.log(postsArr)
     return (
-        <CPreloaded promiseName='postById'>
+        <CPreloaded promiseName='userById'>
             {postsArr.length && post?.images?.[0]?.url ?
                 (
                     <div className='post-holder'>

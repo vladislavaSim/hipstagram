@@ -16,7 +16,7 @@ import {store} from "../store";
 
 const MainContainer = ({isLogged, promise}) => {
     // console.log(promise)
-    console.log(store.getState())
+    // console.log(store.getState())
     return (
         <div className='main-content'>
             {
@@ -49,6 +49,6 @@ const MainContainer = ({isLogged, promise}) => {
 };
 
 export const CMainContainer = connect((state) => ({
-    promise: state?.promise,
+    // promise: state?.promise,
     isLogged: state?.auth?.token
 }), null)(MainContainer);
