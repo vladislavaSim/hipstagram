@@ -35,38 +35,17 @@ const UserProfile = ({   userId,
         return num + ' ' + text
     }
 
-    console.log('rerender')
     useEffect(() => {
-
-        console.log(1)
-        console.log(userId)
         if(userId) {
-            console.log(2)
-            console.log(userId)
             getPostById(userId)
-            // getPostById(userId, 'usersPost')
         }
-        return () => {
-            // clearPromise('userById')
-            clearPromise('postByIdUser')
-            console.log(userPosts)
-            console.log('user unmount')
-        }
+        // return () => {
+        //     clearPromise('postByIdUser')
+        // }
     }, [userId])
-    // useEffect(() => {
-    //     clearPromise
-    //     clearPromise('postByIdUser')
-    // }, [])
-    // console.log(promise)
-    // useEffect(() => {
-    //     clearPromise('postByIdUser')
-    //     clearPromise('userById')
-    //     onUserById(_id)
-    // }, [])
-    // console.log(promise)
-    // console.log(userPosts)
+    console.log(userPosts)
     return (
-        <CPreloaded promiseName='userById'>
+        <>
             <div className='profile-box'>
                 <ScrollUpButton ContainerClassName="up-btn"/>
                 <div className="avatar">
@@ -104,7 +83,7 @@ const UserProfile = ({   userId,
                     </div>
                 </div>
             </div>
-           <CPreloaded promiseName='postByIdUser'>
+           <>
                <div className='gallery'>
                    {(userPosts || []).map((post) => {
                        return <CPostPreview post={post}
@@ -114,8 +93,8 @@ const UserProfile = ({   userId,
                    })
                    }
                </div>
-           </CPreloaded>
-        </CPreloaded>
+           </>
+        </>
     );
 };
 

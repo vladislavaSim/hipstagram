@@ -5,7 +5,6 @@ export function promiseReducer(state={}, {type, status, payload, error, name}) {
         return {}
     }
     if (type === PROMISE) {
-            console.log('gitgods code worked')
             return {
                 ...state, [name]: {status, payload: (status === 'PENDING' && state[name] && state[name].payload) || payload, error}
             }
