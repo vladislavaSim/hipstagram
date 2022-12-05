@@ -31,7 +31,7 @@ const FeedPost = ({post = [], onGetPostById, myId, promise}) => {
             {post?.images?.[0]?.url ?
                 (
                     <Card sx={{maxWidth: 345}}
-                          style={{boxShadow: '1px 2px 4px #0000008c', marginBottom: '10px', paddingBottom: '10px'}}
+                          style={{boxShadow: '1px 2px 4px #0000008c', marginBottom: '10px', paddingBottom: '10px', height: '650px'}}
                     >
                         <header className='card-header'>
                             <div className='card-author-box'>
@@ -47,18 +47,20 @@ const FeedPost = ({post = [], onGetPostById, myId, promise}) => {
                             </div>
                             <div style={{color: '#959292'}}>{date}</div>
                         </header>
-                        {post?.images.length === 1 ? (
-                            <img
-                                height="580"
-                                src={`${backendUrl + post?.images[0]?.url}`}
-                                alt="post-picture"
-                                className='feed-post-img'
-                            />) : (
-                            <ImagesSlider images={post?.images} key={Math.random() * 1000} className='feed-post-img'/>
-                        )
-                        }
+
                         <CardContent>
                             <div>
+                            {post?.images.length === 1 ? (
+                                <img
+                                    height="580"
+                                    src={`${backendUrl + post?.images[0]?.url}`}
+                                    alt="post-picture"
+                                    className='feed-post-img'
+                                />) : (
+                                <ImagesSlider images={post?.images} key={Math.random() * 1000} className='feed-post-img'/>
+                            )
+                            }
+
                                 <CLike post={post} postId={post?._id} likeClass='feed-post-like-box' likeInfoClass='feed-post-like-info'/>
                             </div>
                             <Typography
@@ -76,7 +78,7 @@ const FeedPost = ({post = [], onGetPostById, myId, promise}) => {
 
 export const CFeedPost = connect((state) => ({
     myId: state?.promise?.me?.payload?._id,
-    promise: state?.promise,
+    // promise: state?.promise,
     feedPosts: state?.feed?.feedPosts,
     feed: state?.feed,
     // post: state?.promise?.postById?.payload

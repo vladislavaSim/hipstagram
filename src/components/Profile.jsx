@@ -8,7 +8,7 @@ import {actionClearPromiseByName} from "../redux/actions/actionPromise";
 import {CPreloaded} from "./Preloader";
 
 
-const Profile = ({onUserById, myId, myFollowing, promise}) => {
+const Profile = ({onUserById, myId, myFollowing, clearPromise}) => {
 
     const {_id} = useParams()
 
@@ -16,7 +16,16 @@ const Profile = ({onUserById, myId, myFollowing, promise}) => {
         if(_id) {
             onUserById(_id)
         }
+        // return () => {
+        //     clearPromise('userById')
+        //     clearPromise('postByIdUser')
+        // }
     }, [_id])
+
+    // useEffect(() => {
+    //   clearPromise('userById')
+    //   clearPromise('postByIdUser')
+    // }, [])
 
     const doIFollow = (myFollowing || []).find((item) => item._id === _id);
 

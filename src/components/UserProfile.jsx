@@ -40,10 +40,11 @@ const UserProfile = ({   userId,
             getPostById(userId)
         }
         // return () => {
+        //     clearPromise('userById')
         //     clearPromise('postByIdUser')
         // }
     }, [userId])
-    console.log(userPosts)
+    // console.log(userPosts)
     return (
         <>
             <div className='profile-box'>

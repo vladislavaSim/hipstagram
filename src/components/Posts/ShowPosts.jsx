@@ -21,7 +21,9 @@ const ShowPosts = ({ posts = [], getPosts}) => {
                    (posts || []).map((post) => {
                        return <CFeedPost key={post._id + Math.random() * 100} post={post} className={'card'}/>;
                    }) :
-                   null
+                   <h3>Your feed seems to be empty... <br/>
+                        Let's find someone to follow!
+                   </h3>
                }
            </div>
        </CPreloaded>

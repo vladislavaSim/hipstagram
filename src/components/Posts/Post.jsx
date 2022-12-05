@@ -38,6 +38,10 @@ const Post = ({post, onGetPostById, userId, promise, clearPromise, postsArr = []
         setCurrentIndex(postsArr.findIndex((item) => item._id === _id))
     }, [_id])
 
+    // useEffect(() => {
+    //         clearPromise('postByIdUser')
+    // }, [])
+
     const timestamp = post?.createdAt;
     let date = new Date(+timestamp)
     date = date.getDate()+
