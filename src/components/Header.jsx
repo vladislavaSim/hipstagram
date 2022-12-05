@@ -11,12 +11,13 @@ const Header = ({onLogout, id, login, isLogged, promise}) => {
         <>
             {
                 isLogged ?
-                   ( <div className='header'>
-                      <div className='link-box'>
+                   ( <aside className='sidebar'>
+                      <div className='head-box'>
                           <img src={logo} style={{width: '100px'}} alt='logo'/>
                           <Link to={`/profile/${id}`} style={{fontWeight: 'bold'}}>{'@' + login}</Link>
                       </div>
                         <div className='link-box'>
+                            <Link to={`/profile/${id}`}>Profile</Link>
                             <Link to="/feed">Feed</Link>
                             <Link to="/search">Search</Link>
                             <Link to="/settings">Settings</Link>
@@ -25,7 +26,7 @@ const Header = ({onLogout, id, login, isLogged, promise}) => {
                                 <Link to={'/login'}>Log out</Link>
                             </Button>
                         </div>
-                    </div>)
+                    </aside>)
                     : (<div className='header'>
                         <img src={logo} style={{width: '100px'}} alt='logo'/>
                     </div>)
