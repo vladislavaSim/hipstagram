@@ -30,7 +30,7 @@ const MyProfile = ({myLogin, myPosts, myAvatar, myFollowing, myFollowers, myId, 
     return (
         <CPreloaded promiseName='postByIdUser'>
             <div className='profile-box'>
-                <ScrollUpButton ContainerClassName="up-btn"/>
+                <ScrollUpButton ContainerClassName="up-btn" style={{stroke: 'red', border: 'green'}}/>
                 <div className="avatar">
                     {myAvatar ? <Avatar url={myAvatar} className='avatarPic'/> : <DefaultAvatar/>}
                 </div>

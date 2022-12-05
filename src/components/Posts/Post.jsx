@@ -29,7 +29,7 @@ const Post = ({post, onGetPostById, userId, promise, clearPromise, postsArr = []
     const navigate = useNavigate()
 
     useEffect(() => {
-        getPostsByUserId(userId)
+        userId && getPostsByUserId(userId)
         if(postsArr.length) {
             onGetPostById(postsArr[currentIndex]._id)
         } else {
@@ -38,9 +38,9 @@ const Post = ({post, onGetPostById, userId, promise, clearPromise, postsArr = []
         setCurrentIndex(postsArr.findIndex((item) => item._id === _id))
     }, [_id])
 
-    // useEffect(() => {
-    //         clearPromise('postByIdUser')
-    // }, [])
+    useEffect(() => {
+            clearPromise('postById')
+    }, [])
 
     const timestamp = post?.createdAt;
     let date = new Date(+timestamp)

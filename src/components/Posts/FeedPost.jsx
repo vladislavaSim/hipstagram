@@ -31,7 +31,7 @@ const FeedPost = ({post = [], onGetPostById, myId, promise}) => {
             {post?.images?.[0]?.url ?
                 (
                     <Card sx={{maxWidth: 345}}
-                          style={{boxShadow: '1px 2px 4px #0000008c', marginBottom: '10px', paddingBottom: '10px', height: '650px'}}
+                          style={{boxShadow: '1px 2px 4px #0000008c', marginBottom: '10px', paddingBottom: '10px', height: '700px'}}
                     >
                         <header className='card-header'>
                             <div className='card-author-box'>
