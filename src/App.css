@@ -121,6 +121,11 @@ a {
 }
 .link-box a {
   font-size: 22px;
+  display: flex;
+  justify-content: left;
+}
+.link-box a > svg {
+  margin-right: 10px;
 }
 .main-content {
   width: 80%;

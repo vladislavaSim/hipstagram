@@ -4,6 +4,11 @@ import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {actionAuthLogout} from "../../redux/actions/actionsAuth";
 import Button from "../buttons/Button";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import HomeIcon from '@mui/icons-material/Home';
+import SearchIcon from '@mui/icons-material/Search';
+import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Sidebar = ({onLogout, id, login, isLogged}) => {
 
@@ -17,13 +22,28 @@ const Sidebar = ({onLogout, id, login, isLogged}) => {
                           <Link to={`/profile/${id}`} style={{fontWeight: 'bold'}}>{'@' + login}</Link>
                       </div>
                         <div className='link-box'>
-                            <Link to={`/profile/${id}`}>Profile</Link>
-                            <Link to="/feed">Feed</Link>
-                            <Link to="/search">Search</Link>
-                            <Link to="/settings">Settings</Link>
+                            <Link to={`/profile/${id}`}>
+                                <AccountCircleIcon/>
+                                Profile
+                            </Link>
+                            <Link to="/feed">
+                                <HomeIcon/>
+                                Feed
+                            </Link>
+                            <Link to="/search">
+                                <SearchIcon/>
+                                Search
+                            </Link>
+                            <Link to="/settings">
+                                <SettingsIcon/>
+                                Settings
+                            </Link>
                             <Button className='unstyledBtn'
                                     onClick={() => onLogout()}>
-                                <Link to={'/login'}>Log out</Link>
+                                <Link to={'/login'}>
+                                    <LogoutIcon/>
+                                    Log out
+                                </Link>
                             </Button>
                         </div>
                     </aside>)
@@ -34,7 +54,7 @@ const Sidebar = ({onLogout, id, login, isLogged}) => {
         </>
     );
 };
-//
+
 export  const CHeader = connect((state) => ({
     myId: state?.promise?.me?.payload?._id,
     isLogged: state?.auth?.token,
