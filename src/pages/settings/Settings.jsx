@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import TextField from '@mui/material/TextField';
-import {actionFullChangeLogin} from "../redux/actions/actionsMe";
+import {actionFullChangeLogin} from "../../redux/actions/actionsMe";
 import {useNavigate} from "react-router";
-import {actionClearPromiseByName} from "../redux/actions/actionPromise";
-import {store} from '../store'
-import {CDropzoneAvatar} from "./AvatarDrop";
-import Avatar from "./Avatar";
-import DefaultAvatar from "./DefaultAvatar";
-import Button from "./Button";
+import {actionClearPromiseByName} from "../../redux/actions/actionPromise";
+import {store} from '../../store'
+import {CDropzoneAvatar} from "../../components/avatar/AvatarDrop";
+import Avatar from "../../components/avatar/Avatar";
+import DefaultAvatar from "../../components/avatar/DefaultAvatar";
+import Button from "../../components/buttons/Button";
 
 
 const Settings = ({ onChange, avatar, myId, clearPromise, myAvatar, login, setAvatar,  changeLogin}) => {

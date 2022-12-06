@@ -1,16 +1,16 @@
 import React, {useEffect} from 'react';
 import {connect} from "react-redux";
-import {actionFullSubscribe, actionFullUnSubscribe,} from '../redux/actions/actionSubscribe'
-import {queryUserById} from "../graphql/queryUserById";
+import {actionFullSubscribe, actionFullUnSubscribe,} from '../../redux/actions/actionSubscribe'
+import {queryUserById} from "../../graphql/queryUserById";
 import ScrollUpButton from "react-scroll-up-button";
-import Avatar from "./Avatar";
-import DefaultAvatar from "./DefaultAvatar";
-import Button from "./Button";
+import Avatar from "../../components/avatar/Avatar";
+import DefaultAvatar from "../../components/avatar/DefaultAvatar";
+import Button from "../../components/buttons/Button";
 import {Link} from "react-router-dom";
-import {CPreloaded} from "./Preloader";
-import {queryPostById} from "../graphql/queryPost";
-import {CPostPreview} from "./Posts/PostPreview";
-import {actionClearPromiseByName} from "../redux/actions/actionPromise";
+import {CPreloaded} from "../../helpers/Preloader";
+import {queryPostById} from "../../graphql/queryPost";
+import {CPostPreview} from "../post/PostPreview";
+import {actionClearPromiseByName} from "../../redux/actions/actionPromise";
 import {useParams} from "react-router";
 
 const UserProfile = ({   userId,
@@ -40,11 +40,20 @@ const UserProfile = ({   userId,
             getPostById(userId)
         }
         // return () => {
-        //     clearPromise('userById')
+        //     // clearPromise('userById')
         //     clearPromise('postByIdUser')
         // }
     }, [userId])
-    // console.log(userPosts)
+
+    useEffect(() => {
+
+       clearPromise('postByIdUser')
+        console.log('rerender!!!!!!!')
+        console.log(userPosts)
+    }, [])
+
+
+
     return (
         <>
             <div className='profile-box'>
@@ -85,15 +94,17 @@ const UserProfile = ({   userId,
                 </div>
             </div>
            <>
-               <div className='gallery'>
-                   {(userPosts || []).map((post) => {
-                       return <CPostPreview post={post}
-                                            key={post._id + Math.random() * 100}
-                                            className='gallery-item'
-                       />
-                   })
-                   }
-               </div>
+               <CPreloaded promiseName='postByIdUser'>
+                   <div className='gallery'>
+                       {(userPosts || []).map((post) => {
+                           return <CPostPreview post={post}
+                                                key={post._id + Math.random() * 100}
+                                                className='gallery-item'
+                           />
+                       })
+                       }
+                   </div>
+               </CPreloaded>
            </>
         </>
     );

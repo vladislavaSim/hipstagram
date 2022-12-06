@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {IconButton, InputAdornment, TextField} from "@mui/material";
-import Button from "./Button";
+import Button from "../../components/buttons/Button";
 import {Link} from "react-router-dom";
-import {actionAuthLogin, actionFullLogin} from "../redux/actions/actionsAuth";
+import {actionAuthLogin, actionFullLogin} from "../../redux/actions/actionsAuth";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router";
 import {Visibility, VisibilityOff} from "@material-ui/icons";
-import {actionAboutMe} from "../redux/actions/actionsMe";
-import {actionFullGetAllPosts} from "../redux/actions/actionsPost";
-import {store} from "../store";
+import {actionAboutMe} from "../../redux/actions/actionsMe";
+import {actionFullGetAllPosts} from "../../redux/actions/actionsPost";
+import {store} from "../../store";
 
 const LoginForm = ({onLogin, isLogged, promise, myId}) => {
     const [login, setLogin] = useState('')

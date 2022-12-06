@@ -1,11 +1,11 @@
 import React from 'react';
-import logo from '../img/Instagram-logo-with-brush-PNG.png'
+import logo from '../../img/Instagram-logo-with-brush-PNG.png'
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {actionAuthLogout} from "../redux/actions/actionsAuth";
-import Button from "./Button";
+import {actionAuthLogout} from "../../redux/actions/actionsAuth";
+import Button from "../buttons/Button";
 
-const Header = ({onLogout, id, login, isLogged, promise}) => {
+const Sidebar = ({onLogout, id, login, isLogged, promise}) => {
     // console.log(promise)
     return (
         <>
@@ -44,4 +44,4 @@ export  const CHeader = connect((state) => ({
     userLogin: state?.promise?.userById?.payload?.login,
 }), {
     onLogout: actionAuthLogout
-})(React.memo(Header));
+})(React.memo(Sidebar));

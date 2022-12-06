@@ -1,9 +1,9 @@
 import {useNavigate} from "react-router";
-import Button from "../Button";
+import Button from "../../components/buttons/Button";
 import {connect} from "react-redux";
 import {actionFullUploadPost} from "../../redux/actions/actionsPost";
 import {actionClearPromise} from '../../redux/actions/actionPromise'
-import {CFileUploader} from "../FileUploader";
+import {CFileUploader} from "../../components/uploading/FileUploader";
 import {TextField} from "@material-ui/core";
 // import PreviewPics from "./PreviewPics";
 import React, {useEffect, useMemo, useState} from "react";
@@ -16,7 +16,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import {backendUrl} from "../../graphql/BackendUrl";
-import {Photo} from "./Photo";
+import {Photo} from "../../components/uploading/Photo";
 export function SortableItem(props) {
     const {
         attributes,

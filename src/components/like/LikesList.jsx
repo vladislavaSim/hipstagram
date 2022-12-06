@@ -1,4 +1,4 @@
-import {OneUserInList} from "../OneUserInList";
+import {OneUserInList} from "./OneUserInList";
 
 const LikeList = ({ likes }) => {
     return (

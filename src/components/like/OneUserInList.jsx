@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import DefaultAvatar from "./DefaultAvatar";
-import Avatar from "./Avatar";
+import DefaultAvatar from "../avatar/DefaultAvatar";
+import Avatar from "../avatar/Avatar";
 
 export const OneUserInList = ({ user }) => {
 

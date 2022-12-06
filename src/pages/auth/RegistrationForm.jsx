@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {IconButton, TextField} from "@mui/material";
-import Button from "./Button";
+import Button from "../../components/buttons/Button";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {actionFullRegister} from '../redux/actions/actionsAuth';
+import {actionFullRegister} from '../../redux/actions/actionsAuth';
 import {useNavigate} from "react-router";
 import {Visibility, VisibilityOff} from "@material-ui/icons";
 

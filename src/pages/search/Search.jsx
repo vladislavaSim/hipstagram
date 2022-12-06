@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import {actionFullGetUsers} from "../redux/actions/actionGetUsers";
+import {actionFullGetUsers} from "../../redux/actions/actionGetUsers";
 import {CSearchByLogin} from "./SearchByLogin";
 
 const Search = ({ users = [], onGetUsers, feed}) => {

@@ -1,18 +1,18 @@
 import React, {useEffect} from 'react';
 import {Route, Routes} from "react-router-dom";
-import {CLoginForm} from "./LoginForm";
-import {CProfile} from "./Profile";
-import {CSearch} from "./Search";
-import {CSettings} from "./Settings";
-import {CRegistrationForm} from "./RegistrationForm";
-import {CFollowers} from "./Followers";
-import {CFollowings} from "./Followings";
-import {NotFound} from "./NotFound";
-import {CShowPosts} from "./Posts/ShowPosts";
-import {CCreatePost} from "./Posts/CreatePost";
-import {CPost} from "./Posts/Post";
+import {CLoginForm} from "../../pages/auth/LoginForm";
+import {CProfile} from "../../pages/profile/Profile";
+import {CSearch} from "../../pages/search/Search";
+import {CSettings} from "../../pages/settings/Settings";
+import {CRegistrationForm} from "../../pages/auth/RegistrationForm";
+import {CFollowers} from "../../pages/follows/Followers";
+import {CFollowings} from "../../pages/follows/Followings";
+import {NotFound} from "../../helpers/NotFound";
+import {CShowPosts} from "../../pages/feed/ShowPosts";
+import {CCreatePost} from "../../pages/post/CreatePost";
+import {CPost} from "../../pages/post/Post";
 import {connect} from "react-redux";
-import {store} from "../store";
+import {store} from "../../store";
 
 const MainContainer = ({isLogged, promise}) => {
     // console.log(promise)

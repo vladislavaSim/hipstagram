@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
-import {actionFullSubscribe, actionFullUnSubscribe} from "../redux/actions/actionSubscribe";
-import {actionSetAvatar, actionAboutMe} from '../redux/actions/actionsMe'
-import {queryUserById} from "../graphql/queryUserById";
-import Button from "./Button";
+import {actionFullSubscribe, actionFullUnSubscribe} from "../../redux/actions/actionSubscribe";
+import {actionSetAvatar, actionAboutMe} from '../../redux/actions/actionsMe'
+import {queryUserById} from "../../graphql/queryUserById";
+import Button from "../../components/buttons/Button";
 import {Link} from "react-router-dom";
-import {CDropzoneAvatar} from "./AvatarDrop";
-import Avatar from "./Avatar";
-import DefaultAvatar from "./DefaultAvatar";
-import {CPreloaded} from "./Preloader";
+import {CDropzoneAvatar} from "../../components/avatar/AvatarDrop";
+import Avatar from "../../components/avatar/Avatar";
+import DefaultAvatar from "../../components/avatar/DefaultAvatar";
+import {CPreloaded} from "../../helpers/Preloader";
 import ScrollUpButton from "react-scroll-up-button";
-import {queryPostById} from "../graphql/queryPost";
-import {CPostPreview} from "./Posts/PostPreview";
+import {queryPostById} from "../../graphql/queryPost";
+import {CPostPreview} from "../post/PostPreview";
 
 const MyProfile = ({myLogin, myPosts, myAvatar, myFollowing, myFollowers, myId, getPostById}) => {
 

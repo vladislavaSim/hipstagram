@@ -1,7 +1,7 @@
 import React from 'react';
 import harold from '../img/klipartz.com.png'
 import {Link} from "react-router-dom";
-import Button from "./Button";
+import Button from "../components/buttons/Button";
 
 export const NotFound = () => {
 

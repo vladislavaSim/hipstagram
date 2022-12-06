@@ -1,10 +1,10 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useDropzone} from 'react-dropzone'
 import { connect } from 'react-redux';
-import {actionSetAvatar} from "../redux/actions/actionsMe";
-import {CFileUploader} from "./FileUploader";
-import {CPreloaded} from "./Preloader";
-import {store} from "../store";
+import {actionSetAvatar} from "../../redux/actions/actionsMe";
+import {CFileUploader} from "../uploading/FileUploader";
+import {CPreloaded} from "../../helpers/Preloader";
+import {store} from "../../store";
 
 function DropzoneAvatar({ onLoadAvatar }) {
     const [file, setFile] = useState()

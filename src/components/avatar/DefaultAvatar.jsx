@@ -1,5 +1,5 @@
 import React from 'react';
-import defaultAva from '../img/default-avatar.png'
+import defaultAva from '../../img/default-avatar.png'
 
 const DefaultAvatar = ({className = 'avatarPic'}) => {
     return (

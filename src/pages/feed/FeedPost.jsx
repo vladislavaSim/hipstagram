@@ -4,13 +4,13 @@ import Card from "@material-ui/core/Card"
 import {CardActions, CardContent, CardMedia, IconButton, Typography} from "@material-ui/core";
 import {backendUrl} from "../../graphql/BackendUrl";
 import {actionFullAddLike, actionFullRemoveLike} from "../../redux/actions/actionsLike";
-import Avatar from "../Avatar";
-import DefaultAvatar from "../DefaultAvatar";
+import Avatar from "../../components/avatar/Avatar";
+import DefaultAvatar from "../../components/avatar/DefaultAvatar";
 import {Link, useParams} from "react-router-dom";
-import {ImagesSlider} from "./Slider";
-import {CLike} from "./Like";
+import {ImagesSlider} from "../post/Slider";
+import {CLike} from "../../components/like/Like";
 import {actionGetPostById} from "../../graphql/queryPost";
-import {CPreloaded} from "../Preloader";
+import {CPreloaded} from "../../helpers/Preloader";
 
 const style = {
     flexDirection: 'unset',

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import {actionFullGetAllPosts} from "../../redux/actions/actionsPost";
-import {CPreloaded} from "../Preloader";
+import {CPreloaded} from "../../helpers/Preloader";
 import ScrollUpButton from "react-scroll-up-button";
 import {CFeedPost} from "./FeedPost";
 

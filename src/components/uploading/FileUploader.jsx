@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {connect} from "react-redux";
-import {actionUploadFile, actionUploadFiles} from "../redux/actions/actionUploadFiles";
+import {actionUploadFile, actionUploadFiles} from "../../redux/actions/actionUploadFiles";
 import Dropzone from "./Dropzone";
 
 const FileUploader = ({onUpload, onUploadMany, isActive, multiply}) => {

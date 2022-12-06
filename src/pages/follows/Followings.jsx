@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {OneUserInList} from "./OneUserInList";
-import BackButton from "./BackButton";
+import {OneUserInList} from "../../components/like/OneUserInList";
+import BackButton from "../../components/buttons/BackButton";
 
 const Followings = ({ userFollowing, myId, myFollowing }) => {
 

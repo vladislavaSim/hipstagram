@@ -1,10 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {connect, useDispatch} from 'react-redux';
-import {OneUserInList} from "./OneUserInList";
+import {OneUserInList} from "../../components/like/OneUserInList";
 import {TextField} from "@mui/material";
-import Button from "./Button";
+import Button from "../../components/buttons/Button";
 import {Link} from "react-router-dom";
-import {queryUserByLogin} from "../graphql/queryUserByLogin";
+import {queryUserByLogin} from "../../graphql/queryUserByLogin";
 
 const useDebounce = (cb, depArray, delay) => {
     let timeoutRef = useRef()

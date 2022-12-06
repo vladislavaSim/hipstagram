@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import {connect} from "react-redux";
-import {queryUserById} from "../graphql/queryUserById";
+import {queryUserById} from "../../graphql/queryUserById";
 import {useParams} from 'react-router-dom'
 import {CMyProfile} from "./MyProfile";
 import {CUserProfile} from "./UserProfile";
-import {actionClearPromiseByName} from "../redux/actions/actionPromise";
-import {CPreloaded} from "./Preloader";
+import {actionClearPromiseByName} from "../../redux/actions/actionPromise";
+import {CPreloaded} from "../../helpers/Preloader";
 
 
 const Profile = ({onUserById, myId, myFollowing, clearPromise}) => {
