@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {backendUrl} from "../../graphql/BackendUrl";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import BurstModeIcon from '@mui/icons-material/BurstMode';
@@ -18,9 +18,8 @@ const scale = {
     marginRight: '15px'
 }
 
-const PreviewPost = ({post, getPostById, promise}) => {
+const PreviewPost = ({post, getPostById}) => {
 
-    // console.log(promise)
     return (
        <Link key={post?._id} to={`/post/${post?._id}`}>
            <div onClick={() => getPostById(post?._id)}>
@@ -50,9 +49,8 @@ const PreviewPost = ({post, getPostById, promise}) => {
     );
 }
 
-export const CPostPreview = connect((state) => ({
-    promise: state?.promise
-}), {
+export const CPostPreview = connect(
+   null, {
     getPostById: actionGetPostById
 })(PreviewPost)
 

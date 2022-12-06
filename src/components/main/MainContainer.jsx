@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Route, Routes} from "react-router-dom";
 import {CLoginForm} from "../../pages/auth/LoginForm";
 import {CProfile} from "../../pages/profile/Profile";
@@ -12,11 +12,9 @@ import {CShowPosts} from "../../pages/feed/ShowPosts";
 import {CCreatePost} from "../../pages/post/CreatePost";
 import {CPost} from "../../pages/post/Post";
 import {connect} from "react-redux";
-import {store} from "../../store";
 
-const MainContainer = ({isLogged, promise}) => {
-    // console.log(promise)
-    // console.log(store.getState())
+const MainContainer = ({isLogged}) => {
+
     return (
 
            <>
@@ -53,6 +51,5 @@ const MainContainer = ({isLogged, promise}) => {
 };
 
 export const CMainContainer = connect((state) => ({
-    // promise: state?.promise,
     isLogged: state?.auth?.token
 }), null)(MainContainer);

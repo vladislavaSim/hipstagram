@@ -15,7 +15,7 @@ const useDebounce = (cb, depArray, delay) => {
     }, depArray)
 };
 
-const SearchByLogin = ({ user, onGetUser, foundUsers, state }) => {
+const SearchByLogin = ({ user, onGetUser, foundUsers }) => {
     const [login, setLogin] = useState('')
 
     useDebounce( () => onGetUser(login), [login], 2000);
@@ -26,7 +26,6 @@ const SearchByLogin = ({ user, onGetUser, foundUsers, state }) => {
             <div className='search-box'>
                 <TextField
                     style={{width: '300px', marginBottom: '25px'}}
-                    // className='small-input'
                     placeholder="search user by login"
                     value={login}
                     onChange={(e) => setLogin(e.target.value)}
@@ -46,7 +45,6 @@ const SearchByLogin = ({ user, onGetUser, foundUsers, state }) => {
 export const CSearchByLogin = connect(
     (state) => ({
         foundUsers: state?.promise?.foundUsers?.payload,
-        state: state
     }),
     {
         onGetUser: queryUserByLogin,

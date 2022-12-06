@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {connect} from "react-redux";
 import {actionFullSubscribe, actionFullUnSubscribe,} from '../../redux/actions/actionSubscribe'
-import {queryUserById} from "../../graphql/queryUserById";
 import ScrollUpButton from "react-scroll-up-button";
 import Avatar from "../../components/avatar/Avatar";
 import DefaultAvatar from "../../components/avatar/DefaultAvatar";
@@ -11,7 +10,6 @@ import {CPreloaded} from "../../helpers/Preloader";
 import {queryPostById} from "../../graphql/queryPost";
 import {CPostPreview} from "../post/PostPreview";
 import {actionClearPromiseByName} from "../../redux/actions/actionPromise";
-import {useParams} from "react-router";
 
 const UserProfile = ({   userId,
                          userFollowing,
@@ -24,11 +22,7 @@ const UserProfile = ({   userId,
                          onUnfollow,
                          getPostById,
                          clearPromise,
-                         onUserById,
-                        promise,
                          myId}) => {
-
-    const {_id} = useParams()
 
     function getLengthNum (array, text) {
         let num = !array ? '0' : array.length
@@ -39,20 +33,11 @@ const UserProfile = ({   userId,
         if(userId) {
             getPostById(userId)
         }
-        // return () => {
-        //     // clearPromise('userById')
-        //     clearPromise('postByIdUser')
-        // }
     }, [userId])
 
     useEffect(() => {
-
        clearPromise('postByIdUser')
-        console.log('rerender!!!!!!!')
-        console.log(userPosts)
     }, [])
-
-
 
     return (
         <>
@@ -111,9 +96,6 @@ const UserProfile = ({   userId,
 };
 
 export const CUserProfile = connect((state) => ({
-    // auth: state.auth,
-    // me: state.promise?.me,
-    promise: state?.promise,
     userId: state?.promise?.userById?.payload?._id,
     userFollowing: state?.promise?.userById?.payload?.following,
     userFollowers: state?.promise?.userById?.payload?.followers,
@@ -121,7 +103,6 @@ export const CUserProfile = connect((state) => ({
     userLogin: state?.promise?.userById?.payload?.login,
     userPosts: state?.promise?.postByIdUser?.payload,
 }), {
-    onUserById: queryUserById,
     onFollow: actionFullSubscribe,
     onUnfollow: actionFullUnSubscribe,
     getPostById: queryPostById,

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {IconButton} from "@material-ui/core";
 import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone";
 import FavoriteBorderTwoToneIcon from "@mui/icons-material/FavoriteBorderTwoTone";
@@ -7,13 +7,12 @@ import {actionFullAddLike, actionFullRemoveLike} from "../../redux/actions/actio
 import ModalLikes from "./ModalLikes";
 import {Link} from "react-router-dom";
 
+const scale = {
+    transform: 'scale(1.4)'
+}
 const Like = ({post = [], onLike, onDeleteLike, myId, likeClass, likeInfoClass}) => {
-    const [liked, setLiked] = useState(post?.likes.filter((like) => like.owner._id === myId))
-    const scale = {
-        transform: 'scale(1.4)'
-    }
-    // console.log(liked)
-const {likes = []} = post
+
+        const {likes = []} = post
 
         let isLiked = post.likes.filter((like) => like.owner._id === myId)
 
@@ -61,9 +60,6 @@ const {likes = []} = post
 
     export const CLike = connect((state) => ({
         myId: state?.promise?.me?.payload?._id,
-        feedPosts: state?.feed?.feedPosts,
-        feed: state?.feed,
-        // post: state?.promise?.postById?.payload
     }), {
         onLike: actionFullAddLike,
         onDeleteLike: actionFullRemoveLike

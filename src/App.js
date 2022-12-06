@@ -5,7 +5,7 @@ import {CMainContainer} from "./components/main/MainContainer";
 import {actionAboutMe} from "./redux/actions/actionsMe";
 import {actionAuthLogin} from "./redux/actions/actionsAuth";
 import {actionFullGetAllPosts} from "./redux/actions/actionsPost";
-import {store} from "./store";
+import {store} from "./redux/store";
 import {useEffect} from "react";
 
 function App() {

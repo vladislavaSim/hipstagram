@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {OneUserInList} from "../../components/like/OneUserInList";
-import {useNavigate} from "react-router";
 import BackButton from "../../components/buttons/BackButton";
 
 const Followers = ({ userFollowers, myId, myFollowers }) => {

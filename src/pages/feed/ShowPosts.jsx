@@ -32,9 +32,7 @@ const ShowPosts = ({ posts = [], getPosts}) => {
 
 export const CShowPosts = connect(
     (state) => ({
-        state: state,
         posts: state?.feed?.feedPosts,
-        feed: state?.feed
     }),
     {
         getPosts: actionFullGetAllPosts,

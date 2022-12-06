@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {actionFullGetUsers} from "../../redux/actions/actionGetUsers";
 import {CSearchByLogin} from "./SearchByLogin";
 
-const Search = ({ users = [], onGetUsers, feed}) => {
+const Search = ({ users = [], onGetUsers}) => {
     const [flag, setFlag] = useState(true);
     const [flagControl, setFlagControl] = useState(true);
 
@@ -30,7 +30,7 @@ const Search = ({ users = [], onGetUsers, feed}) => {
             (e.target.documentElement.scrollTop + window.innerHeight) < 200) {
             setFlag(true);
         }
-    };
+    }
     return (
         <>
             <CSearchByLogin />
@@ -39,7 +39,6 @@ const Search = ({ users = [], onGetUsers, feed}) => {
 };
 
 export const CSearch = connect((state) => ({
-    feed: state?.feed,
     users: state?.feed?.feedUsers }), {
     onGetUsers: actionFullGetUsers,
 })(Search);

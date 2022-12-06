@@ -3,19 +3,15 @@ import {useDropzone} from 'react-dropzone'
 import { connect } from 'react-redux';
 import {actionSetAvatar} from "../../redux/actions/actionsMe";
 import {CFileUploader} from "../uploading/FileUploader";
-import {CPreloaded} from "../../helpers/Preloader";
-import {store} from "../../store";
 
 function DropzoneAvatar({ onLoadAvatar }) {
-    const [file, setFile] = useState()
 
     const onDrop = useCallback((acceptedFiles) => {
         setSelectedFile(acceptedFiles[0]) //setting up the preview
-        // onLoadAvatar(acceptedFiles[0]); //function to update avatar on server
     }, []);
 
-    const { getRootProps, getInputProps, isDragActive, avatar } = useDropzone({ onDrop });
-    console.log(avatar)
+    const { getRootProps, getInputProps, avatar } = useDropzone({ onDrop });
+
     const [selectedFile, setSelectedFile] = useState()
     const [preview, setPreview] = useState()
 
@@ -26,9 +22,8 @@ function DropzoneAvatar({ onLoadAvatar }) {
             setPreview(undefined)
             return
         }
-        console.log(selectedFile)
         const objectUrl = URL.createObjectURL(selectedFile)
-        console.log(objectUrl)
+
         setPreview(objectUrl)
 
         // free memory when ever this component is unmounted
@@ -44,17 +39,6 @@ function DropzoneAvatar({ onLoadAvatar }) {
         // I've kept this example simple by using the first image instead of multiple
         setSelectedFile(e.target.files[0])
     }
-    console.log(selectedFile)
-
-//CHANGE IT TO ANOTHER EFFECT
-// WHERE YOU`LL BE REDIRECTED AFTER SUCCESSFUL AVA UPDATE TO YOUR UPDATED PROFILE
-
-    // useEffect(() => {
-    //     store.dispatch(clearPromise('changeLogin'))
-    //     if (changeData?.status === 'RESOLVED') {
-    //         navigate(`/profile/${myId}`);
-    //     }
-    // }, [changeData?.status]);
 
     return (
         <>

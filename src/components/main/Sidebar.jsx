@@ -5,8 +5,8 @@ import {connect} from "react-redux";
 import {actionAuthLogout} from "../../redux/actions/actionsAuth";
 import Button from "../buttons/Button";
 
-const Sidebar = ({onLogout, id, login, isLogged, promise}) => {
-    // console.log(promise)
+const Sidebar = ({onLogout, id, login, isLogged}) => {
+
     return (
         <>
             {
@@ -38,10 +38,8 @@ const Sidebar = ({onLogout, id, login, isLogged, promise}) => {
 export  const CHeader = connect((state) => ({
     myId: state?.promise?.me?.payload?._id,
     isLogged: state?.auth?.token,
-    // promise: state?.promise,
     id: state.auth?.payload?.sub?.id,
     login: state?.promise?.me?.payload?.login,
-    userLogin: state?.promise?.userById?.payload?.login,
 }), {
     onLogout: actionAuthLogout
 })(React.memo(Sidebar));

@@ -21,10 +21,9 @@ const style = {
     width: '100%'
 };
 
-const Post = ({post, onGetPostById, userId, promise, clearPromise, postsArr = [], getPostsByUserId}) => {
+const Post = ({post, onGetPostById, userId, clearPromise, postsArr = [], getPostsByUserId}) => {
     const {_id} = useParams()
     let [currentIndex, setCurrentIndex] = useState(postsArr.findIndex((item) => item._id === _id)) //from opened post using url id
-
 
     const navigate = useNavigate()
 
@@ -58,7 +57,7 @@ const Post = ({post, onGetPostById, userId, promise, clearPromise, postsArr = []
         setCurrentIndex((currentIndex) => ++currentIndex)
         postsArr.length && navigate(`/post/` + postsArr[++currentIndex]._id);  //making link path to the next post
     }
-    // console.log(postsArr)
+
     return (
         <CPreloaded promiseName='userById'>
             {postsArr.length && post?.images?.[0]?.url ?
@@ -133,7 +132,6 @@ const Post = ({post, onGetPostById, userId, promise, clearPromise, postsArr = []
 export const CPost = connect((state) => ({
     myId: state?.promise?.me?.payload?._id,
     post: state?.promise?.postById?.payload,
-    promise: state?.promise,
     postsArr: state?.promise?.postByIdUser?.payload,
     userId: state?.promise?.userById?.payload?._id,
 }), {

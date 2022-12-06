@@ -16,7 +16,7 @@ const style = {
     flexDirection: 'unset',
     width: '100%'
 };
-const FeedPost = ({post = [], onGetPostById, myId, promise}) => {
+const FeedPost = ({post = []}) => {
 
     const timestamp = post?.createdAt;
     let date = new Date(+timestamp)
@@ -77,11 +77,7 @@ const FeedPost = ({post = [], onGetPostById, myId, promise}) => {
 }
 
 export const CFeedPost = connect((state) => ({
-    myId: state?.promise?.me?.payload?._id,
-    // promise: state?.promise,
     feedPosts: state?.feed?.feedPosts,
-    feed: state?.feed,
-    // post: state?.promise?.postById?.payload
-}), {
-    onGetPostById: actionGetPostById
-})(FeedPost);
+    feed: state?.feed
+}), null
+)(FeedPost);

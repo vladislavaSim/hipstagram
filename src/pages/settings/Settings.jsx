@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import {actionFullChangeLogin} from "../../redux/actions/actionsMe";
 import {useNavigate} from "react-router";
 import {actionClearPromiseByName} from "../../redux/actions/actionPromise";
-import {store} from '../../store'
+import {store} from '../../redux/store'
 import {CDropzoneAvatar} from "../../components/avatar/AvatarDrop";
 import Avatar from "../../components/avatar/Avatar";
 import DefaultAvatar from "../../components/avatar/DefaultAvatar";
@@ -15,15 +15,13 @@ const Settings = ({ onChange, avatar, myId, clearPromise, myAvatar, login, setAv
     const navigate = useNavigate()
     const [newLogin, setNewLogin] = useState(login);
     const [isEditing, setIsEditing] = useState(false);
-    console.log(store.getState().promise)
-    // console.log(login)
+
     useEffect(() => {
         store.dispatch(clearPromise('changeLogin'))
         store.dispatch(clearPromise('setAvatar'))
         if (setAvatar?.status === 'RESOLVED' || changeLogin?.status === 'RESOLVED') {
            navigate(`/profile/${myId}`);
         }
-        console.log(avatar)
     }, [setAvatar?.status, changeLogin?.status]);
 
     function setOrShowAvatar(){

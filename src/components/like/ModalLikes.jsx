@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Modal, Typography} from "@mui/material";
+import {Modal} from "@mui/material";
 import {Box} from "@material-ui/core";
 import LikesList from "./LikesList";
 import CloseIcon from "@mui/icons-material/Close";

@@ -15,7 +15,7 @@ export const NotFound = () => {
                 <Link to='/'>return</Link>
             }/>
             <br/>
-            <img src={harold} style={{width: '300px'}}/>
+            <img src={harold} style={{width: '300px'}} alt='img'/>
         </div>
     )
 }

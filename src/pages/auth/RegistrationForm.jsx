@@ -92,8 +92,6 @@ const RegistrationForm = ({onRegister, myId, status}) => {
 
 
 export const CRegistrationForm = connect( (state) => ({
-    promise: state?.promise,
-    auth: state?.auth,
     myId: state?.promise?.me?.payload?._id,
     status: state?.promise?.login?.status
     }),

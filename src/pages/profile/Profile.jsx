@@ -5,10 +5,8 @@ import {useParams} from 'react-router-dom'
 import {CMyProfile} from "./MyProfile";
 import {CUserProfile} from "./UserProfile";
 import {actionClearPromiseByName} from "../../redux/actions/actionPromise";
-import {CPreloaded} from "../../helpers/Preloader";
 
-
-const Profile = ({onUserById, myId, myFollowing, clearPromise}) => {
+const Profile = ({onUserById, myId, myFollowing}) => {
 
     const {_id} = useParams()
 
@@ -16,16 +14,8 @@ const Profile = ({onUserById, myId, myFollowing, clearPromise}) => {
         if(_id) {
             onUserById(_id)
         }
-        // return () => {
-        //     clearPromise('userById')
-        //     clearPromise('postByIdUser')
-        // }
     }, [_id])
 
-    // useEffect(() => {
-    //   clearPromise('userById')
-    //   clearPromise('postByIdUser')
-    // }, [])
 
     const doIFollow = (myFollowing || []).find((item) => item._id === _id);
 
@@ -44,7 +34,6 @@ const Profile = ({onUserById, myId, myFollowing, clearPromise}) => {
 }
 
 export const CProfile = connect((state) => ({
-    // promise: state?.promise,
     myId: state?.promise?.me?.payload?._id,
     myFollowing: state?.promise?.me?.payload?.following,
 }), {

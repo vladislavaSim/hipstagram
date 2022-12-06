@@ -5,9 +5,9 @@ import {actionFullUploadPost} from "../../redux/actions/actionsPost";
 import {actionClearPromise} from '../../redux/actions/actionPromise'
 import {CFileUploader} from "../../components/uploading/FileUploader";
 import {TextField} from "@material-ui/core";
-// import PreviewPics from "./PreviewPics";
 import React, {useEffect, useMemo, useState} from "react";
 import {DndContext, closestCenter, DragOverlay} from "@dnd-kit/core";
+
 import {
     arrayMove,
     rectSortingStrategy,
@@ -17,6 +17,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import {backendUrl} from "../../graphql/BackendUrl";
 import {Photo} from "../../components/uploading/Photo";
+
 export function SortableItem(props) {
     const {
         attributes,
@@ -78,7 +79,6 @@ export function SortableItem(props) {
     }, [uploadPost])
 
      function uploadHandler() {
-         console.log(uploadFile?.payload.length)
          if(uploadFile?.payload.length > 9) {
              
          }

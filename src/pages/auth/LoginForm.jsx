@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {IconButton, InputAdornment, TextField} from "@mui/material";
+import {IconButton, TextField} from "@mui/material";
 import Button from "../../components/buttons/Button";
 import {Link} from "react-router-dom";
 import {actionAuthLogin, actionFullLogin} from "../../redux/actions/actionsAuth";
@@ -8,7 +8,7 @@ import {useNavigate} from "react-router";
 import {Visibility, VisibilityOff} from "@material-ui/icons";
 import {actionAboutMe} from "../../redux/actions/actionsMe";
 import {actionFullGetAllPosts} from "../../redux/actions/actionsPost";
-import {store} from "../../store";
+import {store} from "../../redux/store";
 
 const LoginForm = ({onLogin, isLogged, promise, myId}) => {
     const [login, setLogin] = useState('')
