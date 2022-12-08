@@ -10,6 +10,7 @@ import {CPreloaded} from "../../helpers/Preloader";
 import {queryPostById} from "../../graphql/queryPost";
 import {CPostPreview} from "../post/PostPreview";
 import {actionClearPromiseByName} from "../../redux/actions/actionPromise";
+import {queryUserById} from "../../graphql/queryUserById";
 
 const UserProfile = ({   userId,
                          userFollowing,
@@ -20,7 +21,6 @@ const UserProfile = ({   userId,
                          doIFollow,
                          onFollow,
                          onUnfollow,
-                         getPostById,
                          clearPromise,
                          myId}) => {
 
@@ -30,73 +30,72 @@ const UserProfile = ({   userId,
     }
 
     useEffect(() => {
-        if(userId) {
-            getPostById(userId)
-        }
-    }, [userId])
-
-    useEffect(() => {
-       clearPromise('postByIdUser')
+        clearPromise('postByIdUser')
+       return () => {
+        clearPromise('postByIdUser')
+       }
     }, [])
 
     return (
         <>
-            <div className='profile-box'>
-                <ScrollUpButton ContainerClassName="up-btn"/>
-                <div className="avatar">
-                    {userAvatar ?
-                        <Avatar url={userAvatar} className='avatarPic'/>
-                        : <DefaultAvatar/>
-                    }
+                 <CPreloaded promiseName='postByIdUser'>
+                    <div className='profile-box'>
+                        <ScrollUpButton ContainerClassName="up-btn"/>
+                        <div className="avatar">
+                            {userAvatar ?
+                                <Avatar url={userAvatar} className='avatarPic'/>
+                                : <DefaultAvatar/>
+                            }
 
-                </div>
-                <div className='profile-info-box'>
-                    <h3> <span>{`${userLogin ? userLogin : 'no name'}`}</span></h3>
-                    <div>
-                        <div className='profile-nums'>
-                            <Button className='ordinaryBtn'>
-                                <Link to={`/followers/${userId}`}>
-                                    <div>{getLengthNum(userFollowers,'followers')}</div>
-                                </Link>
-                            </Button>
-                            <Button className='ordinaryBtn'>
-                                <Link to={`/following/${userId}`}>
-                                    <div>{getLengthNum(userFollowing,'followings')}</div>
-                                </Link>
-                            </Button>
-                            <Button className='ordinaryBtn'>
-                                <div>{getLengthNum(userPosts,'posts')}</div>
-                            </Button>
                         </div>
-                        <div className='profile-buttons'>
-                            {(!doIFollow ? (
-                                <Button onClick={() => onFollow(myId, userId)} className='primeBtn' children='Follow'/>
-                            ) : (
-                                <Button onClick={() => onUnfollow(myId, userId)} className='primeBtn' children='Unfollow'/>
-                            ))}
+                        <div className='profile-info-box'>
+                            <h3> <span>{`${userLogin ? userLogin : 'no name'}`}</span></h3>
+                            <div>
+                                <div className='profile-nums'>
+                                    <Button className='ordinaryBtn'>
+                                        <Link to={`/followers/${userId}`}>
+                                            <div>{getLengthNum(userFollowers,'followers')}</div>
+                                        </Link>
+                                    </Button>
+                                    <Button className='ordinaryBtn'>
+                                        <Link to={`/following/${userId}`}>
+                                            <div>{getLengthNum(userFollowing,'followings')}</div>
+                                        </Link>
+                                    </Button>
+                                    <Button className='ordinaryBtn'>
+                                        <div>{getLengthNum(userPosts,'posts')}</div>
+                                    </Button>
+                                </div>
+                                <div className='profile-buttons'>
+                                    {(!doIFollow ? (
+                                        <Button onClick={() => onFollow(myId, userId)} className='primeBtn' children='Follow'/>
+                                    ) : (
+                                        <Button onClick={() => onUnfollow(myId, userId)} className='primeBtn' children='Unfollow'/>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-           <>
-               <CPreloaded promiseName='postByIdUser'>
-                   <div className='gallery'>
-                       {(userPosts || []).map((post) => {
-                           return <CPostPreview post={post}
-                                                key={post._id + Math.random() * 100}
-                                                className='gallery-item'
-                           />
-                       })
-                       }
-                   </div>
-               </CPreloaded>
-           </>
+                    <>
+                        <>
+                            <div className='gallery'>
+                                {(userPosts || []).map((post) => {
+                                    return <CPostPreview post={post}
+                                                         key={post._id + Math.random() * 100}
+                                                         className='gallery-item'
+                                    />
+                                })
+                                }
+                            </div>
+                        </>
+                    </>
+                </CPreloaded>
         </>
     );
 };
 
 export const CUserProfile = connect((state) => ({
-    userId: state?.promise?.userById?.payload?._id,
+    // userId: state?.promise?.userById?.payload?._id,
     userFollowing: state?.promise?.userById?.payload?.following,
     userFollowers: state?.promise?.userById?.payload?.followers,
     userAvatar: state?.promise?.userById?.payload?.avatar?.url,
@@ -106,5 +105,6 @@ export const CUserProfile = connect((state) => ({
     onFollow: actionFullSubscribe,
     onUnfollow: actionFullUnSubscribe,
     getPostById: queryPostById,
-    clearPromise: actionClearPromiseByName
+    clearPromise: actionClearPromiseByName,
+    onUserById: queryUserById
 })(UserProfile);

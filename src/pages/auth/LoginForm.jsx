@@ -50,7 +50,7 @@ const LoginForm = ({onLogin, isLogged, promise, myId}) => {
                 onChange={(e) => setLogin(e.target.value)}/>
             <TextField
                 style={{position: 'relative'}}
-                variant="filled"
+                variant="standard"
                 label="Password"
                 type={showPass ? 'text' : 'password'}
                 onChange={(e) => setPassword(e.target.value)}>
