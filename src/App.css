@@ -9,7 +9,9 @@ body {
 #root, main, .App {
   overflow: hidden;
 }
-
+p {
+  margin: 0;
+}
 .App{
   -webkit-animation: rainbow 10s ease infinite;
   animation: rainbow 10s ease infinite;
@@ -39,6 +41,7 @@ a {
 .loginBox {
   margin: 0 auto;
   width: 500px;
+  height: 500px;
   border: 1px solid lightgrey;
   padding: 100px;
   display: flex;
@@ -63,18 +66,19 @@ a {
 .primeBtn:hover {
   background-position: right center; /* change the direction of the change here */
 }
-.header {
+.sidebar {
   background-color: white;
-  width: 100%;
-  display: flex;
-  padding: 0 15px;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 5px;
+  width: 15%;
+  height: 100%;
   position: fixed;
-  z-index: 20;
 }
-.header a, .ordinaryBtn {
+.head-box {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+  align-items: center;
+}
+.sidebar a, .ordinaryBtn {
   position: relative;
   text-align: center;
   text-transform: uppercase;
@@ -87,10 +91,10 @@ a {
   font-size: 17px;
   border: white;
 }
-.header a::before, .ordinaryBtn::before{
+.sidebar a::before, .ordinaryBtn::before{
   content: '';
   position: absolute;
-  width: 110%;
+  width: 100%;
   height: 3px;
   border-radius: 4px;
   background: linear-gradient(to right, #ff67d4 0%, #a6c1ee 51%, #c455ff 100%);
@@ -100,18 +104,7 @@ a {
   transform: scaleX(0);
   transition: transform .3s ease-in-out;
 }
-.header::after {
-  content: '';
-  position: absolute;
-  width: 110%;
-  height: 3px;
-  border-radius: 4px;
-  background: linear-gradient(to right, #ff67d4 0%, #a6c1ee 51%, #c455ff 100%);
-  bottom: 0;
-  left: 0;
-}
-
-.header a:hover::before, .ordinaryBtn:hover::before{
+.sidebar a:hover::before, .ordinaryBtn:hover::before{
   transform-origin: left;
   transform: scaleX(1)
 }
@@ -122,20 +115,40 @@ a {
   background: transparent;
 }
 .link-box {
+  margin-left: 15px;
   display: flex;
-  width: 30%;
-  justify-content: space-around;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 35%;
+}
+.link-box a {
+  font-size: 22px;
+  display: flex;
+  justify-content: left;
+}
+.link-box a > svg {
+  margin-right: 10px;
 }
 .main-content {
-  width: 67%;
+  width: 80%;
   min-height: 100vh;
-  margin: 100px auto 0;
+  margin: 0 0 0 18%;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align-last: center;
-  padding-top: 15px;
+  padding-top: 50px;
+  padding-bottom: 25px;
+  background-color: white;
+}
+.main-content-not-logged {
+  width: 100%;
+  display: flex;
+  height: 600px ;
+  text-align-last: center;
+  margin: 0 auto;
+  padding-top: 50px;
+  padding-bottom: 55px;
   background-color: white;
 }
 .button-holder {
@@ -148,12 +161,6 @@ a {
 .logo {
   width: 100px;
 }
-.link-holder {
-  width: 350px;
-  display: flex;
-  justify-content: space-between;
-}
-
 .drop-area {
   height: 20vh;
   min-width: 150px;
@@ -163,10 +170,6 @@ a {
   align-items: center;
   justify-content: center;
   margin-right: 25px;
-}
-
-.drop-active {
-  border: 2px dashed black;
 }
 .avatarPic {
   width: 150px;
@@ -184,15 +187,6 @@ a {
 .search-box {
   display: flex;
   align-items: center;
-}
-.small-input {
-  padding: 7px;
-  font-size: 18px;
-}
-
-.small-btn {
-  padding: 5px;
-  display: flex;
 }
 .small-ava {
   width: 50px;
@@ -212,14 +206,41 @@ a {
 .search-item a {
   margin-right: 30px;
 }
+.post-holder {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.post-holder > button {
+  border-radius: 50%;
+  border: 1px solid grey;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin: 7px;
+}
+.post-holder > button:hover {
+  color: #c455ff;
+  border-color: #c455ff;
+  box-shadow: 0 1px 7px rgb(0, 0, 0.2);
+}
+.post-holder > button:active {
+box-shadow: none;
+  transform: translateY(3px);
+}
+.post-holder > button:disabled {
+  box-shadow: none;
+  background-color: rgba(125, 125, 125, 0.56);
+}
+/*card*/
 .post-owner {
   font-size: 17px;
 }
 .post-title {
   text-align: center;
-  font-size: 35px !important;
+  font-size: 30px !important;
 }
-
 .post-text {
   text-align: center;
   font-size: 25px !important;
@@ -235,7 +256,6 @@ a {
   justify-content: space-between;
   align-items: center;
 }
-/*card*/
 .MuiCard-root {
   height: 85vh;
   display: flex;
@@ -255,17 +275,11 @@ a {
 .like-button {
   display: flex;
   align-items: center;
-  margin-bottom: 30px;
 }
-
 /* heart icon */
 .css-i4bv87-MuiSvgIcon-root {
   font-size: 2rem;
 }
-/*.css-i4bv87-MuiSvgIcon-root:active {*/
-/*  transform: scale(1.2);*/
-/*  color: red;*/
-/*}*/
 .like-count {
   font-size: 30px;
   margin-left: 7px;
@@ -276,7 +290,7 @@ a {
 
 .profile-box {
   display: flex;
-  margin-bottom: 60px;
+  margin-bottom: 45px;
 }
 .profile-info-box {
   margin-left: 15px;
@@ -296,16 +310,45 @@ a {
 .MuiFormControl-root {
   display: inline-table;
 }
+/*reset carousel styles for arrows*/
+.css-1abc02a:hover button,
+.css-hn784z:hover button {
+  background: transparent !important;
+  filter: none !important;
+}
 .input-box {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
 }
+.feed-post-like-box {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: baseline;
+  height: 25px;
+  padding: 5px 0;
+}
+.feed-post-like-info {
+  display: flex;
+}
+.feed-post-like-info span {
+  font-size: 16px;
+}
+.feed-post-like-info > * {
+  text-transform: uppercase;
+}
+.feed-post-img {
+  width: 100%;
+  height: 530px;
+  object-fit: cover;
+}
+
 .gallery {
   display: grid;
-  width: 98%;
+  width: 80%;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
   grid-gap: 20px;
 }
 .gallery-item {
@@ -345,22 +388,17 @@ a {
   height: 100%;
   object-fit: cover;
 }
-.modal-image-box{
+.modal-image-box {
   width: 65%;
   background: black;
   display: flex;
+  align-items: center;
 }
 .modal-info-box {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 35%;
-}
-.card-item {
-  justify-content: center;
-  display: flex;
-  align-items: center;
-  height: auto;
 }
 /*card bottom*/
 .card-bottom {
@@ -374,13 +412,14 @@ a {
   border: none;
 }
 button:disabled,
+.disabled-btn,
 button[disabled]{
   border: 1px solid #999999;
   background-color: #ffffff;
   color: #666666;
   background-image: none;
 }
-.carousel{
+.carousel {
   width: 50%;
   margin: 0 auto;
   display: flex;
@@ -402,11 +441,6 @@ button[disabled]{
   left: 0;
   z-index: 5;
 }
-.item{
-  width: auto;
-  height: 580px;
-  margin: 0 auto;
-}
 .input-area {
   width: 50%;
   margin: 20px auto;
@@ -425,8 +459,8 @@ button[disabled]{
 }
 /*scroll up the screen button*/
 .up-btn {
-  background: none !important;
-  border: 1px solid white;
+  border-radius: 50% !important;
+  padding: 5px !important;
 }
 
 .close-modal-btn {
@@ -440,9 +474,10 @@ button[disabled]{
 }
 .modal-image-box img {
   object-fit: contain;
+  margin: 0 auto;
   width: 100%;
+  height: 100%;
 }
-
 #close-modal-icon:active {
   color: white !important;
 }
@@ -451,10 +486,23 @@ button[disabled]{
   display: flex;
   flex-direction: column;
   align-items: self-start;
+  text-transform: uppercase;
+  font-size: 18px;
 }
-
-
-
-
-
-
+.edit-box {
+  display: flex;
+  justify-content: space-between;
+  min-height: 100px;
+  width: 350px;
+  align-items: center;
+  margin: 20px 0 35px;
+}
+.box-flexible, .box-flexible .preview-img {
+  height: 200px;
+}
+.box-flexible  button{
+  margin-left: 25px;
+}
+.MuiCardContent-root {
+  padding: 0 !important;
+}
