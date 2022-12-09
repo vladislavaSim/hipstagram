@@ -15,7 +15,7 @@ import {
     useSortable
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import {backendUrl} from "../../graphql/BackendUrl";
+import {backendUrl} from "../../helpers/BackendUrl";
 import {Photo} from "../../components/uploading/Photo";
 
 export function SortableItem(props) {

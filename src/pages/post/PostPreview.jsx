@@ -1,5 +1,5 @@
 import React from 'react';
-import {backendUrl} from "../../graphql/BackendUrl";
+import {backendUrl} from "../../helpers/BackendUrl";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import BurstModeIcon from '@mui/icons-material/BurstMode';
 import {Link} from "react-router-dom";
