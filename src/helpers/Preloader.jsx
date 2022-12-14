@@ -1,7 +1,11 @@
 import { connect } from 'react-redux';
 import loading from '../img/Loading_icon.gif'
 import React from "react";
+<<<<<<< HEAD
 import ghost from '../img/VzFL.gif'
+=======
+import ghost from '../img/ghost.gif'
+>>>>>>> 98cfc2b9aa607dffc642ac61d9ffca12bead8a27
 
 const Preloaded = ({ promiseName, promiseState, children }) => (
     <>

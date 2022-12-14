@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {connect} from "react-redux";
 import Card from "@material-ui/core/Card"
 import {CardActions, CardContent, CardMedia, IconButton, Typography} from "@material-ui/core";
-import {backendUrl} from "../../graphql/BackendUrl";
+import {backendUrl} from "../../helpers/BackendUrl";
 import {actionFullAddLike, actionFullRemoveLike} from "../../redux/actions/actionsLike";
 import Avatar from "../../components/avatar/Avatar";
 import DefaultAvatar from "../../components/avatar/DefaultAvatar";
