@@ -1,5 +1,5 @@
 import {actionPromise} from "./actionPromise";
-import {backendUrl} from "../../graphql/BackendUrl";
+import {backendUrl} from "../../helpers/BackendUrl";
 
 export const actionUploadFile = (file) => {
     let formdata = new FormData();

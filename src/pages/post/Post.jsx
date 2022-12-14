@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
 import Card from "@material-ui/core/Card"
 import {CardContent, CardMedia, Typography} from "@material-ui/core";
-import {backendUrl} from "../../graphql/BackendUrl";
+import {backendUrl} from "../../helpers/BackendUrl";
 import Avatar from "../../components/avatar/Avatar";
 import DefaultAvatar from "../../components/avatar/DefaultAvatar";
 import {Link, useParams} from "react-router-dom";

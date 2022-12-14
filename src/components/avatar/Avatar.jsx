@@ -1,5 +1,5 @@
 import React from 'react';
-import {backendUrl} from "../../graphql/BackendUrl";
+import {backendUrl} from "../../helpers/BackendUrl";
 import def from "../../img/default-avatar.png";
 
 const Avatar = ({url, className = 'avatarPic'}) => {
