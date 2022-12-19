@@ -15,16 +15,17 @@ import {queryUserById} from "../../graphql/queryUserById";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import {actionClearPromiseByName} from "../../redux/actions/actionPromise";
+import EditIcon from '@mui/icons-material/Edit';
 
 const style = {
     flexDirection: 'unset',
     width: '100%'
 };
 
-const Post = ({post, onGetPostById, userId, clearPromise, postsArr = [], getPostsByUserId}) => {
+const Post = ({post, onGetPostById, userId, promise, postsArr = [], getPostsByUserId}) => {
     const {_id} = useParams()
     let [currentIndex, setCurrentIndex] = useState(postsArr.findIndex((item) => item._id === _id)) //from opened post using url id
-
+    console.log(promise)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -107,8 +108,14 @@ const Post = ({post, onGetPostById, userId, clearPromise, postsArr = [], getPost
                                         {post?.text}
                                     </Typography>
                                 </CardContent>
+
                                 <div className="card-bottom">
                                     <CLike post={post} postId={post?._id} likeClass='like-brief-info'/>
+                                    <Link
+                                        onClick={() => onGetPostById(_id, 'editPost')}
+                                        to='/create'>
+                                        <EditIcon/>
+                                    </Link>
                                 </div>
                             </div>
                         </Card>
@@ -131,6 +138,7 @@ export const CPost = connect((state) => ({
     post: state?.promise?.postById?.payload,
     postsArr: state?.promise?.postByIdUser?.payload,
     userId: state?.promise?.userById?.payload?._id,
+    promise: state?.promise
 }), {
     onUserById: queryUserById, // get user by user id (userById)
     onGetPostById: actionGetPostById, // get post by its id (from useParams)
