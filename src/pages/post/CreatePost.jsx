@@ -7,6 +7,7 @@ import {CFileUploader} from "../../components/uploading/FileUploader";
 import {TextField} from "@material-ui/core";
 import React, {useEffect, useMemo, useState} from "react";
 import {DndContext, closestCenter, DragOverlay} from "@dnd-kit/core";
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 import {
     arrayMove,
@@ -62,7 +63,7 @@ export function SortableItem(props) {
             try{
                setPhotos([...photos, ...uploadFile?.payload]);
             } catch (e) {
-                console.log(e)
+                alert(e)
             }
          }
          if(uploadFile === null){
@@ -87,9 +88,14 @@ export function SortableItem(props) {
          }
      }, [editPost]);
 
+     const deleteImage = (_id) => {
+         setPhotos(photos.filter((item) => item._id !== _id))
+     }
+
      function uploadHandler() {
          onUpload(title, text, photos, editPost?.payload?._id)
      }
+
 //getting ids for dnd
     const itemIds = useMemo(() => photos.map((item) => item.id), [photos]);
 
@@ -104,7 +110,6 @@ export function SortableItem(props) {
             setPhotos((items) => {
                 const oldIndex = items.findIndex((item) => item._id === active.id);
                 const newIndex = items.findIndex((item) => item._id === over.id);
-
                 return arrayMove(items, oldIndex, newIndex);
             });
         }
@@ -120,12 +125,20 @@ export function SortableItem(props) {
                collisionDetection={closestCenter}
                onDragStart={handleDragStart}
                onDragEnd={handleDragEnd}
-               onDragCancel={handleDragCancel}
-           >
+               onDragCancel={handleDragCancel}>
+
                <SortableContext items={itemIds} strategy={rectSortingStrategy}>
                    <div className={'preview-box'}>
                        {photos.map((item) => (
-                           <SortableItem key={Math.random() * 1000} id={item._id} url={item.url}/>
+                           <button
+                               className='ordinaryBtn'
+                               key={Math.random() * 1000}
+                               onClick={() => deleteImage(item._id)}>
+                                   <HighlightOffIcon className= 'delete-icon'/>
+                                   <SortableItem
+                                       id={item._id}
+                                       url={item.url}/>
+                           </button>
                        ))}
                    </div>
                </SortableContext>
@@ -139,17 +152,17 @@ export function SortableItem(props) {
                </DragOverlay>
            </DndContext>
            <div>
-               <div className='preview-box'>
-                   {
-                       photos.length > 0 &&
-                       <button
-                           onClick={() => onDelete()}
-                           className='ordinaryBtn'
-                           style={{marginBottom: '20px'}}>
-                           reset
-                       </button>
-                   }
-               </div>
+               {/*<div className='preview-box'>*/}
+               {/*    /!*{*!/*/}
+               {/*    /!*    photos.length > 0 &&*!/*/}
+               {/*    /!*    <button*!/*/}
+               {/*    /!*        onClick={() => onDelete()}*!/*/}
+               {/*    /!*        className='ordinaryBtn'*!/*/}
+               {/*    /!*        style={{marginBottom: '20px'}}>*!/*/}
+               {/*    /!*        reset*!/*/}
+               {/*    /!*    </button>*!/*/}
+               {/*    /!*}*!/*/}
+               {/*</div>*/}
                <CFileUploader multiply={true}/>
                <div className="input-area">
                    <div className='input-box'>

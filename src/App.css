@@ -505,3 +505,12 @@ button[disabled]{
 .MuiCardContent-root {
   padding: 0 !important;
 }
+.delete-icon {
+  position: absolute;
+  top: 22px;
+  right: 15px;
+  transform: scale(1.3);
+  color: red;
+  background: white;
+  border-radius: 50%;
+}
