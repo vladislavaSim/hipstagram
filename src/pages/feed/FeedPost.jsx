@@ -27,7 +27,7 @@ const FeedPost = ({post = []}) => {
         ":"+date.getMinutes()
 
     return (
-        <>
+        <CPreloaded promiseName='allPosts'>
             {post?.images?.[0]?.url ?
                 (
                     <Card sx={{maxWidth: 345}}
@@ -72,7 +72,7 @@ const FeedPost = ({post = []}) => {
                     </Card>
                 ) : null
             }
-        </>
+        </CPreloaded>
     );
 }
 
