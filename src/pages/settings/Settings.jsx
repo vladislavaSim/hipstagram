@@ -43,7 +43,7 @@ const Settings = ({ onChange, avatar, myId, clearPromise, myAvatar, login, setAv
                         <h3 className='post-text'>Change avatar</h3>
                         <div className='edit-box box-flexible'>
                             {setOrShowAvatar()}
-                            <Button children={isEditing ? 'Cancel' : 'Edit profile'}
+                            <Button children={isEditing ? 'Cancel' : 'change photo'}
                                     className='primeBtn'
                                     onClick={() => setIsEditing(!isEditing)}/>
                         </div>

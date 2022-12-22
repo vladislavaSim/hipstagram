@@ -22,7 +22,7 @@ const style = {
     width: '100%'
 };
 
-const Post = ({post, onGetPostById, userId, promise, postsArr = [], getPostsByUserId}) => {
+const Post = ({post, onGetPostById, userId, promise, postsArr = [], getPostsByUserId, myId}) => {
     const {_id} = useParams()
     let [currentIndex, setCurrentIndex] = useState(postsArr.findIndex((item) => item._id === _id)) //from opened post using url id
     console.log(promise)
@@ -111,11 +111,14 @@ const Post = ({post, onGetPostById, userId, promise, postsArr = [], getPostsByUs
 
                                 <div className="card-bottom">
                                     <CLike post={post} postId={post?._id} likeClass='like-brief-info'/>
-                                    <Link
-                                        onClick={() => onGetPostById(_id, 'editPost')}
-                                        to='/create'>
-                                        <EditIcon/>
-                                    </Link>
+                                    {
+                                        post?.owner?._id === myId &&
+                                        <Link
+                                            onClick={() => onGetPostById(_id, 'editPost')}
+                                            to='/create'>
+                                            <EditIcon/>
+                                        </Link>
+                                    }
                                 </div>
                             </div>
                         </Card>
