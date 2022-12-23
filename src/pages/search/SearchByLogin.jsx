@@ -19,11 +19,11 @@ const SearchByLogin = ({ user, onGetUser, foundUsers }) => {
     const [login, setLogin] = useState('')
 
     useDebounce( () => onGetUser(login), [login], 2000);
-console.log(foundUsers);
+
     return (
         <form>
             <h3>Enter login to search users</h3>
-            <h4>{foundUsers.lenght < 1 && console.log('111')}</h4>
+            {/*<h4>{foundUsers.lenght < 1 && console.log('111')}</h4>*/}
             <div className='search-box'>
                 <TextField
                     style={{width: '300px', marginBottom: '25px'}}

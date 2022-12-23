@@ -1,18 +1,13 @@
 import React from 'react';
-import {backendUrl} from "../../helpers/BackendUrl";
 import {Link} from "react-router-dom";
 import DefaultAvatar from "../avatar/DefaultAvatar";
 import Avatar from "../avatar/Avatar";
+import {getDate} from "../../helpers/DateFormating";
 
 const Comment = ({text, createdAt, owner}) => {
-    // console.log(comment)
-    const timestamp = createdAt;
-    let date = new Date(+timestamp)
-    date = date.getDate()+
-        "/"+(date.getMonth()+1)+
-        "/"+date.getFullYear()+
-        " "+date.getHours()+
-        ":"+date.getMinutes()
+
+    // let date = new Date(+createdAt).toLocaleString('en-GB', { timeZone: 'UTC' });
+    // date = date.substring(0, date.length - 3)
 
     return (
          <div>
@@ -28,7 +23,7 @@ const Comment = ({text, createdAt, owner}) => {
                          </Link>
                      </div>
                      <div style={{color: '#959292', fontSize: '18px'}}>
-                         {date}
+                         {getDate(createdAt)}
                      </div>
              </div>
              <p style={{textAlign: 'center'}}>{text}</p>

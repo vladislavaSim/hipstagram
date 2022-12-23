@@ -519,7 +519,7 @@ button[disabled]{
 }
 .comments-box {
   width: 100%;
-  align-self: center;
+  /*align-self: center;*/
   padding: 25px 0 25px 25px;
 }
 .comments-box > div {

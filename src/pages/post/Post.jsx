@@ -16,6 +16,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import {actionClearPromiseByName} from "../../redux/actions/actionPromise";
 import EditIcon from '@mui/icons-material/Edit';
+import {getDate} from "../../helpers/DateFormating";
 
 const style = {
     flexDirection: 'unset',
@@ -37,15 +38,6 @@ const Post = ({post, onGetPostById, userId, promise, postsArr = [], getPostsByUs
         }
         setCurrentIndex(postsArr.findIndex((item) => item._id === _id))
     }, [_id])
-
-
-    const timestamp = post?.createdAt;
-    let date = new Date(+timestamp)
-    date = date.getDate()+
-        "/"+(date.getMonth()+1)+
-        "/"+date.getFullYear()+
-        " "+date.getHours()+
-        ":"+date.getMinutes()
 
     const toPrev = () => {
         setCurrentIndex((currentIndex) => --currentIndex)
@@ -96,7 +88,7 @@ const Post = ({post, onGetPostById, userId, promise, postsArr = [], getPostsByUs
                                         </Link>
                                     </div>
                                     <div style={{color: '#959292', fontSize: '18px'}}>
-                                        {date}
+                                        {getDate(post?.createdAt)}
                                     </div>
                                 </header>
 
