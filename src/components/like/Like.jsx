@@ -17,7 +17,7 @@ const Like = ({post = [], onLike, onDeleteLike, myId, likeClass, likeInfoClass})
         let isLiked = post.likes.filter((like) => like.owner._id === myId)
 
         return (
-            <div style={{width: '100%', height: '150px'}}>
+            <div style={{width: '100%', height: '45px', display: 'flex'}}>
                 <IconButton onClick={() => {
                     isLiked.length !== 0 ? onDeleteLike(isLiked[0]._id) : onLike(post._id)
                 }}

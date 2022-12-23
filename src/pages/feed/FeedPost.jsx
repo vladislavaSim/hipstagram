@@ -11,6 +11,8 @@ import {ImagesSlider} from "../post/Slider";
 import {CLike} from "../../components/like/Like";
 import {actionGetPostById} from "../../graphql/queryPost";
 import {CPreloaded} from "../../helpers/Preloader";
+import Comment from "../../components/comments/Comment";
+import ModalLikes from "../../components/like/ModalLikes";
 
 const style = {
     flexDirection: 'unset',
@@ -68,9 +70,15 @@ const FeedPost = ({post = []}) => {
                                 <span style={{fontWeight: '600'}}>{'@' + post?.owner.login + ':  '}</span>
                                 {post?.title.length > 50 ? post?.title.slice(0, 50) + '...' : post?.title}
                             </Typography>
+                            {post?.comments &&
+                                <ModalLikes likes={post?.comments} >
+                                        <span className='ordinaryBtn'>
+                                            {post?.comments.length > 1 ? `SHOW ALL ${post?.comments.length} COMMENTS` : 'SHOW A COMMENT'}
+                                        </span>
+                                </ModalLikes>
+                            }
                         </CardContent>
-                    </Card>
-                ) : null
+                    </Card> ) : null
             }
         </CPreloaded>
     );
