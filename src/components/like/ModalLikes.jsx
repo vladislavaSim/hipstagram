@@ -3,6 +3,7 @@ import {Modal} from "@mui/material";
 import {Box} from "@material-ui/core";
 import LikesList from "./LikesList";
 import CloseIcon from "@mui/icons-material/Close";
+import CommentList from "../comments/CommentList";
 
 const style = {
     position: 'absolute',
@@ -14,12 +15,12 @@ const style = {
     width: '50%',
     backgroundColor: 'white',
     overflowY: 'scroll',
-    maxHeight: '60vh',
+    maxHeight: '80vh',
     minHeight: '25vh',
     flexDirection: 'unset',
 };
 
-const ModalLikes = ({likes, myId, children}) => {
+const ModalLikes = ({likes, comments, myId, children}) => {
     const [open, setOpen] = useState(false)
 
     return (
@@ -38,10 +39,13 @@ const ModalLikes = ({likes, myId, children}) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box style={style}>
-                    <button onClick={() => setOpen(false)} className='close-modal-btn' style={{color: 'black'}}>
-                        <CloseIcon style={{scale: '1.2'}}/>
-                    </button>
-                    <LikesList likes={likes} myId={myId}/>
+                    {likes && <LikesList likes={likes} myId={myId}/>}
+                    {comments && <CommentList comments={comments}/>}
+                    <div className='close-modal'>
+                        <button onClick={() => setOpen(false)} className='close-modal-btn' style={{color: 'black'}}>
+                            <CloseIcon style={{scale: '1.2'}}/>
+                        </button>
+                    </div>
                 </Box>
             </Modal>
         </>

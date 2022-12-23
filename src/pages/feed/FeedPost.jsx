@@ -67,11 +67,11 @@ const FeedPost = ({post = []}) => {
                             </div>
                             <Typography
                                 style={{fontSize: '18px', textAlignLast: 'start'}}>
-                                <span style={{fontWeight: '600'}}>{'@' + post?.owner.login + ':  '}</span>
+                                <span style={{fontWeight: '600', marginLeft: '15px'}}>{'@' + post?.owner.login + ':  '}</span>
                                 {post?.title.length > 50 ? post?.title.slice(0, 50) + '...' : post?.title}
                             </Typography>
                             {post?.comments &&
-                                <ModalLikes likes={post?.comments} >
+                                <ModalLikes comments={post?.comments} >
                                         <span className='ordinaryBtn'>
                                             {post?.comments.length > 1 ? `SHOW ALL ${post?.comments.length} COMMENTS` : 'SHOW A COMMENT'}
                                         </span>

@@ -461,15 +461,18 @@ button[disabled]{
   border-radius: 50% !important;
   padding: 5px !important;
 }
-
+.close-modal {
+  position: sticky;
+  height: 10px;
+  top: 10px;
+}
 .close-modal-btn {
-  position: absolute;
-  top: 15px;
-  right: 15px;
+  position: sticky;
+  top: 9px;
+  right: 0px;
   background: transparent;
   border: none;
   z-index: 100;
-  color: white;
 }
 .modal-image-box img {
   object-fit: contain;
@@ -513,4 +516,20 @@ button[disabled]{
   color: red;
   background: white;
   border-radius: 50%;
+}
+.comments-box {
+  width: 100%;
+  align-self: center;
+  padding: 25px 0 25px 25px;
+}
+.comments-box > div {
+  margin-bottom: 16px;
+  padding: 10px;
+  border: 1px dashed #a5a5a5;
+  border-radius: 8px;
+}
+.comment-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
