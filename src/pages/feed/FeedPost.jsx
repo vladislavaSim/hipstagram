@@ -1,17 +1,14 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {connect} from "react-redux";
 import Card from "@material-ui/core/Card"
-import {CardActions, CardContent, CardMedia, IconButton, Typography} from "@material-ui/core";
+import {CardContent, Typography} from "@material-ui/core";
 import {backendUrl} from "../../helpers/BackendUrl";
-import {actionFullAddLike, actionFullRemoveLike} from "../../redux/actions/actionsLike";
 import Avatar from "../../components/avatar/Avatar";
 import DefaultAvatar from "../../components/avatar/DefaultAvatar";
-import {Link, useParams} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {ImagesSlider} from "../post/Slider";
 import {CLike} from "../../components/like/Like";
-import {actionGetPostById} from "../../graphql/queryPost";
-import {CPreloaded} from "../../helpers/Preloader";
-import Comment from "../../components/comments/Comment";
+import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';import {CPreloaded} from "../../helpers/Preloader";
 import ModalLikes from "../../components/like/ModalLikes";
 import {getDate} from "../../helpers/DateFormating";
 
@@ -26,7 +23,7 @@ const FeedPost = ({post = []}) => {
             {post?.images?.[0]?.url ?
                 (
                     <Card sx={{maxWidth: 345}}
-                          style={{boxShadow: '1px 2px 4px #0000008c', marginBottom: '10px', paddingBottom: '10px', height: '700px'}}
+                          style={{boxShadow: '1px 2px 4px #0000008c', marginBottom: '10px', paddingBottom: '10px', height: '730px'}}
                     >
                         <header className='card-header'>
                             <div className='card-author-box'>
@@ -64,7 +61,8 @@ const FeedPost = ({post = []}) => {
                                 {post?.title.length > 50 ? post?.title.slice(0, 50) + '...' : post?.title}
                             </Typography>
                             {post?.comments &&
-                                <ModalLikes comments={post?.comments} >
+                                <ModalLikes comments={post?.comments}>
+                                        <ChatBubbleOutlineOutlinedIcon style={{position: 'relative', top: '5px'}}/>
                                         <span className='ordinaryBtn'>
                                             {post?.comments.length > 1 ? `SHOW ALL ${post?.comments.length} COMMENTS` : 'SHOW A COMMENT'}
                                         </span>
