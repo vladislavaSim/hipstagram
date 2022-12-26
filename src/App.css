@@ -131,14 +131,14 @@ a {
 }
 .main-content {
   width: 80%;
-  min-height: 100vh;
+  height: 100vh;
   margin: 0 0 0 18%;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align-last: center;
-  padding-top: 50px;
-  padding-bottom: 25px;
+  padding-top: 30px;
+  padding-bottom: 20px;
   background-color: white;
 }
 .main-content-not-logged {
@@ -210,6 +210,7 @@ a {
   display: flex;
   align-items: center;
   width: 100%;
+  height: 100%;
 }
 .post-holder > button {
   border-radius: 50%;
@@ -239,11 +240,11 @@ box-shadow: none;
 }
 .post-title {
   text-align: center;
-  font-size: 30px !important;
+  font-size: 23px !important;
 }
 .post-text {
   text-align: center;
-  font-size: 25px !important;
+  font-size: 20px !important;
 }
 .card-header{
   display: flex;
@@ -257,6 +258,8 @@ box-shadow: none;
   align-items: center;
 }
 .MuiCard-root {
+  overflow-y: scroll;
+  overflow-x: hidden;
   height: 85vh;
   display: flex;
   flex-direction: column;
@@ -486,7 +489,6 @@ button[disabled]{
 .like-brief-info {
   cursor: pointer;
   display: flex;
-  flex-direction: column;
   align-items: self-start;
   text-transform: uppercase;
   font-size: 18px;
@@ -519,11 +521,12 @@ button[disabled]{
 }
 .comments-box {
   width: 100%;
-  /*align-self: center;*/
-  padding: 25px 0 25px 25px;
+  height: 500px;
+  padding: 2% 0 0 25px;
 }
 .comments-box > div {
   margin-bottom: 16px;
+  overflow-x: hidden;
   padding: 10px;
   border: 1px dashed #a5a5a5;
   border-radius: 8px;

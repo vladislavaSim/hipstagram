@@ -17,9 +17,11 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import {actionClearPromiseByName} from "../../redux/actions/actionPromise";
 import EditIcon from '@mui/icons-material/Edit';
 import {getDate} from "../../helpers/DateFormating";
+import CommentList from "../../components/comments/CommentList";
 
 const style = {
     flexDirection: 'unset',
+    height: '95vh',
     width: '100%'
 };
 
@@ -72,7 +74,7 @@ const Post = ({post, onGetPostById, userId, promise, postsArr = [], getPostsByUs
                                         className='gallery-image'
                                     />) : (
                                     <ImagesSlider images={post?.images} key={post?._id} className='gallery-image'/>
-                                )
+                                  )
                                 }
                             </div>
                             <div className='modal-info-box'>
@@ -99,6 +101,9 @@ const Post = ({post, onGetPostById, userId, promise, postsArr = [], getPostsByUs
                                     <Typography variant="body2" className='post-text'>
                                         {post?.text}
                                     </Typography>
+                                        <div style={{overflow: 'auto', flexGrow: '1'}}>
+                                            {post?.comments ? <CommentList comments={post?.comments}/> : 'no comments'}
+                                        </div>
                                 </CardContent>
 
                                 <div className="card-bottom">
