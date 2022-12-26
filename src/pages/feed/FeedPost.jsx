@@ -13,20 +13,13 @@ import {actionGetPostById} from "../../graphql/queryPost";
 import {CPreloaded} from "../../helpers/Preloader";
 import Comment from "../../components/comments/Comment";
 import ModalLikes from "../../components/like/ModalLikes";
+import {getDate} from "../../helpers/DateFormating";
 
 const style = {
     flexDirection: 'unset',
     width: '100%'
 };
 const FeedPost = ({post = []}) => {
-
-    const timestamp = post?.createdAt;
-    let date = new Date(+timestamp)
-    date = date.getDate()+
-        "/"+(date.getMonth()+1)+
-        "/"+date.getFullYear()+
-        " "+date.getHours()+
-        ":"+date.getMinutes()
 
     return (
         <CPreloaded promiseName='allPosts'>
@@ -47,7 +40,7 @@ const FeedPost = ({post = []}) => {
                                 </Link>
 
                             </div>
-                            <div style={{color: '#959292'}}>{date}</div>
+                            <div style={{color: '#959292'}}>{getDate(post?.createdAt)}</div>
                         </header>
 
                         <CardContent>

@@ -5,6 +5,7 @@ import BurstModeIcon from '@mui/icons-material/BurstMode';
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {actionGetPostById} from "../../graphql/queryPost";
+import ChatBubbleOutlinedIcon from '@mui/icons-material/ChatBubbleOutlined';
 
 const multiIcon = {
     position: 'absolute',
@@ -34,12 +35,15 @@ const PreviewPost = ({post, getPostById}) => {
                            post?.images.length > 1
                        && <BurstModeIcon style={multiIcon}/>
                        }
-
                    </>
                    <div className="gallery-item-info">
                        <div className="gallery-item-likes">
                            <FavoriteIcon style={scale}/>
                            {post?.likes?.length}
+                       </div>
+                       <div className="gallery-item-likes">
+                           <ChatBubbleOutlinedIcon style={scale}/>
+                           {post?.comments ? post?.comments.length : '0'}
                        </div>
                    </div>
                </div>
