@@ -40,7 +40,7 @@ const Like = ({post = [], onLike, onDeleteLike, myId, likeClass, likeInfoClass})
                                 <div>
                                     {likes.length > 0 &&
                                         <div className={likeClass}>
-                                            <div className={likeInfoClass}>
+                                            <div className={likeInfoClass}  style={{display: 'flex'}}>
                                                 <span>LIKED BY</span>
                                                 <Link to={`/profile/${likes[0].owner._id}`}
                                                      >

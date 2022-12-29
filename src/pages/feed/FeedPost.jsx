@@ -11,6 +11,7 @@ import {CLike} from "../../components/like/Like";
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';import {CPreloaded} from "../../helpers/Preloader";
 import ModalLikes from "../../components/like/ModalLikes";
 import {getDate} from "../../helpers/DateFormating";
+import {TextField} from "@mui/material";
 
 const style = {
     flexDirection: 'unset',
@@ -60,13 +61,16 @@ const FeedPost = ({post = []}) => {
                                 <span style={{fontWeight: '600', marginLeft: '15px'}}>{'@' + post?.owner.login + ':  '}</span>
                                 {post?.title.length > 50 ? post?.title.slice(0, 50) + '...' : post?.title}
                             </Typography>
-                            {post?.comments &&
+                            {post?.comments ?
                                 <ModalLikes comments={post?.comments}>
                                         <ChatBubbleOutlineOutlinedIcon style={{position: 'relative', top: '5px'}}/>
                                         <span className='ordinaryBtn'>
                                             {post?.comments.length > 1 ? `SHOW ALL ${post?.comments.length} COMMENTS` : 'SHOW A COMMENT'}
                                         </span>
                                 </ModalLikes>
+                                : <div>
+                                    <TextField id="standard-basic" label="Be the first to comment" variant="standard" style={{width: '90%'}}/>
+                                </div>
                             }
                         </CardContent>
                     </Card> ) : null

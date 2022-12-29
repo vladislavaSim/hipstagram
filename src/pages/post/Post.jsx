@@ -18,6 +18,7 @@ import {actionClearPromiseByName} from "../../redux/actions/actionPromise";
 import EditIcon from '@mui/icons-material/Edit';
 import {getDate} from "../../helpers/DateFormating";
 import CommentList from "../../components/comments/CommentList";
+import {TextField} from "@mui/material";
 
 const style = {
     flexDirection: 'unset',
@@ -102,7 +103,7 @@ const Post = ({post, onGetPostById, userId, promise, postsArr = [], getPostsByUs
                                         {post?.text}
                                     </Typography>
                                         <div style={{overflow: 'auto', flexGrow: '1'}}>
-                                            {post?.comments ? <CommentList comments={post?.comments}/> : 'no comments'}
+                                                <CommentList comments={post?.comments}/>
                                         </div>
                                 </CardContent>
 
