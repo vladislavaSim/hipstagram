@@ -4,7 +4,7 @@ import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone";
 import FavoriteBorderTwoToneIcon from "@mui/icons-material/FavoriteBorderTwoTone";
 import {connect} from "react-redux";
 import {actionFullAddLike, actionFullRemoveLike} from "../../redux/actions/actionsLike";
-import ModalLikes from "./ModalLikes";
+import ModalBox from "../main/ModalBox";
 import {Link} from "react-router-dom";
 
 const scale = {
@@ -36,7 +36,7 @@ const Like = ({post = [], onLike, onDeleteLike, myId, likeClass, likeInfoClass})
                         )}
                     </div>
                 </IconButton>
-                <ModalLikes likes={likes} myId={myId}>
+                <ModalBox likes={likes} myId={myId}>
                                 <div>
                                     {likes.length > 0 &&
                                         <div className={likeClass}>
@@ -53,7 +53,7 @@ const Like = ({post = [], onLike, onDeleteLike, myId, likeClass, likeInfoClass})
                                        }
 
                                 </div>
-                </ModalLikes>
+                </ModalBox>
             </div>
         );
     };

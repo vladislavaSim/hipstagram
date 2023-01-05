@@ -6,9 +6,6 @@ import {getDate} from "../../helpers/DateFormating";
 
 const Comment = ({text, createdAt, owner}) => {
 
-    // let date = new Date(+createdAt).toLocaleString('en-GB', { timeZone: 'UTC' });
-    // date = date.substring(0, date.length - 3)
-
     return (
          <div>
              <div className='comment-info'>

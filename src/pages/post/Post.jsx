@@ -18,7 +18,6 @@ import {actionClearPromiseByName} from "../../redux/actions/actionPromise";
 import EditIcon from '@mui/icons-material/Edit';
 import {getDate} from "../../helpers/DateFormating";
 import CommentList from "../../components/comments/CommentList";
-import {TextField} from "@mui/material";
 
 const style = {
     flexDirection: 'unset',
@@ -29,7 +28,7 @@ const style = {
 const Post = ({post, onGetPostById, userId, promise, postsArr = [], getPostsByUserId, myId}) => {
     const {_id} = useParams()
     let [currentIndex, setCurrentIndex] = useState(postsArr.findIndex((item) => item._id === _id)) //from opened post using url id
-    console.log(promise)
+
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -62,10 +61,8 @@ const Post = ({post, onGetPostById, userId, promise, postsArr = [], getPostsByUs
                             onClick={toPrev}>
                                 <ChevronLeftIcon/>
                         </button>
-                        <Card
-                            style={style}
-                            id='card'
-                        >
+                        <Card style={style}
+                                id='card'>
                             <div className='modal-image-box'>
                                 {post?.images.length === 1 ? (
                                     <CardMedia
@@ -103,7 +100,7 @@ const Post = ({post, onGetPostById, userId, promise, postsArr = [], getPostsByUs
                                         {post?.text}
                                     </Typography>
                                         <div style={{overflow: 'auto', flexGrow: '1'}}>
-                                                <CommentList comments={post?.comments}/>
+                                                <CommentList comments={post?.comments} postId={post?._id}/>
                                         </div>
                                 </CardContent>
 

@@ -541,4 +541,5 @@ button[disabled]{
 }
 .flexbox {
   display: flex;
+  padding: 0 5px;
 }

@@ -9,16 +9,12 @@ import {Link} from "react-router-dom";
 import {ImagesSlider} from "../post/Slider";
 import {CLike} from "../../components/like/Like";
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';import {CPreloaded} from "../../helpers/Preloader";
-import ModalLikes from "../../components/like/ModalLikes";
+import ModalBox from "../../components/main/ModalBox";
 import {getDate} from "../../helpers/DateFormating";
-import {TextField} from "@mui/material";
+import {CNewComment} from "../../components/comments/NewComment";
 
-const style = {
-    flexDirection: 'unset',
-    width: '100%'
-};
 const FeedPost = ({post = []}) => {
-
+    console.log(post?._id)
     return (
         <CPreloaded promiseName='allPosts'>
             {post?.images?.[0]?.url ?
@@ -62,15 +58,13 @@ const FeedPost = ({post = []}) => {
                                 {post?.title.length > 50 ? post?.title.slice(0, 50) + '...' : post?.title}
                             </Typography>
                             {post?.comments ?
-                                <ModalLikes comments={post?.comments}>
+                                <ModalBox comments={post?.comments} postId={post?._id}>
                                         <ChatBubbleOutlineOutlinedIcon style={{position: 'relative', top: '5px'}}/>
                                         <span className='ordinaryBtn'>
                                             {post?.comments.length > 1 ? `SHOW ALL ${post?.comments.length} COMMENTS` : 'SHOW A COMMENT'}
                                         </span>
-                                </ModalLikes>
-                                : <div>
-                                    <TextField id="standard-basic" label="Be the first to comment" variant="standard" style={{width: '90%'}}/>
-                                </div>
+                                </ModalBox>
+                                : <CNewComment postId={post?._id}/>
                             }
                         </CardContent>
                     </Card> ) : null

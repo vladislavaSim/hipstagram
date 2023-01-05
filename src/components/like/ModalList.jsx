@@ -1,5 +1,5 @@
 import React from 'react';
-import ModalLikes from "./ModalLikes";
+import ModalBox from "../main/ModalBox";
 import {Link} from "react-router-dom";
 
 const ModalList = ({list = [], listName}) => {

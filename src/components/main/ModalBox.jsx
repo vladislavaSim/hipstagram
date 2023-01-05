@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Modal} from "@mui/material";
 import {Box} from "@material-ui/core";
-import LikesList from "./LikesList";
+import LikesList from "../like/LikesList";
 import CloseIcon from "@mui/icons-material/Close";
 import CommentList from "../comments/CommentList";
 
@@ -20,9 +20,10 @@ const style = {
     flexDirection: 'unset',
 };
 
-const ModalLikes = ({likes, comments, myId, children}) => {
+const ModalBox = ({likes, comments, myId, children, postId}) => {
     const [open, setOpen] = useState(false)
-
+    console.log(postId)
+    // console.log(comments && comments[0]?.owner._id)
     return (
         <>
             <button
@@ -39,8 +40,14 @@ const ModalLikes = ({likes, comments, myId, children}) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box style={style}>
-                    {likes && <LikesList likes={likes} myId={myId}/>}
-                    {comments && <CommentList comments={comments}/>}
+                    {
+                        likes &&
+                        <LikesList likes={likes} myId={myId}/>
+                    }
+                    {
+                        comments &&
+                        <CommentList comments={comments} postId={postId}/>
+                    }
                     <div className='close-modal'>
                         <button onClick={() => setOpen(false)} className='close-modal-btn' style={{color: 'black'}}>
                             <CloseIcon style={{scale: '1.2'}}/>
@@ -52,4 +59,4 @@ const ModalLikes = ({likes, comments, myId, children}) => {
     );
 };
 
-export default ModalLikes;
+export default ModalBox;
