@@ -22,9 +22,7 @@ const style = {
 
 const ModalBox = ({likes, comments, myId, children, postId}) => {
     const [open, setOpen] = useState(false)
-    console.log(postId)
-    console.log(open)
-    // console.log(comments && comments[0]?.owner._id)
+
     return (
         <>
             <button

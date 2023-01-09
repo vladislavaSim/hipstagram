@@ -39,7 +39,7 @@ export const queryGetAllPosts = (skip, mappedFollowings) =>
             {
                 query: JSON.stringify([
                     { ___owner: { $in: mappedFollowings } },
-                    { sort: [{ _id: -1 }], skip: [skip || 0], limit: [20] },
+                    { sort: [{ _id: -1 }], skip: [skip || 0], limit: [3] },
                 ]),
             }
         )

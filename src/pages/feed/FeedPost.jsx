@@ -14,9 +14,9 @@ import {getDate} from "../../helpers/DateFormating";
 import {CNewComment} from "../../components/comments/NewComment";
 
 const FeedPost = ({post = []}) => {
-    console.log(post?._id)
+
     return (
-        <CPreloaded promiseName='allPosts'>
+        <>
             {post?.images?.[0]?.url ?
                 (
                     <Card sx={{maxWidth: 345}}
@@ -72,7 +72,7 @@ const FeedPost = ({post = []}) => {
                         </CardContent>
                     </Card> ) : null
             }
-        </CPreloaded>
+        </>
     );
 }
 

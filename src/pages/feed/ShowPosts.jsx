@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {actionFullGetAllPosts} from "../../redux/actions/actionsPost";
 import {CPreloaded} from "../../helpers/Preloader";
@@ -6,14 +6,38 @@ import ScrollUpButton from "react-scroll-up-button";
 import {CFeedPost} from "./FeedPost";
 
 const ShowPosts = ({ posts = [], getPosts}) => {
+    const [flag, setFlag] = useState(true);
+    const [flagControl, setFlagControl] = useState(true);
 
     useEffect(() => {
-            getPosts()
-    }, []);
+        if (flag && flagControl) {
+            getPosts();
+            setFlag(false);
+            setFlagControl(false);
+        }
+    }, [flag, flagControl]);
 
+    useEffect(() => {
+        document.addEventListener('scroll', scrollHandler);
+        setFlagControl(true);
+
+        return function () {
+            document.removeEventListener('scroll', scrollHandler);
+        };
+    }, [posts]);
+
+    const scrollHandler = (e) => {
+        if (
+            e.target.documentElement.scrollHeight -
+            (e.target.documentElement.scrollTop + window.innerHeight) <
+            200
+        ) {
+            setFlag(true);
+        }
+    };
 
     return (
-       <CPreloaded promiseName='allPosts'>
+       // <CPreloaded promiseName='allPosts'>
            <div
                style={{width: '50%'}}>
                <ScrollUpButton ContainerClassName="up-btn"/>
@@ -26,7 +50,7 @@ const ShowPosts = ({ posts = [], getPosts}) => {
                    </h3>
                }
            </div>
-       </CPreloaded>
+       // </CPreloaded>
     );
 };
 

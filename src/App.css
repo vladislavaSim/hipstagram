@@ -429,6 +429,7 @@ button[disabled]{
 }
 .carousel-box {
   display: flex;
+  height: 500px;
   place-content: center;
 }
 /*carousel width*/
@@ -537,7 +538,7 @@ button[disabled]{
 .comment-info {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .flexbox {
   display: flex;
