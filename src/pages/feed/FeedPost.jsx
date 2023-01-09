@@ -54,7 +54,10 @@ const FeedPost = ({post = []}) => {
                             </div>
                             <Typography
                                 style={{fontSize: '18px', textAlignLast: 'start'}}>
-                                <span style={{fontWeight: '600', marginLeft: '15px'}}>{'@' + post?.owner.login + ':  '}</span>
+                                {post?.title && <span style={{
+                                    fontWeight: '600',
+                                    marginLeft: '15px'
+                                }}>{'@' + post?.owner.login + ':  '}</span>}
                                 {post?.title.length > 50 ? post?.title.slice(0, 50) + '...' : post?.title}
                             </Typography>
                             {post?.comments ?
