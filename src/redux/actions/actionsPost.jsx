@@ -1,7 +1,8 @@
 import {ADD_POSTS, ADD_USERS, CHANGE_NEW_POST, PROMISE_CLEAR} from "../actionTypes";
-import {queryGetAllPosts, queryUploadPost} from "../../graphql/queryPost";
+import {actionGetPostById, queryGetAllPosts, queryUploadPost} from "../../graphql/queryPost";
 import {actionClearPromise} from "./actionPromise";
 import {actionAboutMe} from "./actionsMe";
+import {queryGetUsers} from "../../graphql/queryGetUsers";
 
 export const actionAddPosts = (newPosts) => ({ type: ADD_POSTS, newPosts });
 export const actionAddUsers = (newUsers) => ({ type: ADD_USERS, newUsers });
@@ -14,12 +15,13 @@ export const actionUpdatePosts = (updateNewPost) => ({
 
 export const actionFullUploadPost = (title, text, photos, postId) => async (dispatch) => {
     let photosId = (photos || []).map((photo) => ({ _id: photo._id }));
-
     await dispatch(queryUploadPost(title, text, photosId, postId));
     await dispatch({ type: PROMISE_CLEAR, name: 'uploadPost'})
     await dispatch(actionClearPromise())
     await dispatch(actionAboutMe());
 };
+
+
 
 export const actionFullGetAllPosts = () => async (dispatch, getState) => {
     const {
@@ -33,3 +35,7 @@ export const actionFullGetAllPosts = () => async (dispatch, getState) => {
         dispatch(actionAddPosts(usersPosts));
     }
 }
+
+// export const actionGetPostById = (id) => async (dispatch, getState) => {
+//     return await dispatch(actionGetPostById(id));
+// };

@@ -2,9 +2,14 @@ import {AUTH_LOGIN, AUTH_LOGOUT} from "../actionTypes";
 import {queryLogin} from "../../graphql/queryLogin";
 import {queryRegistration} from "../../graphql/queryRegistration";
 import {actionAboutMe} from "./actionsMe";
+import {actionClearPromiseByName} from "./actionPromise";
 
 export const actionAuthLogin = (token) => ({type: AUTH_LOGIN, token})
-export const actionAuthLogout = () => ({type: AUTH_LOGOUT})
+export const actionAuthLogout = () => {
+    return {
+        type: AUTH_LOGOUT
+    }
+}
 
 export const actionFullLogin = (login, password) => (
     async (dispatch) => {

@@ -1,4 +1,4 @@
-import {backendUrl} from "./BackendUrl";
+import {backendUrl} from "../helpers/BackendUrl";
 
 const getGQL = url => (
     async (query, variables={}) => {
