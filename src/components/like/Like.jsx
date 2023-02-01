@@ -4,7 +4,7 @@ import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone";
 import FavoriteBorderTwoToneIcon from "@mui/icons-material/FavoriteBorderTwoTone";
 import {connect} from "react-redux";
 import {actionFullAddLike, actionFullRemoveLike} from "../../redux/actions/actionsLike";
-import ModalLikes from "./ModalLikes";
+import ModalBox from "../main/ModalBox";
 import {Link} from "react-router-dom";
 
 const scale = {
@@ -17,7 +17,7 @@ const Like = ({post = [], onLike, onDeleteLike, myId, likeClass, likeInfoClass})
         let isLiked = post.likes.filter((like) => like.owner._id === myId)
 
         return (
-            <div style={{width: '100%', height: '150px'}}>
+            <div style={{width: '100%', height: '45px', display: 'flex'}}>
                 <IconButton onClick={() => {
                     isLiked.length !== 0 ? onDeleteLike(isLiked[0]._id) : onLike(post._id)
                 }}
@@ -36,11 +36,11 @@ const Like = ({post = [], onLike, onDeleteLike, myId, likeClass, likeInfoClass})
                         )}
                     </div>
                 </IconButton>
-                <ModalLikes likes={likes} myId={myId}>
+                <ModalBox likes={likes} myId={myId}>
                                 <div>
                                     {likes.length > 0 &&
                                         <div className={likeClass}>
-                                            <div className={likeInfoClass}>
+                                            <div className={likeInfoClass}  style={{display: 'flex'}}>
                                                 <span>LIKED BY</span>
                                                 <Link to={`/profile/${likes[0].owner._id}`}
                                                      >
@@ -53,7 +53,7 @@ const Like = ({post = [], onLike, onDeleteLike, myId, likeClass, likeInfoClass})
                                        }
 
                                 </div>
-                </ModalLikes>
+                </ModalBox>
             </div>
         );
     };

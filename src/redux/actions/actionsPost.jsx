@@ -15,12 +15,13 @@ export const actionUpdatePosts = (updateNewPost) => ({
 
 export const actionFullUploadPost = (title, text, photos, postId) => async (dispatch) => {
     let photosId = (photos || []).map((photo) => ({ _id: photo._id }));
-
     await dispatch(queryUploadPost(title, text, photosId, postId));
     await dispatch({ type: PROMISE_CLEAR, name: 'uploadPost'})
     await dispatch(actionClearPromise())
     await dispatch(actionAboutMe());
 };
+
+
 
 export const actionFullGetAllPosts = () => async (dispatch, getState) => {
     const {

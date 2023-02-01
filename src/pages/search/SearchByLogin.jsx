@@ -23,6 +23,7 @@ const SearchByLogin = ({ user, onGetUser, foundUsers }) => {
     return (
         <form>
             <h3>Enter login to search users</h3>
+            {/*<h4>{foundUsers.lenght < 1 && console.log('111')}</h4>*/}
             <div className='search-box'>
                 <TextField
                     style={{width: '300px', marginBottom: '25px'}}
@@ -31,11 +32,11 @@ const SearchByLogin = ({ user, onGetUser, foundUsers }) => {
                     onChange={(e) => setLogin(e.target.value)}
                 />
             </div>
-
+            
             {foundUsers  ?
                     foundUsers.map((user) => {
                         return <OneUserInList key={user._id} user={user}/>
-                    })
+                    }) 
                 : null
             }
         </form>

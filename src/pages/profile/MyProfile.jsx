@@ -45,7 +45,6 @@ const MyProfile = ({   myLogin,
                         <span>{`${myLogin ? myLogin : 'no name'}`}</span>
                     </h3>
                     <div>
-
                         <div className='profile-nums'>
                             <Button className='ordinaryBtn'>
                                 <Link to={`/followers/${myId}`}>

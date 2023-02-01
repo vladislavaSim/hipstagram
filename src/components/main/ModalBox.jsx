@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {Modal} from "@mui/material";
 import {Box} from "@material-ui/core";
-import LikesList from "./LikesList";
+import LikesList from "../like/LikesList";
 import CloseIcon from "@mui/icons-material/Close";
+import CommentList from "../comments/CommentList";
 
 const style = {
     position: 'absolute',
@@ -14,12 +15,12 @@ const style = {
     width: '50%',
     backgroundColor: 'white',
     overflowY: 'scroll',
-    maxHeight: '60vh',
+    maxHeight: '80vh',
     minHeight: '25vh',
     flexDirection: 'unset',
 };
 
-const ModalLikes = ({likes, myId, children}) => {
+const ModalBox = ({likes, comments, myId, children, postId}) => {
     const [open, setOpen] = useState(false)
 
     return (
@@ -38,14 +39,23 @@ const ModalLikes = ({likes, myId, children}) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box style={style}>
-                    <button onClick={() => setOpen(false)} className='close-modal-btn' style={{color: 'black'}}>
-                        <CloseIcon style={{scale: '1.2'}}/>
-                    </button>
-                    <LikesList likes={likes} myId={myId}/>
+                    {
+                        likes &&
+                        <LikesList likes={likes} myId={myId}/>
+                    }
+                    {
+                        comments &&
+                        <CommentList comments={comments} postId={postId}/>
+                    }
+                    <div className='close-modal'>
+                        <button onClick={() => setOpen(false)} className='close-modal-btn' style={{color: 'black'}}>
+                            <CloseIcon style={{scale: '1.2'}}/>
+                        </button>
+                    </div>
                 </Box>
             </Modal>
         </>
     );
 };
 
-export default ModalLikes;
+export default ModalBox;

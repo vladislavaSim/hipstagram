@@ -3,7 +3,6 @@ import logo from '../../img/Instagram-logo-with-brush-PNG.png'
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {actionAuthLogout} from "../../redux/actions/actionsAuth";
-import Button from "../buttons/Button";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
@@ -19,7 +18,7 @@ const Sidebar = ({onLogout, id, login, isLogged}) => {
                    ( <aside className='sidebar'>
                       <div className='head-box'>
                           <img src={logo} style={{width: '100px'}} alt='logo'/>
-                          <Link to={`/profile/${id}`} style={{fontWeight: 'bold'}}>{'@' + login}</Link>
+                          <Link to={`/profile/${id}`} style={{fontWeight: 'bold'}}>{login ? '@' + login : '...'}</Link>
                       </div>
                         <div className='link-box'>
                             <Link to={`/profile/${id}`}>
@@ -38,13 +37,12 @@ const Sidebar = ({onLogout, id, login, isLogged}) => {
                                 <SettingsIcon/>
                                 Settings
                             </Link>
-                            <Button className='unstyledBtn'
-                                    onClick={() => onLogout()}>
+                            <div onClick={() => onLogout()} style={{justifySelf: ''}}>
                                 <Link to={'/login'}>
                                     <LogoutIcon/>
                                     Log out
                                 </Link>
-                            </Button>
+                            </div>
                         </div>
                     </aside>)
                     : (<div className='header'>
